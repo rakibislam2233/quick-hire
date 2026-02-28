@@ -1,9 +1,9 @@
-import React from 'react'
+import RegisterForm from "@/components/Pages/Auth/RegisterForm";
 
-const page = () => {
+export default function RegisterPage() {
   return (
-    <div>page</div>
-  )
+    <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+      <RegisterForm />
+    </div>
+  );
 }
-
-export default page
