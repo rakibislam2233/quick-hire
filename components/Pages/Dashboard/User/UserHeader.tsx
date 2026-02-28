@@ -1,0 +1,43 @@
+"use client";
+
+import { Bell, ChevronDown } from "lucide-react";
+import Image from "next/image";
+
+const UserHeader = () => {
+  return (
+    <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 sticky top-0 z-10 font-epilogue">
+      <div className="flex items-center gap-4">
+        <h1 className="text-xl font-extrabold text-[#25324B] uppercase tracking-tighter">
+          Dashboard
+        </h1>
+      </div>
+
+      <div className="flex items-center gap-6">
+        <button className="relative text-gray-400 hover:text-[#4640DE] transition-colors">
+          <Bell className="w-6 h-6" />
+          <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+        </button>
+
+        <div className="flex items-center gap-3 cursor-pointer group">
+          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-100">
+            <Image
+              src="/asset/logo/logo.png"
+              alt="User Avatar"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <div className="hidden md:block">
+            <p className="text-sm font-bold text-[#25324B]">Jake Richards</p>
+            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+              Job Seeker
+            </p>
+          </div>
+          <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-[#4640DE] transition-colors" />
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default UserHeader;
