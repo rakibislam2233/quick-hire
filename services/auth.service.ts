@@ -13,7 +13,7 @@ export type ActionState = {
   success?: boolean;
   message?: string;
   errors?: Record<string, string[]>;
-  data?: any;
+  data?: unknown;
 };
 
 export async function loginAction(
