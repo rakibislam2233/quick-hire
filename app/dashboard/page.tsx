@@ -1,9 +1,7 @@
-import React from 'react'
+import { redirect } from "next/navigation";
 
-const DashboardPage = () => {
-  return (
-    <div>DashboardPage</div>
-  )
+export default function DashboardPage() {
+  // In a real app, logic here would redirect based on the user's role from auth session
+  // For this demonstration, we'll default to the company dashboard
+  redirect("/dashboard/company");
 }
-
-export default DashboardPage

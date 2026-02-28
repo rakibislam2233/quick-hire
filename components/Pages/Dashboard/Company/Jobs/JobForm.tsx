@@ -101,12 +101,15 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
               <label className="text-xs font-bold text-[#25324B] uppercase italic">
                 Job Title
               </label>
-              <Input
-                name="title"
-                defaultValue={initialData?.title}
-                placeholder="e.g. Senior Frontend Developer"
-                className={`rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.title ? "border-red-500" : ""}`}
-              />
+              <div className="relative">
+                <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  name="title"
+                  defaultValue={initialData?.title}
+                  placeholder="e.g. Senior Frontend Developer"
+                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.title ? "border-red-500" : ""}`}
+                />
+              </div>
               {state.errors?.title && (
                 <p className="text-[10px] text-red-500 font-bold uppercase">
                   {state.errors.title[0]}
