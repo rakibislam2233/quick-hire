@@ -37,7 +37,7 @@ const UserProfileContent = () => {
                 <h3 className="text-xl font-extrabold text-[#25324B] mb-2">
                   Jake Richards
                 </h3>
-                <p className="text-sm text-gray-500 font-medium mb-4 italic italic text-primary">
+                <p className="text-sm text-gray-400 font-medium mb-4 italic">
                   UI/UX Designer based in London, UK
                 </p>
                 <Button

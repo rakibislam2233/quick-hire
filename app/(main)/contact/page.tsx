@@ -13,12 +13,12 @@ const ContactPage = () => {
           <div>
             <div className="mb-10">
               <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-6 leading-[1.1]">
-                Let's start <br />
+                Let&apos;s start <br />
                 something <span className="text-primary italic">great</span>
               </h1>
               <p className="text-gray-500 text-lg leading-relaxed">
                 Our team is here to help you with anything related to QuickHire.
-                Whether it's account questions or hiring needs.
+                Whether it&apos;s account questions or hiring needs.
               </p>
             </div>
 

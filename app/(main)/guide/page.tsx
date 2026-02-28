@@ -34,7 +34,7 @@ const GuidePage = () => {
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl font-medium leading-relaxed">
             Follow our simple guide to get the most out of our platform. Whether
-            you're hiring or seeking a new career path.
+            you&apos;re hiring or seeking a new career path.
           </p>
         </div>
 

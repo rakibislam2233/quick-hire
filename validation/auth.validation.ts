@@ -18,6 +18,7 @@ export const registerValidationSchema = z.object({
     .string()
     .min(1, "Password is required")
     .min(6, "Password must be at least 6 characters"),
+  role: z.enum(["candidate", "employer"]),
 });
 
 export const forgotPasswordValidationSchema = z.object({

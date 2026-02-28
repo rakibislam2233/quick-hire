@@ -58,8 +58,8 @@ const PricingPage = () => {
             <span className="text-primary italic">Pricing</span>
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Choose the plan that fits your needs. Whether you're a job seeker or
-            an employer, we have a solution for you.
+            Choose the plan that fits your needs. Whether you&apos;re a job
+            seeker or an employer, we have a solution for you.
           </p>
         </div>
 
@@ -98,7 +98,7 @@ const PricingPage = () => {
               <div className="space-y-4 mb-10 flex-1">
                 {plan.features.map((feature) => (
                   <div key={feature} className="flex items-start gap-3">
-                    <div className="mt-1 w-4 h-4 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0">
+                    <div className="mt-1 w-4 h-4 rounded-full bg-green-50 flex items-center justify-center shrink-0">
                       <Check className="w-2.5 h-2.5 text-green-600" />
                     </div>
                     <span className="text-sm font-medium text-gray-600 leading-tight">

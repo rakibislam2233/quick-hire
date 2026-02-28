@@ -77,7 +77,7 @@ const AdminCompaniesContent = () => {
                 >
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 p-2 relative flex-shrink-0">
+                      <div className="w-10 h-10 border border-gray-100 p-2 relative shrink-0">
                         <Image
                           src={company.logo}
                           alt={company.name}
