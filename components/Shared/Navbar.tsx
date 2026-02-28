@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { HiMenuAlt2 } from "react-icons/hi";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,16 +27,14 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/90 backdrop-blur-md"
-          : "bg-transparent border-transparent"
+        isScrolled ? "bg-[#F8F9FF]" : "bg-transparent border-transparent"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between px-6 py-4 md:px-16">
+      <div className="container mx-auto flex items-center justify-between px-5 md:px-16 py-4">
         <div className="flex items-center gap-12">
           {/* Logo */}
-          <Link href="/" className="flex items-center justify-center gap-2">
-            <div className="relative h-10 w-10">
+          <Link href="/" className="flex items-center justify-center gap-1">
+            <div className="relative w-10 h-9">
               <Image
                 src="/asset/logo/logo.png"
                 alt="QuickHire Logo"
@@ -44,7 +43,7 @@ const Navbar = () => {
                 priority
               />
             </div>
-            <span className="text-2xl font-extrabold text-primary">
+            <span className="text-2xl font-extrabold text-[#25324B]">
               QuickHire
             </span>
           </Link>
@@ -65,13 +64,13 @@ const Navbar = () => {
           <Link href="/login">
             <Button
               variant="ghost"
-              className="text-primary font-semibold hover:bg-blue-50"
+              className="text-primary font-semibold hover:bg-transparent"
             >
               Login
             </Button>
           </Link>
           <Link href="/register">
-            <Button className="bg-primary text-white rounded-none px-6 h-10">
+            <Button className="bg-primary text-white rounded-none h-12 px-6">
               Sign Up
             </Button>
           </Link>
@@ -81,14 +80,14 @@ const Navbar = () => {
         <div className="md:hidden flex items-center">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-md p-1"
+            className="text-gray-700 border border-[#D6DDEB] rounded-full p-2"
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? (
               <X className="w-6 h-6" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <HiMenuAlt2 className="w-6 h-6" />
             )}
           </button>
         </div>

@@ -44,9 +44,9 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* Container & Max-width customization */
-  --breakpoint-2xl: 1152px;
-  --max-width-2xl: 1152px;
-  --container-2xl: 1152px;
+  --breakpoint-2xl: 1280px;
+  --max-width-2xl: 1280px;
+  --container-2xl: 1280px;
 }
 
 :root {
