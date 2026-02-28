@@ -38,7 +38,7 @@ const HeroSection = () => {
           </p>
 
           {/* Search Box */}
-          <div className="bg-white p-2 rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex flex-col md:flex-row items-center border border-gray-100 relative z-20">
+          <div className="w-full max-w-[852px] bg-white p-2 rounded-lg  flex flex-col md:flex-row items-center border border-gray-100 relative z-20">
             <div className="flex items-center flex-1 px-4 py-3 md:py-0 w-full border-b md:border-b-0 md:border-r border-gray-100">
               <Search className="text-gray-400 w-5 h-5 mr-3 shrink-0" />
               <Input
