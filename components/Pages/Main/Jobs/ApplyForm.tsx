@@ -6,7 +6,7 @@ import { FileText, Link as LinkIcon, Mail, User } from "lucide-react";
 import { useActionState } from "react";
 
 // Mock application action
-const applyAction = async (prevState: any, formData: FormData) => {
+const applyAction = async (_: unknown, __: FormData) => {
   // Simulate delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return { success: true, message: "Application submitted successfully!" };

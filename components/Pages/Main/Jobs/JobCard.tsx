@@ -12,7 +12,7 @@ export default function JobCard({ job }: JobCardProps) {
   return (
     <div className="bg-white border border-gray-100 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
       <div className="flex items-center gap-6 w-full">
-        <div className="relative h-16 w-16 flex-shrink-0">
+        <div className="relative h-16 w-16 shrink-0">
           <Image
             src={job.logo}
             alt={job.company}
