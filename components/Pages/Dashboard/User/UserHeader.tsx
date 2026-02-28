@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, ChevronDown } from "lucide-react";
+import { Bell, ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 
 const UserHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {

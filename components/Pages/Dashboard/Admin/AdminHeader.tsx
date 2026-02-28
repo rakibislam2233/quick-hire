@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, ChevronDown } from "lucide-react";
+import { Bell, ChevronDown, Menu, ShieldCheck } from "lucide-react";
 
 const AdminHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
   return (
