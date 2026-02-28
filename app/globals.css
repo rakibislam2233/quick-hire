@@ -102,6 +102,10 @@
   scrollbar-width: none !important;
 }
 
+@utility clip-cta {
+  clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+}
+
 /* Initial css for all */
 html,
 body {

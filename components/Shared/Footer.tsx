@@ -12,12 +12,12 @@ const Footer = () => {
           {/* Logo & Info */}
           <div className="lg:col-span-4 flex flex-col items-start gap-6 pr-4">
             <Link href="/" className="flex items-center justify-center gap-1">
-              <div className="bg-primary/20 p-2 rounded-lg flex items-center justify-center">
+              <div className="relative w-10 h-9">
                 <Image
                   src="/asset/logo/logo.png"
                   alt="QuickHire Logo"
-                  width={24}
-                  height={24}
+                  fill
+                  className="object-contain"
                   priority
                 />
               </div>
