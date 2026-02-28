@@ -10,7 +10,7 @@ export default function ResetPasswordForm() {
   const [state, action, isPending] = useActionState(resetPasswordAction, {});
 
   return (
-    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white">
+    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none">
       <div className="flex flex-col items-center mb-6">
         <div className="relative h-10 w-10 mb-4">
           <Image
@@ -39,14 +39,14 @@ export default function ResetPasswordForm() {
         )}
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 block">
+          <label className="text-sm font-medium text-gray-700 block text-left">
             New Password
           </label>
           <Input
             name="password"
             type="password"
             placeholder="Enter new password"
-            className="w-full bg-gray-50 border-gray-200 outline-none"
+            className="w-full bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
           />
           {state?.errors?.password && (
             <p className="text-sm text-red-500 mt-1">
@@ -56,14 +56,14 @@ export default function ResetPasswordForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 block">
+          <label className="text-sm font-medium text-gray-700 block text-left">
             Confirm Password
           </label>
           <Input
             name="confirmPassword"
             type="password"
             placeholder="Confirm new password"
-            className="w-full bg-gray-50 border-gray-200 outline-none"
+            className="w-full bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
           />
           {state?.errors?.confirmPassword && (
             <p className="text-sm text-red-500 mt-1">
@@ -75,7 +75,7 @@ export default function ResetPasswordForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="w-full bg-primary text-white rounded-none h-12 text-base font-semibold"
+          className="w-full bg-primary text-white rounded-none h-12 text-base font-semibold shadow-none hover:bg-primary"
         >
           {isPending ? "Resetting..." : "Reset Password"}
         </Button>

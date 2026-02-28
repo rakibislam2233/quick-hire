@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function VerifyEmailPage() {
   return (
     <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
-      <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white text-center">
+      <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white text-center shadow-none">
         <div className="flex flex-col items-center mb-6">
           <div className="relative h-10 w-10 mb-4">
             <Image
@@ -26,14 +26,14 @@ export default function VerifyEmailPage() {
         </div>
 
         <div className="space-y-4">
-          <Link href="/login" className="block">
-            <Button className="w-full bg-primary text-white rounded-none h-12 text-base font-semibold">
+          <Link href="/login" className="block no-underline">
+            <Button className="w-full bg-primary text-white rounded-none h-12 text-base font-semibold shadow-none hover:bg-primary">
               Log In
             </Button>
           </Link>
           <div className="text-sm text-gray-600 mt-6">
             Didn&apos;t receive the email?{" "}
-            <Link href="#" className="text-primary font-semibold">
+            <Link href="#" className="text-primary font-semibold no-underline">
               Resend Link
             </Link>
           </div>

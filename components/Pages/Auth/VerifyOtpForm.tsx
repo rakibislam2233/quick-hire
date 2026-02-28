@@ -10,7 +10,7 @@ export default function VerifyOtpForm() {
   const [state, action, isPending] = useActionState(verifyOtpAction, {});
 
   return (
-    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white">
+    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none">
       <div className="flex flex-col items-center mb-6">
         <div className="relative h-10 w-10 mb-4">
           <Image
@@ -47,7 +47,7 @@ export default function VerifyOtpForm() {
             type="text"
             placeholder="e.g. 1234"
             maxLength={4}
-            className="w-full text-center tracking-widest text-xl bg-gray-50 border-gray-200 outline-none"
+            className="w-full text-center tracking-widest text-xl bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
           />
           {state?.errors?.otp && (
             <p className="text-sm text-red-500 mt-1 text-center">
@@ -59,7 +59,7 @@ export default function VerifyOtpForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="w-full bg-primary text-white rounded-none h-12 text-base font-semibold"
+          className="w-full bg-primary text-white rounded-none h-12 text-base font-semibold shadow-none hover:bg-primary"
         >
           {isPending ? "Verifying..." : "Verify OTP"}
         </Button>
