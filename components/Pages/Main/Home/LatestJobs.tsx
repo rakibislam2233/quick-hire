@@ -103,16 +103,16 @@ const latestJobs = [
 
 const LatestJobs = () => {
   return (
-    <section className="w-full bg-[#FBFCFF] py-16 md:py-24 relative overflow-hidden">
-      <div className="w-full container mx-auto px-6 md:px-16 relative z-10">
+    <section className="w-full bg-[#F8F8FD] py-16 md:py-24 relative overflow-hidden">
+      <div className="w-full container mx-auto px-5 md:px-16 relative z-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
-          <h2 className="text-3xl md:text-5xl font-black text-[#25324B] uppercase tracking-tighter">
-            Latest <span className="text-primary italic">jobs open</span>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#25324B]">
+            Latest <span className="text-[#26A4FF]">jobs open</span>
           </h2>
           <Link
             href="/jobs"
-            className="flex items-center text-primary font-black uppercase text-xs tracking-widest hover:text-blue-700 transition-all group"
+            className="flex items-center text-primary font-epilogue font-semibold hover:text-blue-700 transition-colors group"
           >
             Show all jobs
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

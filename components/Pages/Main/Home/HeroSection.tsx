@@ -18,46 +18,46 @@ const HeroSection = () => {
         />
         {/* Left Column: Text and Search */}
         <div className="flex flex-col justify-center max-w-xl relative z-10 py-8">
-          <h1 className="text-[2.5rem] leading-[1.1] sm:text-6xl md:text-7xl text-[#25324B] font-black mb-6 uppercase tracking-tighter">
+          <h1 className="text-5xl md:text-7xl text-[#25324B] font-semibold mb-6">
             Discover <br /> more than <br />
-            <span className="text-[#26A4FF] relative inline-block mt-2 font-black italic">
+            <span className="text-[#26A4FF] relative inline-block mt-2">
               5000+ Jobs
               <Image
                 src="/asset/home/hero-line.png"
                 alt="Highlight line"
                 width={500}
                 height={20}
-                className="absolute left-0 -bottom-10 w-[110%] max-w-none opacity-50"
+                className="absolute left-0 -bottom-12 w-[110%] max-w-none"
               />
             </span>
           </h1>
 
-          <p className="text-[#515B6F] font-epilogue text-base md:text-lg mb-12 mt-10 leading-relaxed font-medium">
+          <p className="text-[#515B6F] font-epilogue text-sm md:text-lg mb-12 mt-10 leading-relaxed">
             Great platform for the job seeker that searching for new career
             heights and passionate about startups.
           </p>
 
           {/* Search Box */}
-          <div className="w-full max-w-[852px] bg-white p-2 md:p-3 rounded-none flex flex-col md:flex-row items-center border border-gray-100 relative z-20 shadow-2xl shadow-blue-500/10">
-            <div className="flex items-center flex-1 px-4 py-4 md:py-0 w-full border-b md:border-b-0 md:border-r border-gray-50">
-              <Search className="text-primary w-5 h-5 mr-3 shrink-0" />
+          <div className="w-full max-w-[852px] bg-white p-2 rounded-lg  flex flex-col md:flex-row items-center border border-gray-100 relative z-20">
+            <div className="flex items-center flex-1 px-4 py-3 md:py-0 w-full border-b md:border-b-0 md:border-r border-gray-100">
+              <Search className="text-gray-400 w-5 h-5 mr-3 shrink-0" />
               <Input
                 type="text"
                 placeholder="Job title or keyword"
-                className="border-none shadow-none focus-visible:ring-0 text-[#25324B] bg-transparent p-0 placeholder:text-gray-300 text-sm md:text-base flex-1 font-bold"
+                className="border-none shadow-none focus-visible:ring-0 text-gray-700 bg-transparent p-0 placeholder:text-gray-400 text-base flex-1"
               />
             </div>
-            <div className="flex items-center flex-1 px-4 py-4 md:py-0 w-full cursor-pointer group">
-              <MapPin className="text-primary w-5 h-5 mr-3 shrink-0 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center flex-1 px-4 py-3 md:py-0 w-full cursor-pointer group">
+              <MapPin className="text-gray-400 w-5 h-5 mr-3 shrink-0 group-hover:text-primary transition-colors" />
               <div className="flex items-center justify-between w-full">
-                <span className="text-[#25324B] font-bold text-sm md:text-base">
+                <span className="text-gray-700 font-medium">
                   Florence, Italy
                 </span>
-                <span className="text-gray-300 text-xs ml-2">v</span>
+                <span className="text-gray-400 text-xs ml-2">v</span>
               </div>
             </div>
-            <Button className="w-full md:w-auto bg-primary hover:bg-blue-700 text-white px-10 h-14 rounded-none font-black uppercase text-xs tracking-widest mt-2 md:mt-0 transition-all active:scale-95 shadow-none">
-              Explore Jobs
+            <Button className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 rounded-md font-semibold text-base mt-2 md:mt-0 transition-transform active:scale-95">
+              Search my job
             </Button>
           </div>
 
