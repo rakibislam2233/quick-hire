@@ -50,10 +50,10 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700">
-            <Link href="/jobs" className="transition-colors">
+            <Link href="/jobs" className="transition-colors font-epilogue">
               Find Jobs
             </Link>
-            <Link href="/companies" className="transition-colors">
+            <Link href="/companies" className="transition-colors font-epilogue">
               Browse Companies
             </Link>
           </div>

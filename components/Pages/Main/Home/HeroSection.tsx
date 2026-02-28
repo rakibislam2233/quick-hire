@@ -32,7 +32,7 @@ const HeroSection = () => {
             </span>
           </h1>
 
-          <p className="text-slate-500 text-sm md:text-lg font-medium mb-12 mt-10 leading-relaxed max-w-md">
+          <p className="text-[#515B6F] font-epilogue text-sm md:text-lg mb-12 mt-10 leading-relaxed">
             Great platform for the job seeker that searching for new career
             heights and passionate about startups.
           </p>

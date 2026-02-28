@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import { Epilogue } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+
+const epilogue = Epilogue({
+  subsets: ["latin"],
+  variable: "--font-epilogue-custom",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 const clashDisplay = localFont({
   src: [
@@ -49,8 +56,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${clashDisplay.className} font-sans antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${clashDisplay.variable} ${epilogue.variable} font-sans antialiased`}
+      >
         {children}
       </body>
     </html>
