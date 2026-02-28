@@ -65,15 +65,15 @@ const categories = [
 const ExploreCategories = () => {
   return (
     <section className="w-full bg-white py-16 md:py-24">
-      <div className="w-full container mx-auto px-5 md:px-16">
+      <div className="w-full container mx-auto px-6 md:px-16">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#25324B]">
-            Explore by <span className="text-[#26A4FF]">category</span>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+          <h2 className="text-3xl md:text-5xl font-black text-[#25324B] uppercase tracking-tighter">
+            Explore by <span className="text-primary italic">category</span>
           </h2>
           <Link
             href="/jobs"
-            className="flex items-center text-primary font-epilogue font-semibold hover:text-blue-700 transition-colors group"
+            className="flex items-center text-primary font-black uppercase text-xs tracking-widest hover:text-blue-700 transition-all group"
           >
             Show all jobs
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { registerAction } from "@/services/auth.service";
-import { Lock, Mail, User } from "lucide-react";
+import { Building2, Lock, Mail, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useActionState } from "react";
