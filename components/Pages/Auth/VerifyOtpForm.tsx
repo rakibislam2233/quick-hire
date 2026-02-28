@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { verifyOtpAction } from "@/services/auth.service";
+import { Key } from "lucide-react";
 import Image from "next/image";
 import { useActionState } from "react";
 
@@ -42,13 +43,16 @@ export default function VerifyOtpForm() {
           <label className="text-sm font-medium text-gray-700 block text-center">
             One-Time Password
           </label>
-          <Input
-            name="otp"
-            type="text"
-            placeholder="e.g. 1234"
-            maxLength={4}
-            className="w-full text-center tracking-widest text-xl bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
-          />
+          <div className="relative">
+            <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="otp"
+              type="text"
+              placeholder="e.g. 1234"
+              maxLength={4}
+              className="w-full text-center tracking-widest text-xl bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary pl-10"
+            />
+          </div>
           {state?.errors?.otp && (
             <p className="text-sm text-red-500 mt-1 text-center">
               {state.errors.otp[0]}

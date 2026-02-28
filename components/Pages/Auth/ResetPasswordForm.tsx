@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { resetPasswordAction } from "@/services/auth.service";
+import { Lock } from "lucide-react";
 import Image from "next/image";
 import { useActionState } from "react";
 
@@ -38,16 +39,19 @@ export default function ResetPasswordForm() {
           </div>
         )}
 
-        <div className="space-y-2">
+        <div className="space-y-2 text-left">
           <label className="text-sm font-medium text-gray-700 block text-left">
             New Password
           </label>
-          <Input
-            name="password"
-            type="password"
-            placeholder="Enter new password"
-            className="w-full bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
-          />
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Enter new password"
+              className="w-full pl-10 bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
+            />
+          </div>
           {state?.errors?.password && (
             <p className="text-sm text-red-500 mt-1">
               {state.errors.password[0]}
@@ -55,16 +59,19 @@ export default function ResetPasswordForm() {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 text-left">
           <label className="text-sm font-medium text-gray-700 block text-left">
             Confirm Password
           </label>
-          <Input
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm new password"
-            className="w-full bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
-          />
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm new password"
+              className="w-full pl-10 bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
+            />
+          </div>
           {state?.errors?.confirmPassword && (
             <p className="text-sm text-red-500 mt-1">
               {state.errors.confirmPassword[0]}

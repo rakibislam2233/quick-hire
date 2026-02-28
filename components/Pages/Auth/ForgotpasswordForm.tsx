@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { forgotPasswordAction } from "@/services/auth.service";
+import { Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useActionState } from "react";
@@ -40,16 +41,19 @@ export default function ForgotPasswordForm() {
           </div>
         )}
 
-        <div className="space-y-2">
+        <div className="space-y-2 text-left">
           <label className="text-sm font-medium text-gray-700 block text-left">
             Email Address
           </label>
-          <Input
-            name="email"
-            type="email"
-            placeholder="Enter your email"
-            className="w-full bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
-          />
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              className="w-full pl-10 bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
+            />
+          </div>
           {state?.errors?.email && (
             <p className="text-sm text-red-500 mt-1">{state.errors.email[0]}</p>
           )}
