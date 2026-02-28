@@ -5,41 +5,31 @@ import Image from "next/image";
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full bg-[#f8f9ff] min-h-[calc(100vh-80px)] overflow-hidden flex items-center justify-center">
-      {/* Background patterns */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/asset/home/hero-pattern.png"
-          alt=""
-          fill
-          className="object-cover opacity-50 pointer-events-none"
-        />
-      </div>
-
+    <section className="relative w-full bg-[#f8f9ff] h-screen overflow-hidden flex items-center justify-center pt-20">
       <div className="container px-6 md:px-16 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
         {/* Left Column: Text and Search */}
         <div className="flex flex-col justify-center max-w-xl">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-[#1f2937] leading-[1.1] mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-7xl text-[#25324B] font-bold mb-6">
             Discover <br /> more than <br />
-            <span className="text-blue-500 relative inline-block mt-2">
+            <span className="text-[#26A4FF] relative inline-block mt-2">
               5000+ Jobs
               <Image
                 src="/asset/home/hero-line.png"
                 alt="Highlight line"
-                width={300}
+                width={500}
                 height={20}
-                className="absolute -bottom-4 left-0 w-[110%] max-w-none"
+                className="absolute left-0 w-[110%] max-w-none"
               />
             </span>
           </h1>
 
-          <p className="text-slate-500 text-lg md:text-xl font-medium mb-12 mt-4 leading-relaxed max-w-md">
+          <p className="text-slate-500 text-sm md:text-lg font-medium mb-12 mt-4 leading-relaxed max-w-md">
             Great platform for the job seeker that searching for new career
             heights and passionate about startups.
           </p>
 
           {/* Search Box */}
-          <div className="bg-white p-2 rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex flex-col md:flex-row items-center border border-gray-100">
+          <div className="bg-white p-2 rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex flex-col md:flex-row items-center border border-gray-100 relative z-20">
             <div className="flex items-center flex-1 px-4 py-3 md:py-0 w-full border-b md:border-b-0 md:border-r border-gray-100">
               <Search className="text-gray-400 w-5 h-5 mr-3 flex-shrink-0" />
               <Input
@@ -49,7 +39,7 @@ const HeroSection = () => {
               />
             </div>
             <div className="flex items-center flex-1 px-4 py-3 md:py-0 w-full cursor-pointer group">
-              <MapPin className="text-gray-400 w-5 h-5 mr-3 flex-shrink-0 group-hover:text-blue-500 transition-colors" />
+              <MapPin className="text-gray-400 w-5 h-5 mr-3 flex-shrink-0 group-hover:text-primary transition-colors" />
               <div className="flex items-center justify-between w-full">
                 <span className="text-gray-700 font-medium">
                   Florence, Italy
@@ -82,13 +72,23 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Right Column: Hero Image */}
-        <div className="relative hidden lg:block h-[600px] w-full mt-10 lg:mt-0">
+        {/* Right Column: Hero Images */}
+        <div className="relative hidden lg:block min-h-[550px] w-full mt-10 lg:mt-0">
+          {/* Background Pattern Image */}
+          <Image
+            src="/asset/home/hero-pattern.png"
+            alt="Hero decorative pattern"
+            fill
+            className="object-contain scale-110 opacity-90 -z-10"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
+          />
+          {/* Main User Image */}
           <Image
             src="/asset/home/hero-user.png"
             alt="Happy job seeker pointing at jobs"
             fill
-            className="object-contain object-bottom drop-shadow-2xl"
+            className="object-contain object-bottom drop-shadow-2xl z-10"
             sizes="(max-width: 1024px) 100vw, 50vw"
             priority
           />
