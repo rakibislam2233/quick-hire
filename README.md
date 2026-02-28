@@ -80,12 +80,31 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 The frontend project is structured for scalability and maintainability:
 
-- `app/` - Next.js App Router pages, specific route logic, and layouts.
-- `components/` - Reusable UI components built with Shadcn and Tailwind.
-  - `Shared/` - Common components like Navbar, Footer.
-  - `Pages/` - Page-specific layouts and sections (e.g., HeroSection).
-- `public/` - Static assets like images and icons.
-- `lib/` or `utils/` - Helper functions, API calling logic, and utility scripts.
+```text
+quick-hire/
+├── app/                  # Next.js App Router root
+│   ├── (auth)/           # Authentication routes (login, register, forgot-password, etc.)
+│   ├── (main)/           # Public main pages (Home, About, etc.)
+│   ├── admin/            # Admin dashboard and management pages
+│   ├── dashboard/        # User/Employer dashboard pages
+│   ├── globals.css       # Global Tailwind CSS styles
+│   ├── layout.tsx        # Root application layout
+│   └── not-found.tsx     # Custom 404 error page
+├── asset/                # Static assets (images, graphics)
+│   ├── home/             # Homepage specific assets
+│   └── logo/             # Logo assets
+├── components/           # Reusable UI components
+│   ├── Pages/            # Page-specific composite components
+│   │   ├── Auth/         # Components used in authentication pages
+│   │   ├── Dashbaord/    # Dashboard widgets and layouts
+│   │   └── Main/         # Main website sections
+│   ├── Shared/           # Global shared components (Navbar, Footer)
+│   └── ui/               # Base Shadcn UI components (e.g., button.tsx)
+├── services/             # API integration and external communications
+│   ├── api.ts            # Base API client and fetch wrapper
+│   └── auth.service.ts   # Authentication-related API functions
+└── components.json       # Shadcn UI configuration
+```
 
 ## 🎯 Evaluation Focus
 
