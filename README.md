@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quick Hire - Mini Job Board Application (Frontend)
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Shadcn UI](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
 
-First, run the development server:
+## 📌 Project Overview
+
+**Quick Hire** is a modern, responsive mini job board application designed to connect job seekers with employers. It provides a seamless platform for users to browse, search, and apply for jobs. For employers, it offers an interface to post and manage job listings.
+
+This repository contains only the **Frontend** application, built to demonstrate strong UI/UX skills, modern React development practices, component-driven architecture, and seamless integrations with external backend APIs.
+
+## ✨ Features
+
+### For Job Seekers
+
+- **Browse Job Listings:** View a comprehensive list of available jobs.
+- **Filter & Search:** Easily find specific roles using keywords, categories, or location filters.
+- **Job Details:** View detailed information about a job, including requirements, responsibilities, and company info.
+- **Submit Applications:** Apply for jobs directly through a streamlined application form.
+
+### For Admins / Employers
+
+- **Admin Dashboard:** A dedicated interface for managing the platform.
+- **Post Jobs:** Create and publish new job postings with rich descriptions.
+- **Manage Listings:** Edit, update, or delete existing job postings.
+- **View Applications:** See incoming applications for posted jobs.
+
+## 🛠️ Tech Stack
+
+This project strictly utilizes the following modern frontend technologies:
+
+- **Framework:** [Next.js](https://nextjs.org/) (App Router)
+- **Library:** [React.js](https://react.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/) for robust and type-safe code.
+- **Styling UI:** Tailwind CSS and [Shadcn UI](https://ui.shadcn.com/) for beautifully designed, accessible, and customizable components.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone <your-repo-url>
+   cd quick-hire
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   # or yarn install / pnpm install
+   ```
+
+3. **Set up environment variables:**
+   Create a `.env.local` file in the root directory. You will need to define the API endpoint URL connecting to the separate backend service (e.g., `NEXT_PUBLIC_API_URL=http://localhost:8000/api`).
+
+### Running the Application
+
+To start the Next.js development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# or yarn dev
+# or pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application running.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Code Organization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The frontend project is structured for scalability and maintainability:
 
-## Learn More
+- `app/` - Next.js App Router pages, specific route logic, and layouts.
+- `components/` - Reusable UI components built with Shadcn and Tailwind.
+  - `Shared/` - Common components like Navbar, Footer.
+  - `Pages/` - Page-specific layouts and sections (e.g., HeroSection).
+- `public/` - Static assets like images and icons.
+- `lib/` or `utils/` - Helper functions, API calling logic, and utility scripts.
 
-To learn more about Next.js, take a look at the following resources:
+## 🎯 Evaluation Focus
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This application specifically emphasizes:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Frontend UI Skills:** Crafting a visually appealing, functional, and deeply responsive interface using Shadcn UI.
+2. **Component Architecture:** Creating highly reusable, decoupled React components.
+3. **TypeScript Expertise:** Implementing strict type checking for safer and more predictable code.
+4. **Code Organization:** Maintaining a clean, readable, and perfectly modular codebase.
+5. **Modern Development:** Seamless utilization of the Next.js App Router and server/client component paradigms.
