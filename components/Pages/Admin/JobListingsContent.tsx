@@ -4,8 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { mockJobs } from "@/data/jobData";
 import { Filter, MoreVertical, Plus, Search } from "lucide-react";
+import Link from "next/link";
+import { useMemo } from "react";
 
 const JobListingsContent = () => {
+  const randomizedApplicants = useMemo(() => {
+    return mockJobs.map(() => Math.floor(Math.random() * 50) + 10);
+  }, []);
   return (
     <div className="font-epilogue">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
@@ -67,7 +72,7 @@ const JobListingsContent = () => {
               </tr>
             </thead>
             <tbody>
-              {mockJobs.map((job) => (
+              {mockJobs.map((job, index) => (
                 <tr
                   key={job.id}
                   className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors"
@@ -97,12 +102,14 @@ const JobListingsContent = () => {
                     </span>
                   </td>
                   <td className="px-6 py-6 text-sm font-bold text-[#25324B]">
-                    {Math.floor(Math.random() * 50) + 10}
+                    {randomizedApplicants[index]}
                   </td>
                   <td className="px-6 py-6 text-right">
-                    <button className="text-gray-400 hover:text-[#4640DE]">
-                      <MoreVertical className="w-5 h-5" />
-                    </button>
+                    <Link href={`/admin/job-listing/edit/${job.id}`}>
+                      <button className="text-gray-400 hover:text-[#4640DE] p-2">
+                        <MoreVertical className="w-5 h-5" />
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

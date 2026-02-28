@@ -36,7 +36,7 @@ export default async function EditJobPage({ params }: EditJobPageProps) {
 
   return (
     <div className="bg-white p-8">
-      <JobForm initialData={initialData} isEdit={true} />
+      <JobForm initialData={initialData} isEdit={true} id={id} />
     </div>
   );
 }

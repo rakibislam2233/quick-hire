@@ -117,7 +117,7 @@ const MessagesContent = () => {
             </div>
             <div className="bg-[#F8F9FF] p-4 text-sm text-[#25324B] font-medium leading-relaxed">
               Hello! I saw the job listing for the Senior UI/UX Designer role
-              and I'm very interested. Could you tell me more about the team
+              and I&apos;m very interested. Could you tell me more about the team
               structure?
             </div>
           </div>
