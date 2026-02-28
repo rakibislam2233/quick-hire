@@ -12,6 +12,74 @@ export interface Job {
   tags: string[];
 }
 
+export interface Company {
+  id: string;
+  name: string;
+  industry: string;
+  location: string;
+  logo: string;
+  description: string;
+  openPositions: number;
+  website: string;
+  founded: string;
+  employees: string;
+}
+
+export const mockCompanies: Company[] = [
+  {
+    id: "c1",
+    name: "DesignCo",
+    industry: "Design",
+    location: "San Francisco, CA",
+    logo: "/asset/logo/logo.png",
+    description:
+      "DesignCo is a leading design agency specializing in digital product experiences...",
+    openPositions: 1,
+    website: "https://designco.com",
+    founded: "2015",
+    employees: "50 - 100",
+  },
+  {
+    id: "c2",
+    name: "TechPulse",
+    industry: "Engineering",
+    location: "Remote",
+    logo: "/asset/logo/logo.png",
+    description:
+      "TechPulse is a technology company building the next generation of web infrastructure...",
+    openPositions: 1,
+    website: "https://techpulse.io",
+    founded: "2018",
+    employees: "100 - 250",
+  },
+  {
+    id: "c3",
+    name: "Growthly",
+    industry: "Marketing",
+    location: "New York, NY",
+    logo: "/asset/logo/logo.png",
+    description:
+      "Growthly helps startups and enterprises scale their marketing efforts through data-driven strategies...",
+    openPositions: 1,
+    website: "https://growthly.marketing",
+    founded: "2012",
+    employees: "20 - 50",
+  },
+  {
+    id: "c4",
+    name: "WebFlow Inc",
+    industry: "Engineering",
+    location: "London, UK",
+    logo: "/asset/logo/logo.png",
+    description:
+      "WebFlow Inc is a web development company focused on building high-performance websites for clients worldwide...",
+    openPositions: 1,
+    website: "https://webflowinc.com",
+    founded: "2020",
+    employees: "10 - 20",
+  },
+];
+
 export const mockJobs: Job[] = [
   {
     id: "1",
