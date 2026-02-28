@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div className="container px-6 md:px-16 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
         {/* Left Column: Text and Search */}
         <div className="flex flex-col justify-center max-w-xl">
-          <h1 className="text-5xl md:text-7xl text-[#25324B] font-bold mb-6">
+          <h1 className="text-5xl md:text-7xl text-[#25324B] font-extrabold mb-6">
             Discover <br /> more than <br />
             <span className="text-[#26A4FF] relative inline-block mt-2">
               5000+ Jobs
@@ -31,7 +31,7 @@ const HeroSection = () => {
           {/* Search Box */}
           <div className="bg-white p-2 rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex flex-col md:flex-row items-center border border-gray-100 relative z-20">
             <div className="flex items-center flex-1 px-4 py-3 md:py-0 w-full border-b md:border-b-0 md:border-r border-gray-100">
-              <Search className="text-gray-400 w-5 h-5 mr-3 flex-shrink-0" />
+              <Search className="text-gray-400 w-5 h-5 mr-3 shrink-0" />
               <Input
                 type="text"
                 placeholder="Job title or keyword"
@@ -39,7 +39,7 @@ const HeroSection = () => {
               />
             </div>
             <div className="flex items-center flex-1 px-4 py-3 md:py-0 w-full cursor-pointer group">
-              <MapPin className="text-gray-400 w-5 h-5 mr-3 flex-shrink-0 group-hover:text-primary transition-colors" />
+              <MapPin className="text-gray-400 w-5 h-5 mr-3 shrink-0 group-hover:text-primary transition-colors" />
               <div className="flex items-center justify-between w-full">
                 <span className="text-gray-700 font-medium">
                   Florence, Italy
