@@ -17,7 +17,7 @@ const Companies = () => {
   return (
     <section className="w-full bg-white py-12 border-b border-gray-100">
       <div className="w-full container px-5 md:px-16 mx-auto">
-        <h1 className="text-base mb-12 text-[#202430]/50 font-epilogue">Companies we helped grow</h1>
+        <h1 className="text-base mb-8 text-[#202430]/50 font-epilogue">Companies we helped grow</h1>
         <div className="flex flex-wrap md:flex-nowrap justify-between items-center gap-8 md:gap-12 lg:gap-16">
           {companies.map((company) => (
             <div
