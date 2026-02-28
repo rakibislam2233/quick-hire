@@ -103,11 +103,7 @@ const latestJobs = [
 
 const LatestJobs = () => {
   return (
-    <section className="w-full bg-[#F8F9FF] py-16 md:py-24 relative overflow-hidden">
-      {/* Decorative lines in background (approximate layout from image) */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] border-l border-b border-[#EADDFF]/40 -translate-y-1/2 translate-x-1/3 rotate-45 pointer-events-none"></div>
-      <div className="absolute bottom-0 right-10 w-[600px] h-[600px] border-l border-t border-[#EADDFF]/40 translate-y-1/3 translate-x-1/4 -rotate-12 pointer-events-none"></div>
-
+    <section className="w-full bg-[#F8F8FD] py-16 md:py-24 relative overflow-hidden">
       <div className="w-full container mx-auto px-5 md:px-16 relative z-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
@@ -158,7 +154,7 @@ const LatestJobs = () => {
                   <span className="font-epilogue font-semibold text-xs px-4 py-1.5 rounded-full text-emerald-500 bg-emerald-50">
                     {job.type}
                   </span>
-                  <div className="w-[1px] h-4 bg-gray-200 mx-1"></div>
+                  <div className="w-px h-4 bg-gray-200 mx-1"></div>
                   {job.tags.map((tag) => (
                     <span
                       key={tag.name}

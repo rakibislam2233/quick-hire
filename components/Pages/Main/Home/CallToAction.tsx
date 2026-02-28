@@ -28,7 +28,7 @@ const CallToAction = () => {
               src="/asset/home/Rectangle 2732.png"
               alt="Dashboard Preview"
               fill
-              className="object-cover md:object-contain object-left md:object-right-top drop-shadow-2xl translate-y-8 md:translate-y-0"
+              className="object-cover md:object-contain object-left md:object-top-right drop-shadow-2xl translate-y-8 md:translate-y-0"
               priority
             />
           </div>
