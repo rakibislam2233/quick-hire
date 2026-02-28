@@ -1,17 +1,26 @@
 "use client";
-
 import JobCard from "@/components/Pages/Main/Jobs/JobCard";
 import JobFilters from "@/components/Pages/Main/Jobs/JobFilters";
-import { mockJobs } from "@/services/job.service";
-import { useMemo, useState } from "react";
+import { Job } from "@/interface/job.interface";
+import { getAllJobs } from "@/services/job.service";
+import { useEffect, useMemo, useState } from "react";
 
 export default function JobsPage() {
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("All");
 
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const data = await getAllJobs();
+      setJobs(data);
+    };
+    fetchJobs();
+  }, []);
+
   const filteredJobs = useMemo(() => {
-    return mockJobs.filter((job) => {
+    return jobs.filter((job) => {
       const matchesSearch =
         job.title.toLowerCase().includes(search.toLowerCase()) ||
         job.company.toLowerCase().includes(search.toLowerCase());
@@ -22,13 +31,13 @@ export default function JobsPage() {
 
       return matchesSearch && matchesLocation && matchesCategory;
     });
-  }, [search, location, category]);
+  }, [jobs, search, location, category]);
 
   return (
     <div className="bg-gray-50 min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-6 md:px-16">
         <div className="mb-12">
-          <h1 className="text-4xl font-extrabold text-[#25324B] mb-2">
+          <h1 className="text-4xl font-extrabold text-[#25324B] mb-2 font-epilogue uppercase tracking-tighter">
             Find Jobs
           </h1>
           <p className="text-gray-500 text-lg">
@@ -51,7 +60,7 @@ export default function JobsPage() {
           {/* Job Listings */}
           <div className="lg:col-span-3 space-y-4">
             <div className="flex items-center justify-between bg-white border border-gray-100 p-4 mb-6">
-              <span className="text-gray-600 font-medium">
+              <span className="text-gray-600 font-medium font-epilogue">
                 Showing{" "}
                 <span className="text-primary font-bold">
                   {filteredJobs.length}

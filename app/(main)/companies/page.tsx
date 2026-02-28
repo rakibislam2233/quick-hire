@@ -1,16 +1,25 @@
 "use client";
-
 import CompanyCard from "@/components/Pages/Main/Companies/CompanyCard";
 import CompanyFilters from "@/components/Pages/Main/Companies/CompanyFilters";
-import { mockCompanies } from "@/services/job.service";
-import { useMemo, useState } from "react";
+import { Company } from "@/interface/job.interface";
+import { getAllCompanies } from "@/services/job.service";
+import { useEffect, useMemo, useState } from "react";
 
 export default function CompaniesPage() {
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [search, setSearch] = useState("");
   const [industry, setIndustry] = useState("All");
 
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      const data = await getAllCompanies();
+      setCompanies(data);
+    };
+    fetchCompanies();
+  }, []);
+
   const filteredCompanies = useMemo(() => {
-    return mockCompanies.filter((company) => {
+    return companies.filter((company) => {
       const matchesSearch = company.name
         .toLowerCase()
         .includes(search.toLowerCase());
@@ -19,13 +28,13 @@ export default function CompaniesPage() {
 
       return matchesSearch && matchesIndustry;
     });
-  }, [search, industry]);
+  }, [companies, search, industry]);
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-24 pb-16">
+    <div className="bg-gray-50 min-h-screen pt-24 pb-16 font-epilogue">
       <div className="container mx-auto px-6 md:px-16">
         <div className="mb-12">
-          <h1 className="text-4xl font-extrabold text-[#25324B] mb-2">
+          <h1 className="text-4xl font-extrabold text-[#25324B] mb-2 uppercase tracking-tighter">
             Browse Companies
           </h1>
           <p className="text-gray-500 text-lg">

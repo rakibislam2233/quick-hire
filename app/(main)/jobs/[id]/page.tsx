@@ -2,12 +2,13 @@
 
 import ApplyForm from "@/components/Pages/Main/Jobs/ApplyForm";
 import { Button } from "@/components/ui/button";
-import { mockJobs } from "@/services/job.service";
+import { Job } from "@/interface/job.interface";
+import { getJobById } from "@/services/job.service";
 import { ArrowLeft, Briefcase, Clock, DollarSign, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, useSearchParams } from "next/navigation";
-import { use, useEffect, useRef } from "react";
+import { use, useEffect, useRef, useState } from "react";
 
 interface JobDetailPageProps {
   params: Promise<{ id: string }>;
@@ -19,13 +20,31 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
   const shouldApply = searchParams.get("apply") === "true";
   const applyRef = useRef<HTMLDivElement>(null);
 
-  const job = mockJobs.find((j) => j.id === id);
+  const [job, setJob] = useState<Job | null | undefined>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (shouldApply && applyRef.current) {
+    const fetchJob = async () => {
+      const data = await getJobById(id);
+      setJob(data);
+      setLoading(false);
+    };
+    fetchJob();
+  }, [id]);
+
+  useEffect(() => {
+    if (shouldApply && applyRef.current && !loading) {
       applyRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [shouldApply]);
+  }, [shouldApply, loading]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-24 flex items-center justify-center">
+        <p className="text-gray-500">Loading job details...</p>
+      </div>
+    );
+  }
 
   if (!job) {
     notFound();
@@ -37,7 +56,7 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
         {/* Back Link */}
         <Link
           href="/jobs"
-          className="inline-flex items-center gap-2 text-primary font-semibold mb-8 group no-underline"
+          className="inline-flex items-center gap-2 text-primary font-semibold mb-8 group no-underline font-epilogue"
         >
           <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
           Back to all jobs
@@ -57,7 +76,7 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
                   />
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h1 className="text-3xl font-extrabold text-[#25324B] mb-2">
+                  <h1 className="text-3xl font-extrabold text-[#25324B] mb-2 font-epilogue">
                     {job.title}
                   </h1>
                   <p className="text-gray-600 font-medium text-lg mb-4">
@@ -85,12 +104,12 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
               </div>
 
               <div className="prose max-w-none text-gray-600 space-y-6">
-                <h2 className="text-2xl font-bold text-[#25324B]">
+                <h2 className="text-2xl font-bold text-[#25324B] font-epilogue">
                   Job Description
                 </h2>
                 <p>{job.description}</p>
 
-                <h3 className="text-xl font-bold text-[#25324B]">
+                <h3 className="text-xl font-bold text-[#25324B] font-epilogue">
                   Responsibilities
                 </h3>
                 <ul className="list-disc pl-5 space-y-2">
@@ -110,7 +129,7 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
                   </li>
                 </ul>
 
-                <h3 className="text-xl font-bold text-[#25324B]">
+                <h3 className="text-xl font-bold text-[#25324B] font-epilogue">
                   Requirements
                 </h3>
                 <ul className="list-disc pl-5 space-y-2">
@@ -137,7 +156,7 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
           <div className="lg:col-span-1 space-y-8">
             {/* Action Card */}
             <div className="bg-[#4640DE] p-8 text-white">
-              <h3 className="text-xl font-bold mb-4">
+              <h3 className="text-xl font-bold mb-4 font-epilogue">
                 Apply for this position
               </h3>
               <p className="mb-8 opacity-90">
@@ -148,18 +167,18 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
                 onClick={() =>
                   applyRef.current?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="w-full bg-white text-[#4640DE] hover:bg-white/90 rounded-none h-12 font-bold"
+                className="w-full bg-white text-[#4640DE] hover:bg-white/90 rounded-none h-12 font-bold shadow-none"
               >
                 Apply Now
               </Button>
             </div>
 
             {/* Job Summary */}
-            <div className="bg-white border border-gray-100 p-8">
-              <h3 className="text-lg font-bold text-[#25324B] mb-6">
+            <div className="bg-white border border-gray-100 p-8 shadow-none">
+              <h3 className="text-lg font-bold text-[#25324B] mb-6 font-epilogue">
                 Job Summary
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-4 text-sm">
                 <div className="flex justify-between border-b border-gray-50 pb-4">
                   <span className="text-gray-500">Job Type</span>
                   <span className="text-[#25324B] font-semibold">
@@ -194,15 +213,15 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
             </div>
 
             {/* Tags */}
-            <div className="bg-white border border-gray-100 p-8">
-              <h3 className="text-lg font-bold text-[#25324B] mb-6">
+            <div className="bg-white border border-gray-100 p-8 shadow-none">
+              <h3 className="text-lg font-bold text-[#25324B] mb-6 font-epilogue">
                 Skills & Tags
               </h3>
               <div className="flex flex-wrap gap-2">
                 {job.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 bg-gray-50 text-gray-600 text-xs font-medium border border-gray-200 uppercase tracking-wider"
+                    className="px-3 py-1 bg-gray-50 text-gray-600 text-[10px] font-bold border border-gray-200 uppercase tracking-wider"
                   >
                     {tag}
                   </span>

@@ -1,7 +1,8 @@
 "use client";
 
 import JobCard from "@/components/Pages/Main/Jobs/JobCard";
-import { mockCompanies, mockJobs } from "@/services/job.service";
+import { Company, Job } from "@/interface/job.interface";
+import { getAllJobs, getCompanyById } from "@/services/job.service";
 import {
   ArrowLeft,
   Briefcase,
@@ -13,7 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 
 interface CompanyDetailPageProps {
   params: Promise<{ id: string }>;
@@ -21,16 +22,42 @@ interface CompanyDetailPageProps {
 
 export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
   const { id } = use(params);
-  const company = mockCompanies.find((c) => c.id === id);
+  const [company, setCompany] = useState<Company | null | undefined>(null);
+  const [companyJobs, setCompanyJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      const companyData = await getCompanyById(id);
+      if (companyData) {
+        setCompany(companyData);
+        const allJobs = await getAllJobs();
+        const filteredJobs = allJobs.filter(
+          (job) => job.company === companyData.name,
+        );
+        setCompanyJobs(filteredJobs);
+      }
+      setLoading(false);
+    };
+    fetchCompanyData();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-24 flex items-center justify-center">
+        <p className="text-gray-500 font-epilogue">
+          Loading company details...
+        </p>
+      </div>
+    );
+  }
 
   if (!company) {
     notFound();
   }
 
-  const companyJobs = mockJobs.filter((job) => job.company === company.name);
-
   return (
-    <div className="bg-gray-50 min-h-screen pt-24 pb-16">
+    <div className="bg-gray-50 min-h-screen pt-24 pb-16 font-epilogue">
       <div className="container mx-auto px-6 md:px-16">
         {/* Back Link */}
         <Link
@@ -44,7 +71,7 @@ export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2 flex flex-col gap-8">
-            <div className="bg-white border border-gray-100 p-8">
+            <div className="bg-white border border-gray-100 p-8 shadow-none">
               <div className="flex flex-col md:flex-row items-center gap-8 mb-8 border-b border-gray-100 pb-8">
                 <div className="relative h-24 w-24">
                   <Image
@@ -55,7 +82,7 @@ export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
                   />
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h1 className="text-3xl font-extrabold text-[#25324B] mb-2">
+                  <h1 className="text-3xl font-extrabold text-[#25324B] mb-2 uppercase tracking-tighter">
                     {company.name}
                   </h1>
                   <p className="text-gray-600 font-medium text-lg mb-4">
@@ -82,7 +109,7 @@ export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
               </div>
 
               <div className="prose max-w-none text-gray-600 space-y-6">
-                <h2 className="text-2xl font-bold text-[#25324B]">
+                <h2 className="text-2xl font-bold text-[#25324B] uppercase tracking-tighter">
                   About {company.name}
                 </h2>
                 <p>{company.description}</p>
@@ -97,14 +124,14 @@ export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
 
             {/* Open Positions */}
             <div>
-              <h2 className="text-2xl font-bold text-[#25324B] mb-6">
+              <h2 className="text-2xl font-bold text-[#25324B] mb-6 uppercase tracking-tighter">
                 Open Positions
               </h2>
               <div className="space-y-4">
                 {companyJobs.length > 0 ? (
                   companyJobs.map((job) => <JobCard key={job.id} job={job} />)
                 ) : (
-                  <div className="bg-white border border-gray-100 p-8 text-center">
+                  <div className="bg-white border border-gray-100 p-8 text-center shadow-none">
                     <p className="text-gray-500 italic">
                       No open positions at the moment.
                     </p>
@@ -117,11 +144,11 @@ export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-8">
             {/* Company Info Card */}
-            <div className="bg-white border border-gray-100 p-8">
-              <h3 className="text-lg font-bold text-[#25324B] mb-6">
+            <div className="bg-white border border-gray-100 p-8 shadow-none">
+              <h3 className="text-lg font-bold text-[#25324B] mb-6 uppercase tracking-tighter">
                 Company Information
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-4 text-sm">
                 <div className="flex justify-between border-b border-gray-50 pb-4">
                   <span className="text-gray-500 flex items-center gap-2">
                     <Calendar className="w-4 h-4" /> Founded
@@ -158,11 +185,11 @@ export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
             </div>
 
             {/* Contact Card */}
-            <div className="bg-[#4640DE] p-8 text-white">
-              <h3 className="text-xl font-bold mb-4">
+            <div className="bg-[#4640DE] p-8 text-white shadow-none">
+              <h3 className="text-xl font-bold mb-4 uppercase tracking-tighter">
                 Interested in working with us?
               </h3>
-              <p className="mb-8 opacity-90">
+              <p className="mb-8 opacity-90 text-sm">
                 Keep an eye on our open positions or reach out to us directly
                 through our website.
               </p>
@@ -171,7 +198,7 @@ export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="w-full bg-white text-[#4640DE] hover:bg-white/90 rounded-none h-12 font-bold transition-colors">
+                <button className="w-full bg-white text-[#4640DE] hover:bg-white/90 rounded-none h-12 font-bold transition-colors uppercase text-sm tracking-wider">
                   Contact Us
                 </button>
               </a>

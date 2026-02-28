@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Company } from "@/services/job.service";
+import { Company } from "@/interface/job.interface";
 import { Briefcase, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,7 +47,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
       <Link href={`/companies/${company.id}`} className="w-full">
         <Button
           variant="outline"
-          className="w-full border-primary text-primary rounded-none hover:bg-primary hover:text-white transition-all"
+          className="w-full border-primary text-primary rounded-none hover:bg-primary hover:text-white transition-all shadow-none"
         >
           View Company
         </Button>

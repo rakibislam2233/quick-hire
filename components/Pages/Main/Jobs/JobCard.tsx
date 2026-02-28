@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Job } from "@/services/job.service";
+import { Job } from "@/interface/job.interface";
 import { Briefcase, Clock, DollarSign, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
