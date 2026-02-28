@@ -1,0 +1,260 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { createJobAction, updateJobAction } from "@/services/adminJob.service";
+import { JobFormData } from "@/validation/job.validation";
+import {
+  ArrowLeft,
+  Briefcase,
+  CheckCircle2,
+  DollarSign,
+  Layers,
+  Loader2,
+  MapPin,
+} from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
+
+interface JobFormProps {
+  initialData?: Partial<JobFormData>;
+  isEdit?: boolean;
+  id?: string;
+}
+
+const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
+  const router = useRouter();
+
+  // Bind ID if editing
+  const action = isEdit ? updateJobAction.bind(null, id!) : createJobAction;
+
+  const [state, formAction, isPending] = useActionState(action, {
+    success: false,
+    message: "",
+  });
+
+  useEffect(() => {
+    if (state.success) {
+      const timer = setTimeout(() => {
+        router.push("/dashboard/company/job-listing");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [state.success, router]);
+
+  if (state.success) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 bg-white border border-gray-100 shadow-none font-epilogue">
+        <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
+          <CheckCircle2 className="w-10 h-10" />
+        </div>
+        <h2 className="text-2xl font-extrabold text-[#25324B] mb-2 uppercase tracking-tighter">
+          {state.message}
+        </h2>
+        <p className="text-gray-500 font-medium mb-8">
+          Redirecting you back to the job listings...
+        </p>
+        <Loader2 className="w-6 h-6 text-primary animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <form
+      action={formAction}
+      className="space-y-8 font-epilogue max-w-4xl mx-auto"
+    >
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <Link
+            href="/dashboard/company/job-listing"
+            className="flex items-center gap-2 text-gray-500 font-bold text-xs uppercase tracking-widest mb-2 no-underline hover:text-primary transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back to listings
+          </Link>
+          <h2 className="text-2xl font-extrabold text-[#25324B] uppercase tracking-tighter">
+            {isEdit ? "Edit Job Post" : "Post a New Job"}
+          </h2>
+        </div>
+      </div>
+
+      <div className="bg-white border border-gray-100 p-8 shadow-none space-y-8">
+        {state.message && !state.success && (
+          <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-sm font-bold uppercase">
+            {state.message}
+          </div>
+        )}
+
+        {/* Job Details Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-gray-50 pb-4">
+            <Briefcase className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-bold text-[#25324B] uppercase tracking-tighter">
+              Job Details
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2 col-span-1 md:col-span-2">
+              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                Job Title
+              </label>
+              <Input
+                name="title"
+                defaultValue={initialData?.title}
+                placeholder="e.g. Senior Frontend Developer"
+                className={`rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.title ? "border-red-500" : ""}`}
+              />
+              {state.errors?.title && (
+                <p className="text-[10px] text-red-500 font-bold uppercase">
+                  {state.errors.title[0]}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                Category
+              </label>
+              <select
+                name="category"
+                defaultValue={initialData?.category}
+                className={`w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer ${state.errors?.category ? "border-red-500" : ""}`}
+              >
+                <option value="">Select Category</option>
+                <option value="Design">Design</option>
+                <option value="Development">Development</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Business">Business</option>
+              </select>
+              {state.errors?.category && (
+                <p className="text-[10px] text-red-500 font-bold uppercase">
+                  {state.errors.category[0]}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                Job Type
+              </label>
+              <select
+                name="type"
+                defaultValue={initialData?.type}
+                className={`w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer ${state.errors?.type ? "border-red-500" : ""}`}
+              >
+                <option value="">Select Type</option>
+                <option value="Full-Time">Full-Time</option>
+                <option value="Part-Time">Part-Time</option>
+                <option value="Remote">Remote</option>
+                <option value="Contract">Contract</option>
+              </select>
+              {state.errors?.type && (
+                <p className="text-[10px] text-red-500 font-bold uppercase">
+                  {state.errors.type[0]}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                Salary Range
+              </label>
+              <div className="relative">
+                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  name="salary"
+                  defaultValue={initialData?.salary}
+                  placeholder="e.g. $80k - $120k"
+                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.salary ? "border-red-500" : ""}`}
+                />
+              </div>
+              {state.errors?.salary && (
+                <p className="text-[10px] text-red-500 font-bold uppercase">
+                  {state.errors.salary[0]}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                Location
+              </label>
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  name="location"
+                  defaultValue={initialData?.location}
+                  placeholder="e.g. San Francisco, CA"
+                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.location ? "border-red-500" : ""}`}
+                />
+              </div>
+              {state.errors?.location && (
+                <p className="text-[10px] text-red-500 font-bold uppercase">
+                  {state.errors.location[0]}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Description Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-gray-50 pb-4">
+            <Layers className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-bold text-[#25324B] uppercase tracking-tighter">
+              Job Description
+            </h3>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-[#25324B] uppercase italic">
+              Description
+            </label>
+            <Textarea
+              name="description"
+              defaultValue={initialData?.description}
+              placeholder="Provide a detailed description of the role and responsibilities..."
+              className={`rounded-none min-h-[200px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.description ? "border-red-500" : ""}`}
+            />
+            {state.errors?.description && (
+              <p className="text-[10px] text-red-500 font-bold uppercase">
+                {state.errors.description[0]}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-4 pt-4">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => router.back()}
+            className="rounded-none h-12 px-8 font-bold border-gray-200 uppercase tracking-widest text-xs"
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="bg-[#4640DE] text-white rounded-none h-12 px-10 font-bold shadow-none uppercase tracking-widest text-xs"
+          >
+            {isPending ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Processing...
+              </>
+            ) : isEdit ? (
+              "Update Job Post"
+            ) : (
+              "Post Job"
+            )}
+          </Button>
+        </div>
+      </div>
+    </form>
+  );
+};
+
+export default JobForm;
