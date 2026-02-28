@@ -15,7 +15,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const CompanySidebar = () => {
+const CompanySidebar = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen?: boolean;
+  onClose?: () => void;
+}) => {
   const pathname = usePathname();
 
   const menuItems = [
@@ -54,85 +60,109 @@ const CompanySidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-[#F8F9FF] border-r border-gray-100 flex flex-col h-screen sticky top-0">
-      <div className="p-6 mb-4">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="relative w-8 h-8">
-            <Image
-              src="/asset/logo/logo.png"
-              alt="QuickHire Logo"
-              fill
-              className="object-contain"
-            />
-          </div>
-          <span className="text-xl font-extrabold text-[#25324B] font-epilogue tracking-tight">
-            QuickHire
-          </span>
-        </Link>
-      </div>
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={onClose}
+        />
+      )}
 
-      <nav className="flex-1 px-4 space-y-1">
-        {menuItems.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors no-underline",
-                isActive
-                  ? "bg-white text-[#4640DE] border-l-4 border-[#4640DE]"
-                  : "text-gray-500 hover:text-[#4640DE]",
-              )}
-            >
-              <item.icon
-                className={cn(
-                  "w-5 h-5",
-                  isActive ? "text-[#4640DE]" : "text-gray-400",
-                )}
+      <aside
+        className={cn(
+          "fixed md:sticky top-0 left-0 z-50 w-64 bg-[#F8F9FF] border-r border-gray-100 flex flex-col h-screen transition-transform duration-300 md:translate-x-0",
+          isOpen ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
+        <div className="p-6 mb-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 no-underline">
+            <div className="relative w-8 h-8">
+              <Image
+                src="/asset/logo/logo.png"
+                alt="QuickHire Logo"
+                fill
+                className="object-contain"
               />
-              <span>{item.name}</span>
-              {item.badge && (
-                <span className="ml-auto bg-[#4640DE] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">
-                  {item.badge}
-                </span>
-              )}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <div className="px-4 pb-8 space-y-1">
-        <div className="px-4 mb-4">
-          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-            Settings
-          </span>
+            </div>
+            <span className="text-xl font-extrabold text-[#25324B] font-epilogue tracking-tight">
+              QuickHire
+            </span>
+          </Link>
+          <button
+            onClick={onClose}
+            className="md:hidden text-gray-400 hover:text-[#4640DE]"
+          >
+            <X className="w-6 h-6" />
+          </button>
         </div>
-        {settingsItems.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors no-underline",
-                isActive
-                  ? "bg-white text-[#4640DE] border-l-4 border-[#4640DE]"
-                  : "text-gray-500 hover:text-[#4640DE]",
-              )}
-            >
-              <item.icon
+
+        {/* Navigation contents same as before */}
+        <nav className="flex-1 px-4 space-y-1">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onClose}
                 className={cn(
-                  "w-5 h-5",
-                  isActive ? "text-[#4640DE]" : "text-gray-400",
+                  "flex items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors no-underline",
+                  isActive
+                    ? "bg-white text-[#4640DE] border-l-4 border-[#4640DE]"
+                    : "text-gray-500 hover:text-[#4640DE]",
                 )}
-              />
-              <span>{item.name}</span>
-            </Link>
-          );
-        })}
-      </div>
-    </aside>
+              >
+                <item.icon
+                  className={cn(
+                    "w-5 h-5",
+                    isActive ? "text-[#4640DE]" : "text-gray-400",
+                  )}
+                />
+                <span>{item.name}</span>
+                {item.badge && (
+                  <span className="ml-auto bg-[#4640DE] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">
+                    {item.badge}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="px-4 pb-8 space-y-1">
+          <div className="px-4 mb-4">
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+              Settings
+            </span>
+          </div>
+          {settingsItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onClose}
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors no-underline",
+                  isActive
+                    ? "bg-white text-[#4640DE] border-l-4 border-[#4640DE]"
+                    : "text-gray-500 hover:text-[#4640DE]",
+                )}
+              >
+                <item.icon
+                  className={cn(
+                    "w-5 h-5",
+                    isActive ? "text-[#4640DE]" : "text-gray-400",
+                  )}
+                />
+                <span>{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </aside>
+    </>
   );
 };
 

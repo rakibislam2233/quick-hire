@@ -3,11 +3,19 @@
 import { Bell, ChevronDown } from "lucide-react";
 import Image from "next/image";
 
-const UserHeader = () => {
+const UserHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
   return (
-    <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 sticky top-0 z-10 font-epilogue">
+    <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 font-epilogue">
       <div className="flex items-center gap-4">
-        <h1 className="text-xl font-extrabold text-[#25324B] uppercase tracking-tighter">
+        {onMenuClick && (
+          <button
+            onClick={onMenuClick}
+            className="md:hidden p-2 -ml-2 text-gray-400 hover:text-[#4640DE]"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        )}
+        <h1 className="text-lg md:text-xl font-extrabold text-[#25324B] uppercase tracking-tighter">
           Dashboard
         </h1>
       </div>

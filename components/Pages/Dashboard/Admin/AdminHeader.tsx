@@ -1,21 +1,31 @@
 "use client";
 
-import { Bell, ChevronDown, ShieldUser } from "lucide-react";
+import { Bell, ChevronDown } from "lucide-react";
 
-const AdminHeader = () => {
+const AdminHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
   return (
-    <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 sticky top-0 z-10 font-epilogue">
+    <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 font-epilogue">
       <div className="flex items-center gap-4">
-        <div className="w-10 h-10 bg-red-50 text-red-500 rounded flex items-center justify-center border border-red-100 p-2">
-          <ShieldUser className="w-6 h-6" />
-        </div>
-        <div>
-          <h1 className="text-xl font-extrabold text-[#25324B] uppercase tracking-tighter">
-            System Administration
-          </h1>
-          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
-            Super Admin Access
-          </p>
+        {onMenuClick && (
+          <button
+            onClick={onMenuClick}
+            className="md:hidden p-2 -ml-2 text-gray-400 hover:text-[#4640DE]"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        )}
+        <div className="flex items-center gap-4">
+          <div className="w-8 h-8 md:w-10 md:h-10 bg-red-50 text-red-500 rounded flex items-center justify-center border border-red-100 p-2">
+            <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
+          </div>
+          <div>
+            <h1 className="text-lg md:text-xl font-extrabold text-[#25324B] uppercase tracking-tighter">
+              Admin
+            </h1>
+            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider hidden sm:block">
+              Super Admin Access
+            </p>
+          </div>
         </div>
       </div>
 
