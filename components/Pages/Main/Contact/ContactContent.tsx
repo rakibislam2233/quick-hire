@@ -38,7 +38,7 @@ const ContactContent = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-orange-50 text-orange-600 flex items-center justify-center flex-shrink-0 rounded-sm">
+                <div className="w-12 h-12 bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 rounded-sm">
                   <MessageCircle className="w-6 h-6" />
                 </div>
                 <div>
@@ -52,7 +52,7 @@ const ContactContent = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-50 text-green-600 flex items-center justify-center flex-shrink-0 rounded-sm">
+                <div className="w-12 h-12 bg-green-50 text-green-600 flex items-center justify-center shrink-0 rounded-sm">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
