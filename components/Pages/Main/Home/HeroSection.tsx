@@ -10,7 +10,7 @@ const HeroSection = () => {
       <div className="container px-5 md:px-16 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10 items-center h-full">
         {/* Dektop Search Box */}
         <div
-          className="w-full hidden lg:flex lg:max-w-[852px] lg:h-[90px] bg-white p-4  flex-col lg:flex-row gap-6 lg:gap-8 items-center border border-gray-100 z-20 relative lg:absolute lg:left-16 lg:bottom-[120px] mt-8 lg:mt-0"
+          className="w-full hidden lg:flex lg:max-w-[852px] lg:h-[89px] bg-white p-4  flex-col lg:flex-row gap-6 lg:gap-8 items-center border border-gray-100 z-20 relative lg:absolute lg:left-16 lg:bottom-[120px] mt-8 lg:mt-0"
           style={{
             boxShadow: `
               0px 2.71px 4.4px 0px rgba(192, 192, 192, 0.0271),
