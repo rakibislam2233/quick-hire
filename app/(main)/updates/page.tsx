@@ -52,7 +52,7 @@ const UpdatesPage = () => {
       <div className="container mx-auto max-w-4xl">
         <div className="mb-20 text-center">
           <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-4 uppercase tracking-tighter">
-            Platform <span className="text-primary italic">Updates</span>
+            Platform <span className="text-primary ">Updates</span>
           </h1>
           <p className="text-gray-500 font-medium text-lg leading-relaxed">
             See what&apos;s new on QuickHire. We constantly update the platform
@@ -82,7 +82,7 @@ const UpdatesPage = () => {
                   {update.title}
                 </h2>
               </div>
-              <p className="text-gray-500 font-medium leading-relaxed mb-6 italic">
+              <p className="text-gray-500 font-medium leading-relaxed mb-6 ">
                 {update.description}
               </p>
               <div className="space-y-3 mb-8">
@@ -106,7 +106,7 @@ const UpdatesPage = () => {
                     Update {update.type}
                   </Badge>
                 )}
-                <button className="text-xs font-black text-[#4640DE] uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
+                <button className="text-xs font-black text-primary uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
                   View Changelog <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

@@ -12,7 +12,7 @@ const CompanyHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
         {onMenuClick && (
           <button
             onClick={onMenuClick}
-            className="md:hidden p-2 -ml-2 text-gray-400 hover:text-[#4640DE]"
+            className="md:hidden p-2 -ml-2 text-gray-400 hover:text-primary"
           >
             <Menu className="w-6 h-6" />
           </button>
@@ -39,7 +39,7 @@ const CompanyHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
       </div>
 
       <div className="flex items-center gap-3 md:gap-6">
-        <button className="relative text-gray-400 hover:text-[#4640DE] transition-colors">
+        <button className="relative text-gray-400 hover:text-primary transition-colors">
           <Bell className="w-6 h-6" />
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
         </button>
@@ -48,7 +48,7 @@ const CompanyHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
           href="/dashboard/company/job-listing/add"
           className="no-underline"
         >
-          <Button className="bg-[#4640DE] text-white rounded-none h-10 md:h-11 px-4 md:px-6 font-bold flex items-center gap-2 shadow-none text-xs md:text-sm">
+          <Button className="bg-primary text-white rounded-none h-10 md:h-11 px-4 md:px-6 font-bold flex items-center gap-2 shadow-none text-xs md:text-sm">
             <Plus className="w-4 h-4 md:w-5 md:h-5" />
             <span className="hidden sm:inline">Post a job</span>
           </Button>

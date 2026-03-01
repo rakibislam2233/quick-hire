@@ -14,7 +14,7 @@ const ContactPage = () => {
             <div className="mb-10">
               <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-6 leading-[1.1]">
                 Let&apos;s start <br />
-                something <span className="text-primary italic">great</span>
+                something <span className="text-primary ">great</span>
               </h1>
               <p className="text-gray-500 text-lg leading-relaxed">
                 Our team is here to help you with anything related to QuickHire.
@@ -112,7 +112,7 @@ const ContactPage = () => {
                   className="bg-white min-h-[150px] rounded-none border-gray-100 focus:border-primary outline-none text-sm font-semibold p-4"
                 />
               </div>
-              <Button className="w-full bg-[#4640DE] text-white h-12 font-bold uppercase text-xs tracking-widest rounded-none shadow-none mt-4">
+              <Button className="w-full bg-primary text-white h-12 font-bold uppercase text-xs tracking-widest rounded-none shadow-none mt-4">
                 Send Message
               </Button>
             </form>

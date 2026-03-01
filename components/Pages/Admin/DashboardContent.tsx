@@ -35,7 +35,7 @@ const DashboardContent = () => {
 
       {/* Top Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-[#4640DE] p-6 text-white flex items-center justify-between group cursor-pointer transition-all">
+        <div className="bg-primary p-6 text-white flex items-center justify-between group cursor-pointer transition-all">
           <div>
             <span className="text-5xl font-extrabold block mb-2">76</span>
             <p className="text-white/90 font-semibold leading-tight">
@@ -80,7 +80,7 @@ const DashboardContent = () => {
               </p>
             </div>
             <div className="bg-[#F8F9FF] p-1 flex items-center">
-              <button className="px-4 py-1 text-xs font-bold bg-white text-[#4640DE] shadow-sm">
+              <button className="px-4 py-1 text-xs font-bold bg-white text-primary shadow-sm">
                 Week
               </button>
               <button className="px-4 py-1 text-xs font-bold text-gray-400">
@@ -93,7 +93,7 @@ const DashboardContent = () => {
           </div>
 
           <div className="flex items-center gap-8 mb-8 border-b border-gray-100 pb-2">
-            <button className="text-sm font-bold text-[#4640DE] border-b-2 border-[#4640DE] pb-2 px-1">
+            <button className="text-sm font-bold text-primary border-b-2 border-primary pb-2 px-1">
               Overview
             </button>
             <button className="text-sm font-bold text-gray-400 pb-2 px-1">
@@ -125,14 +125,14 @@ const DashboardContent = () => {
                     style={{ height: `${data.v}%` }}
                   ></div>
                   <div
-                    className="w-4 bg-[#4640DE] transition-all hover:bg-[#4640DE]/80"
+                    className="w-4 bg-primary transition-all hover:bg-primary/80"
                     style={{ height: `${data.a}%` }}
                   ></div>
                   {/* Tooltip on Wed specifically as per image */}
                   {data.label === "Wed" && (
                     <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#25324B] text-white p-2 text-[10px] rounded pointer-events-none z-10 w-16">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="w-2 h-2 rounded-full bg-[#4640DE]"></span>
+                        <span className="w-2 h-2 rounded-full bg-primary"></span>
                         <span>122</span>
                       </div>
                       <div className="flex items-center justify-between">
@@ -158,7 +158,7 @@ const DashboardContent = () => {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-[#4640DE]"></div>
+              <div className="w-3 h-3 bg-primary"></div>
               <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
                 Job Applied
               </span>
@@ -191,7 +191,7 @@ const DashboardContent = () => {
 
             {/* Visual indicator bar */}
             <div className="flex w-full h-3 mb-8 overflow-hidden">
-              <div className="w-[40%] bg-[#4640DE]"></div>
+              <div className="w-[40%] bg-primary"></div>
               <div className="w-[20%] bg-[#56CDAD]"></div>
               <div className="w-[15%] bg-[#26A4FF]"></div>
               <div className="w-[15%] bg-[#FFB836]"></div>
@@ -201,7 +201,7 @@ const DashboardContent = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-[#4640DE] rounded-sm"></div>
+                  <div className="w-3 h-3 bg-primary rounded-sm"></div>
                   <span className="text-xs font-bold text-gray-500">
                     Full Time : <span className="text-[#25324B]">45</span>
                   </span>
@@ -280,7 +280,7 @@ const DashboardContent = () => {
                   This Week
                 </p>
               </div>
-              <div className="w-10 h-10 bg-[#4640DE] rounded-full flex items-center justify-center text-white">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white">
                 <CalendarIcon className="w-5 h-5 border rounded" />
               </div>
             </div>

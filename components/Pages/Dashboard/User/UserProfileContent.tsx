@@ -37,7 +37,7 @@ const UserProfileContent = () => {
                 <h3 className="text-xl font-extrabold text-[#25324B] mb-2">
                   Jake Richards
                 </h3>
-                <p className="text-sm text-gray-400 font-medium mb-4 italic">
+                <p className="text-sm text-gray-400 font-medium mb-4 ">
                   UI/UX Designer based in London, UK
                 </p>
                 <Button
@@ -110,7 +110,7 @@ const UserProfileContent = () => {
             </div>
 
             <div className="mt-10 pt-8 border-t border-gray-50 text-right">
-              <Button className="bg-[#4640DE] text-white rounded-none h-11 px-8 font-bold uppercase shadow-none text-xs">
+              <Button className="bg-primary text-white rounded-none h-11 px-8 font-bold uppercase shadow-none text-xs">
                 Save Profile
               </Button>
             </div>

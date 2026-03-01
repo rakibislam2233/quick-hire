@@ -92,7 +92,7 @@ const CompanySidebar = ({
           </Link>
           <button
             onClick={onClose}
-            className="md:hidden text-gray-400 hover:text-[#4640DE]"
+            className="md:hidden text-gray-400 hover:text-primary"
           >
             <X className="w-6 h-6" />
           </button>
@@ -110,19 +110,19 @@ const CompanySidebar = ({
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors no-underline",
                   isActive
-                    ? "bg-white text-[#4640DE] border-l-4 border-[#4640DE]"
-                    : "text-gray-500 hover:text-[#4640DE]",
+                    ? "bg-white text-primary border-l-4 border-primary"
+                    : "text-gray-500 hover:text-primary",
                 )}
               >
                 <item.icon
                   className={cn(
                     "w-5 h-5",
-                    isActive ? "text-[#4640DE]" : "text-gray-400",
+                    isActive ? "text-primary" : "text-gray-400",
                   )}
                 />
                 <span>{item.name}</span>
                 {item.badge && (
-                  <span className="ml-auto bg-[#4640DE] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">
+                  <span className="ml-auto bg-primary text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">
                     {item.badge}
                   </span>
                 )}
@@ -147,14 +147,14 @@ const CompanySidebar = ({
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors no-underline",
                   isActive
-                    ? "bg-white text-[#4640DE] border-l-4 border-[#4640DE]"
-                    : "text-gray-500 hover:text-[#4640DE]",
+                    ? "bg-white text-primary border-l-4 border-primary"
+                    : "text-gray-500 hover:text-primary",
                 )}
               >
                 <item.icon
                   className={cn(
                     "w-5 h-5",
-                    isActive ? "text-[#4640DE]" : "text-gray-400",
+                    isActive ? "text-primary" : "text-gray-400",
                   )}
                 />
                 <span>{item.name}</span>

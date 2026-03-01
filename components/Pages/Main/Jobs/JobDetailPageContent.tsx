@@ -156,7 +156,7 @@ export default function JobDetailPageContent({
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-8">
             {/* Action Card */}
-            <div className="bg-[#4640DE] p-8 text-white shadow-none">
+            <div className="bg-primary p-8 text-white shadow-none">
               <h3 className="text-xl font-bold mb-4 font-epilogue uppercase tracking-tighter">
                 Apply for this position
               </h3>
@@ -168,7 +168,7 @@ export default function JobDetailPageContent({
                 onClick={() =>
                   applyRef.current?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="w-full bg-white text-[#4640DE] hover:bg-white/90 rounded-none h-12 font-bold shadow-none uppercase text-sm tracking-wider"
+                className="w-full bg-white text-primary hover:bg-white/90 rounded-none h-12 font-bold shadow-none uppercase text-sm tracking-wider"
               >
                 Apply Now
               </Button>

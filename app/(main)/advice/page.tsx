@@ -41,8 +41,7 @@ const AdvicePage = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-4">
-            Career <span className="text-primary italic">Advice</span> &
-            Insights
+            Career <span className="text-primary ">Advice</span> & Insights
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
             Stay ahead with the latest trends in hiring, career growth, and
@@ -76,7 +75,7 @@ const AdvicePage = () => {
                 <h3 className="text-xl font-extrabold text-[#25324B] group-hover:text-primary transition-colors leading-tight">
                   {article.title}
                 </h3>
-                <p className="text-sm text-gray-500 font-medium leading-relaxed italic">
+                <p className="text-sm text-gray-500 font-medium leading-relaxed ">
                   {article.excerpt}
                 </p>
                 <div className="pt-2 flex items-center gap-2 text-primary font-black text-xs uppercase tracking-widest group-hover:gap-4 transition-all">

@@ -24,7 +24,7 @@ const SettingsContent = () => {
           ].map((item) => (
             <button
               key={item.name}
-              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-bold transition-colors ${item.active ? "bg-[#F8F9FF] text-[#4640DE]" : "text-gray-500 hover:bg-gray-50"}`}
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-bold transition-colors ${item.active ? "bg-[#F8F9FF] text-primary" : "text-gray-500 hover:bg-gray-50"}`}
             >
               <item.icon className="w-4 h-4" />
               {item.name}
@@ -39,7 +39,7 @@ const SettingsContent = () => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                <label className="text-xs font-bold text-[#25324B] uppercase ">
                   Full Name
                 </label>
                 <Input
@@ -48,7 +48,7 @@ const SettingsContent = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                <label className="text-xs font-bold text-[#25324B] uppercase ">
                   Email Address
                 </label>
                 <Input
@@ -57,7 +57,7 @@ const SettingsContent = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                <label className="text-xs font-bold text-[#25324B] uppercase ">
                   Phone Number
                 </label>
                 <Input
@@ -66,7 +66,7 @@ const SettingsContent = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#25324B] uppercase italic">
+                <label className="text-xs font-bold text-[#25324B] uppercase ">
                   Role
                 </label>
                 <Input
@@ -77,7 +77,7 @@ const SettingsContent = () => {
               </div>
             </div>
             <div className="flex justify-end pt-4">
-              <Button className="bg-[#4640DE] text-white rounded-none h-11 px-8 font-bold shadow-none uppercase">
+              <Button className="bg-primary text-white rounded-none h-11 px-8 font-bold shadow-none uppercase">
                 Save Changes
               </Button>
             </div>

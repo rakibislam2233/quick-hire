@@ -133,7 +133,7 @@ export default function CompanyDetailPageContent({
                   companyJobs.map((job) => <JobCard key={job.id} job={job} />)
                 ) : (
                   <div className="bg-white border border-gray-100 p-8 text-center shadow-none">
-                    <p className="text-gray-500 italic">
+                    <p className="text-gray-500 ">
                       No open positions at the moment.
                     </p>
                   </div>
@@ -186,7 +186,7 @@ export default function CompanyDetailPageContent({
             </div>
 
             {/* Contact Card */}
-            <div className="bg-[#4640DE] p-8 text-white shadow-none">
+            <div className="bg-primary p-8 text-white shadow-none">
               <h3 className="text-xl font-bold mb-4 uppercase tracking-tighter">
                 Interested in working with us?
               </h3>
@@ -199,7 +199,7 @@ export default function CompanyDetailPageContent({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="w-full bg-white text-[#4640DE] hover:bg-white/90 rounded-none h-12 font-bold transition-colors uppercase text-sm tracking-wider">
+                <button className="w-full bg-white text-primary hover:bg-white/90 rounded-none h-12 font-bold transition-colors uppercase text-sm tracking-wider">
                   Contact Us
                 </button>
               </a>

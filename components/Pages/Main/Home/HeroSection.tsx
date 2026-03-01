@@ -103,7 +103,7 @@ const HeroSection = () => {
               />
               <MdOutlineKeyboardArrowDown className="text-gray-400 size-6 shrink-0" />
             </div>
-            <Button className="w-full lg:w-[209px] lg:h-[57px] rounded-none bg-[#4640DE] hover:bg-[#3b36c0] text-white px-8 py-6 text-base mt-2 lg:mt-0 transition-all cursor-pointer font-bold font-epilogue">
+            <Button className="w-full lg:w-[209px] lg:h-[57px] rounded-none bg-primary hover:bg-[#3b36c0] text-white px-8 py-6 text-base mt-2 lg:mt-0 transition-all cursor-pointer font-bold font-epilogue">
               Search my job
             </Button>
           </div>

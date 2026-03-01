@@ -30,7 +30,7 @@ const GuidePage = () => {
         <div className="mb-20">
           <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-6 leading-tight">
             How to use <br />
-            <span className="text-primary italic">QuickHire</span> Platform
+            <span className="text-primary ">QuickHire</span> Platform
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl font-medium leading-relaxed">
             Follow our simple guide to get the most out of our platform. Whether
@@ -58,7 +58,7 @@ const GuidePage = () => {
                     {step.time}
                   </span>
                 </div>
-                <p className="text-gray-500 font-medium leading-relaxed italic max-w-lg">
+                <p className="text-gray-500 font-medium leading-relaxed  max-w-lg">
                   {step.description}
                 </p>
               </div>
@@ -66,16 +66,16 @@ const GuidePage = () => {
           ))}
         </div>
 
-        <div className="bg-[#4640DE] p-10 md:p-16 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-10">
+        <div className="bg-primary p-10 md:p-16 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="relative z-10 max-w-sm">
-            <h2 className="text-3xl font-black mb-4 leading-tight italic decoration-white/20 underline decoration-4 underline-offset-8">
+            <h2 className="text-3xl font-black mb-4 leading-tight  decoration-white/20 underline decoration-4 underline-offset-8">
               Watch the video guide
             </h2>
             <p className="text-white/60 text-sm font-medium mb-8 leading-relaxed">
               A visual walkthrough of how to navigate the dashboard and manage
               your applications efficiently.
             </p>
-            <button className="flex items-center gap-3 bg-white text-[#4640DE] px-8 h-12 font-black uppercase text-xs tracking-widest hover:bg-opacity-90 transition-all">
+            <button className="flex items-center gap-3 bg-white text-primary px-8 h-12 font-black uppercase text-xs tracking-widest hover:bg-opacity-90 transition-all">
               <PlayCircle className="w-5 h-5" />
               Watch Now
             </button>

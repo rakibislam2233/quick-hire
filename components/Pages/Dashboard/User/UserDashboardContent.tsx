@@ -8,7 +8,7 @@ const UserDashboardContent = () => {
       label: "Applied Jobs",
       value: 12,
       icon: Briefcase,
-      color: "bg-[#4640DE]",
+      color: "bg-primary",
     },
     { label: "Saved Jobs", value: 8, icon: Bookmark, color: "bg-[#FFB836]" },
     { label: "Interviews", value: 3, icon: Clock, color: "bg-[#56CDAD]" },
@@ -118,7 +118,7 @@ const UserDashboardContent = () => {
         </div>
 
         <div className="lg:col-span-1 space-y-8">
-          <div className="bg-[#4640DE] p-8 text-white">
+          <div className="bg-primary p-8 text-white">
             <h3 className="text-xl font-extrabold mb-4 uppercase tracking-tighter">
               Find your dream job
             </h3>

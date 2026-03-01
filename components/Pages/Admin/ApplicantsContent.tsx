@@ -120,7 +120,7 @@ const ApplicantsContent = () => {
                   className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors"
                 >
                   <td className="px-6 py-6 flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-100 flex items-center justify-center text-[#4640DE] font-bold text-xs uppercase border border-gray-200 rounded">
+                    <div className="w-10 h-10 bg-gray-100 flex items-center justify-center text-primary font-bold text-xs uppercase border border-gray-200 rounded">
                       {app.name
                         .split(" ")
                         .map((n) => n[0])
@@ -137,7 +137,7 @@ const ApplicantsContent = () => {
                     {app.date}
                   </td>
                   <td className="px-6 py-6">
-                    <span className="text-sm font-bold text-[#4640DE]">
+                    <span className="text-sm font-bold text-primary">
                       {app.score}
                     </span>
                   </td>
@@ -149,7 +149,7 @@ const ApplicantsContent = () => {
                     </span>
                   </td>
                   <td className="px-6 py-6 text-right">
-                    <button className="text-gray-400 hover:text-[#4640DE]">
+                    <button className="text-gray-400 hover:text-primary">
                       <MoreVertical className="w-5 h-5" />
                     </button>
                   </td>

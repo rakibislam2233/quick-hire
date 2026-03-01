@@ -26,7 +26,7 @@ const JobListingsContent = () => {
           href="/dashboard/company/job-listing/add"
           className="no-underline"
         >
-          <Button className="bg-[#4640DE] text-white rounded-none h-12 px-6 font-bold flex items-center gap-2 shadow-none">
+          <Button className="bg-primary text-white rounded-none h-12 px-6 font-bold flex items-center gap-2 shadow-none">
             <Plus className="w-5 h-5" />
             Post a job
           </Button>
@@ -102,7 +102,7 @@ const JobListingsContent = () => {
                     Aug 15, 2026
                   </td>
                   <td className="px-6 py-6">
-                    <span className="px-3 py-1 bg-blue-50 text-[#4640DE] text-[10px] font-bold border border-blue-100 uppercase">
+                    <span className="px-3 py-1 bg-blue-50 text-primary text-[10px] font-bold border border-blue-100 uppercase">
                       {job.type}
                     </span>
                   </td>
@@ -113,7 +113,7 @@ const JobListingsContent = () => {
                     <Link
                       href={`/dashboard/company/job-listing/edit/${job.id}`}
                     >
-                      <button className="text-gray-400 hover:text-[#4640DE] p-2">
+                      <button className="text-gray-400 hover:text-primary p-2">
                         <MoreVertical className="w-5 h-5" />
                       </button>
                     </Link>

@@ -36,7 +36,7 @@ const ScheduleContent = () => {
             Manage your upcoming interviews and recruitment events.
           </p>
         </div>
-        <Button className="bg-[#4640DE] text-white rounded-none h-12 px-6 font-bold flex items-center gap-2 shadow-none">
+        <Button className="bg-primary text-white rounded-none h-12 px-6 font-bold flex items-center gap-2 shadow-none">
           <Plus className="w-5 h-5" />
           Add Event
         </Button>
@@ -80,12 +80,12 @@ const ScheduleContent = () => {
                 className={`bg-white h-24 p-2 border-t border-l border-gray-100 relative ${i + 1 === 22 ? "bg-blue-50/30" : ""}`}
               >
                 <span
-                  className={`text-xs font-bold ${i + 1 === 22 ? "text-[#4640DE]" : "text-gray-400"}`}
+                  className={`text-xs font-bold ${i + 1 === 22 ? "text-primary" : "text-gray-400"}`}
                 >
                   {i + 1}
                 </span>
                 {i + 1 === 22 && (
-                  <div className="mt-2 text-[8px] font-bold bg-[#4640DE] text-white p-1 truncate cursor-pointer">
+                  <div className="mt-2 text-[8px] font-bold bg-primary text-white p-1 truncate cursor-pointer">
                     3 Interviews
                   </div>
                 )}
@@ -101,9 +101,9 @@ const ScheduleContent = () => {
             {events.map((event) => (
               <div
                 key={event.id}
-                className="bg-white border-l-4 border-l-[#4640DE] border border-gray-100 p-4 shadow-none"
+                className="bg-white border-l-4 border-l-primary border border-gray-100 p-4 shadow-none"
               >
-                <div className="flex items-center gap-2 text-[#4640DE] mb-2">
+                <div className="flex items-center gap-2 text-primary mb-2">
                   <Clock className="w-4 h-4" />
                   <span className="text-xs font-bold">{event.time}</span>
                 </div>
@@ -125,7 +125,7 @@ const ScheduleContent = () => {
               Sync your QuickHire calendar with Google Calendar or Outlook for a
               seamless scheduling experience.
             </p>
-            <Button className="mt-4 w-full bg-[#4640DE] text-white rounded-none h-10 text-xs font-bold uppercase shadow-none">
+            <Button className="mt-4 w-full bg-primary text-white rounded-none h-10 text-xs font-bold uppercase shadow-none">
               Sync Now
             </Button>
           </div>

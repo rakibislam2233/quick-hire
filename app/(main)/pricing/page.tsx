@@ -54,8 +54,7 @@ const PricingPage = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-4">
-            Simple, Transparent{" "}
-            <span className="text-primary italic">Pricing</span>
+            Simple, Transparent <span className="text-primary ">Pricing</span>
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
             Choose the plan that fits your needs. Whether you&apos;re a job
@@ -111,8 +110,8 @@ const PricingPage = () => {
               <Button
                 className={`w-full h-12 font-bold uppercase text-xs tracking-widest rounded-none shadow-none transition-transform group-hover:-translate-y-1 ${
                   plan.isPremium
-                    ? "bg-[#4640DE] text-white"
-                    : "bg-white text-[#4640DE] border border-[#E9EBFD] hover:bg-gray-50"
+                    ? "bg-primary text-white"
+                    : "bg-white text-primary border border-[#E9EBFD] hover:bg-gray-50"
                 }`}
               >
                 {plan.buttonText}

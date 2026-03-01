@@ -97,7 +97,7 @@ const AdminApprovalsContent = () => {
               >
                 <Check className="w-4 h-4" />
               </Button>
-              <Button className="h-10 px-6 bg-[#4640DE] text-white font-bold text-xs uppercase rounded-none shadow-none ml-2">
+              <Button className="h-10 px-6 bg-primary text-white font-bold text-xs uppercase rounded-none shadow-none ml-2">
                 Approve
               </Button>
             </div>

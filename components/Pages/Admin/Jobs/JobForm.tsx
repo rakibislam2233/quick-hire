@@ -98,7 +98,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2 col-span-1 md:col-span-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+              <label className="text-xs font-bold text-[#25324B] uppercase ">
                 Job Title
               </label>
               <Input
@@ -115,7 +115,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+              <label className="text-xs font-bold text-[#25324B] uppercase ">
                 Category
               </label>
               <select
@@ -137,7 +137,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+              <label className="text-xs font-bold text-[#25324B] uppercase ">
                 Job Type
               </label>
               <select
@@ -159,7 +159,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+              <label className="text-xs font-bold text-[#25324B] uppercase ">
                 Salary Range
               </label>
               <div className="relative">
@@ -179,7 +179,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase italic">
+              <label className="text-xs font-bold text-[#25324B] uppercase ">
                 Location
               </label>
               <div className="relative">
@@ -209,7 +209,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             </h3>
           </div>
           <div className="space-y-2">
-            <label className="text-xs font-bold text-[#25324B] uppercase italic">
+            <label className="text-xs font-bold text-[#25324B] uppercase ">
               Description
             </label>
             <Textarea
@@ -238,7 +238,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
           <Button
             type="submit"
             disabled={isPending}
-            className="bg-[#4640DE] text-white rounded-none h-12 px-10 font-bold shadow-none uppercase tracking-widest text-xs"
+            className="bg-primary text-white rounded-none h-12 px-10 font-bold shadow-none uppercase tracking-widest text-xs"
           >
             {isPending ? (
               <>

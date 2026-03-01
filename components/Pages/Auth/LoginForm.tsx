@@ -24,7 +24,7 @@ export default function LoginForm() {
           />
         </div>
         <h1 className="text-3xl font-black text-[#25324B] mb-2 uppercase tracking-tighter">
-          Welcome <span className="text-primary italic">Back</span>
+          Welcome <span className="text-primary ">Back</span>
         </h1>
         <p className="text-sm text-gray-400 font-medium text-center">
           Login to access your personalized dashboard & jobs.
@@ -95,7 +95,7 @@ export default function LoginForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="w-full bg-[#4640DE] text-white rounded-none h-12 text-xs font-bold uppercase tracking-widest shadow-none hover:bg-blue-700 transition-all active:scale-[0.98] mt-4"
+          className="w-full bg-primary text-white rounded-none h-12 text-xs font-bold uppercase tracking-widest shadow-none hover:bg-blue-700 transition-all active:scale-[0.98] mt-4"
         >
           {isPending ? "Authenticating..." : "Login to Account"}
         </Button>

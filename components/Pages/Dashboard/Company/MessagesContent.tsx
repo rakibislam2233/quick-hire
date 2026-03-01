@@ -96,7 +96,7 @@ const MessagesContent = () => {
               </p>
             </div>
           </div>
-          <button className="text-gray-400 hover:text-[#4640DE]">
+          <button className="text-gray-400 hover:text-primary">
             <MoreHorizontal className="w-6 h-6" />
           </button>
         </div>
@@ -119,7 +119,7 @@ const MessagesContent = () => {
           </div>
 
           <div className="flex flex-row-reverse gap-4 max-w-[70%] ml-auto">
-            <div className="bg-[#4640DE] p-4 text-sm text-white font-medium shadow-none leading-relaxed">
+            <div className="bg-primary p-4 text-sm text-white font-medium shadow-none leading-relaxed">
               Hi Maria! Thanks for reaching out. Our design team currently
               consists of 4 designers and 2 researchers. We work closely with
               the engineering team using a squad-based model.
@@ -133,7 +133,7 @@ const MessagesContent = () => {
               placeholder="Type a message..."
               className="flex-1 rounded-none border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none h-12"
             />
-            <Button className="bg-[#4640DE] text-white rounded-none w-12 h-12 p-0 shadow-none">
+            <Button className="bg-primary text-white rounded-none w-12 h-12 p-0 shadow-none">
               <Send className="w-5 h-5" />
             </Button>
           </div>

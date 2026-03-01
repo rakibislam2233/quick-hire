@@ -24,7 +24,7 @@ const ProfileContent = () => {
             Update your company information and presence.
           </p>
         </div>
-        <Button className="bg-[#4640DE] text-white rounded-none h-12 px-6 font-bold flex items-center gap-2 shadow-none">
+        <Button className="bg-primary text-white rounded-none h-12 px-6 font-bold flex items-center gap-2 shadow-none">
           <Edit3 className="w-5 h-5" />
           Edit Profile
         </Button>
@@ -63,7 +63,7 @@ const ProfileContent = () => {
             </h4>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-[#4640DE]">
+                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-primary">
                   <Building2 className="w-5 h-5" />
                 </div>
                 <div>
@@ -74,7 +74,7 @@ const ProfileContent = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-[#4640DE]">
+                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-primary">
                   <Globe className="w-5 h-5" />
                 </div>
                 <div>
@@ -91,7 +91,7 @@ const ProfileContent = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-[#4640DE]">
+                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-primary">
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
@@ -112,7 +112,7 @@ const ProfileContent = () => {
             </h4>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-[#4640DE]">
+                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-primary">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
@@ -125,7 +125,7 @@ const ProfileContent = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-[#4640DE]">
+                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-primary">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
@@ -138,7 +138,7 @@ const ProfileContent = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-[#4640DE]">
+                <div className="w-10 h-10 bg-[#F8F9FF] flex items-center justify-center text-primary">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>

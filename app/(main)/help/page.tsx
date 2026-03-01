@@ -51,7 +51,7 @@ const HelpCenterPage = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-8 uppercase tracking-tighter">
-            How can we <span className="text-primary italic">help?</span>
+            How can we <span className="text-primary ">help?</span>
           </h1>
           <div className="relative max-w-2xl mx-auto">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
