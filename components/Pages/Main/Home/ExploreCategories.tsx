@@ -1,3 +1,4 @@
+import CategoryCard from "@/components/Card/CategoryCard";
 import { ArrowRight, BarChart, Monitor } from "lucide-react";
 import Link from "next/link";
 import { HiOutlineBriefcase } from "react-icons/hi";
@@ -78,44 +79,7 @@ const ExploreCategories = () => {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {categories.map((category) => (
-            <Link
-              href={`/jobs?category=${category.title.toLowerCase()}`}
-              key={category.title}
-              className={`group flex items-start gap-0 p-8 pt-10 border transition-all duration-300 ${
-                category.isActive
-                  ? "bg-primary border-primary text-white shadow-xl hover:-translate-y-1"
-                  : "bg-white border-[#D6DDEB] hover:shadow-lg hover:-translate-y-1 "
-              }`}
-            >
-              <div className="flex flex-col w-full h-full">
-                <div
-                  className={`w-12 h-12 flex items-center justify-center rounded-lg mb-8 ${
-                    category.isActive ? "text-white" : "text-primary"
-                  }`}
-                >
-                  <category.icon strokeWidth={1.5} className="w-10 h-10" />
-                </div>
-                <h3
-                  className={`text-xl font-semibold mb-3 font-sans ${
-                    category.isActive ? "text-white" : "text-[#25324B]"
-                  }`}
-                >
-                  {category.title}
-                </h3>
-                <div className="flex items-center justify-between w-full mt-auto">
-                  <p
-                    className={`text-base font-epilogue flex items-center gap-4 w-full ${
-                      category.isActive ? "text-blue-100" : "text-slate-500"
-                    }`}
-                  >
-                    {category.jobs} jobs available
-                    <ArrowRight
-                      className={`w-5 h-5 ml-auto transition-transform group-hover:translate-x-1 ${category.isActive ? "text-white" : "text-[#25324B]"}`}
-                    />
-                  </p>
-                </div>
-              </div>
-            </Link>
+            <CategoryCard key={category.title} category={category} />
           ))}
         </div>
       </div>
