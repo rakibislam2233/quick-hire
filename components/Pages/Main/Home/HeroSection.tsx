@@ -10,7 +10,7 @@ const HeroSection = () => {
       <div className="container px-5 md:px-16 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10 items-center h-full">
         {/* Search Box */}
         <div
-          className="w-full lg:max-w-[852px] lg:h-[90px] bg-white p-4 flex flex-col lg:flex-row gap-6 lg:gap-8 items-center border border-gray-100 z-20 relative lg:absolute lg:left-16 lg:bottom-[120px] mt-8 lg:mt-0"
+          className="w-full lg:max-w-[852px] lg:h-[90px] bg-white p-6 lg:p-4 flex flex-col lg:flex-row gap-4 lg:gap-8 items-center border border-gray-100 z-20 relative lg:absolute lg:left-16 lg:bottom-[120px] mt-8 lg:mt-0"
           style={{
             boxShadow: `
               0px 2.71px 4.4px 0px rgba(192, 192, 192, 0.0271),
@@ -21,7 +21,7 @@ const HeroSection = () => {
             `,
           }}
         >
-          <div className="flex items-center flex-1 px-4 py-2.5 w-full border-b lg:border-b-0 lg:border-r border-[#D6DDEB] font-epilogue">
+          <div className="flex items-center flex-1 lg:px-4 py-2 w-full border-b lg:border-b-0 lg:border-r border-[#D6DDEB] font-epilogue">
             <Search className="text-gray-400 w-5 h-5 mr-3 shrink-0" />
             <Input
               type="text"
@@ -29,7 +29,7 @@ const HeroSection = () => {
               className="border-none shadow-none focus-visible:ring-0 text-gray-700 bg-transparent p-0 placeholder:text-gray-400 text-base flex-1"
             />
           </div>
-          <div className="flex items-center flex-1 px-4 py-2.5 w-full cursor-pointer group border-b lg:border-b-0 border-[#D6DDEB] font-epilogue">
+          <div className="flex items-center flex-1 lg:px-4 py-2 w-full cursor-pointer group border-b lg:border-b-0 border-[#D6DDEB] font-epilogue">
             <MapPin className="text-gray-400 w-5 h-5 mr-3 shrink-0" />
             <Input
               type="text"
@@ -38,7 +38,7 @@ const HeroSection = () => {
             />
             <MdOutlineKeyboardArrowDown className="text-gray-400 size-6 shrink-0" />
           </div>
-          <Button className="w-full lg:w-[209px] lg:h-[57px] rounded-none bg-primary text-white px-8 py-6 text-base mt-2 lg:mt-0 transition-transform cursor-pointer font-epilogue">
+          <Button className="w-full lg:w-[209px] lg:h-[57px] rounded-none bg-[#4640DE] hover:bg-[#3b36c0] text-white px-8 py-6 text-base mt-2 lg:mt-0 transition-all cursor-pointer font-bold font-epilogue">
             Search my job
           </Button>
         </div>
@@ -63,7 +63,7 @@ const HeroSection = () => {
                 alt="Highlight line"
                 width={500}
                 height={20}
-                className="absolute left-0 -bottom-8 sm:-bottom-12 w-[110%] max-w-none"
+                className="absolute left-0 -bottom-6 sm:-bottom-12 w-[110%] max-w-none"
               />
             </span>
           </h1>
@@ -73,21 +73,21 @@ const HeroSection = () => {
             heights and passionate about startups.
           </p>
 
-          <div className="mt-20 text-sm font-medium text-gray-500">
+          <div className="mt-8 lg:mt-20 text-sm font-medium text-gray-500">
             Popular :{" "}
-            <span className="text-gray-700 font-semibold cursor-pointer hover:text-blue-600">
+            <span className="text-gray-700 font-semibold cursor-pointer hover:text-[#4640DE] transition-colors">
               UI Designer
             </span>
             ,{" "}
-            <span className="text-gray-700 font-semibold cursor-pointer hover:text-blue-600">
+            <span className="text-gray-700 font-semibold cursor-pointer hover:text-[#4640DE] transition-colors">
               UX Researcher
             </span>
             ,{" "}
-            <span className="text-gray-700 font-semibold cursor-pointer hover:text-blue-600">
+            <span className="text-gray-700 font-semibold cursor-pointer hover:text-[#4640DE] transition-colors">
               Android
             </span>
             ,{" "}
-            <span className="text-gray-700 font-semibold cursor-pointer hover:text-blue-600">
+            <span className="text-gray-700 font-semibold cursor-pointer hover:text-[#4640DE] transition-colors">
               Admin
             </span>
           </div>
