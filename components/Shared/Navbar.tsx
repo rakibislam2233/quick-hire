@@ -64,13 +64,13 @@ const Navbar = () => {
           <Link href="/login">
             <Button
               variant="ghost"
-              className="text-primary font-semibold hover:bg-transparent"
+              className="text-primary font-semibold hover:bg-transparent cursor-pointer"
             >
               Login
             </Button>
           </Link>
           <Link href="/register">
-            <Button className="bg-primary text-white rounded-none h-12 px-6">
+            <Button className="bg-primary text-white rounded-none h-12 px-8 cursor-pointer">
               Sign Up
             </Button>
           </Link>
