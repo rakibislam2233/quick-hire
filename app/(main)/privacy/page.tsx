@@ -25,8 +25,8 @@ const PrivacyPage = () => {
   ];
 
   return (
-    <div className="font-epilogue bg-white min-h-screen py-20 px-4">
-      <div className="container mx-auto max-w-4xl">
+    <div className="font-epilogue bg-white min-h-screen pt-24 pb-10">
+      <div className="container mx-auto px-4 md:px-16">
         <div className="mb-16">
           <h1 className="text-4xl font-black text-[#25324B] mb-4  tracking-tighter">
             Privacy <span className="text-primary ">Policy</span>

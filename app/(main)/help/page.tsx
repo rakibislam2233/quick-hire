@@ -47,8 +47,8 @@ const HelpCenterPage = () => {
   ];
 
   return (
-    <div className="font-epilogue bg-white min-h-screen py-20 px-4">
-      <div className="container mx-auto max-w-6xl">
+    <div className="font-epilogue bg-white min-h-screen pt-24 pb-10">
+      <div className="container mx-auto px-4 md:px-16">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-8  tracking-tighter">
             How can we <span className="text-primary ">help?</span>
@@ -57,7 +57,7 @@ const HelpCenterPage = () => {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <Input
               placeholder="Search for articles, guides..."
-              className="h-14 pl-12 rounded-none border-gray-100 shadow-lg text-lg font-medium focus-visible:ring-primary"
+              className="h-14 pl-12 rounded-none border-gray-100 text-lg font-medium focus-visible:ring-primary"
             />
           </div>
         </div>

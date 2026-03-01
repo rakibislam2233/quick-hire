@@ -39,8 +39,7 @@ export default function Error({
               500
             </h1>
             <h2 className="text-4xl md:text-6xl font-bold text-[#25324B] -mt-10 md:-mt-16 mb-6">
-              Something{" "}
-              <span className="text-[#FF4D4D] italic">Went Wrong</span>
+              Something <span className="text-[#FF4D4D] ">Went Wrong</span>
             </h2>
           </div>
 

@@ -6,8 +6,8 @@ import { Mail, MapPin, MessageCircle, User } from "lucide-react";
 
 const ContactPage = () => {
   return (
-    <div className="font-epilogue bg-white min-h-screen py-20 px-4">
-      <div className="container mx-auto max-w-6xl">
+    <div className="font-epilogue bg-white min-h-screen pt-24 pb-10">
+      <div className="container mx-auto px-4 md:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div>
             <div className="mb-10">

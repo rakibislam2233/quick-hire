@@ -37,8 +37,8 @@ const AdvicePage = () => {
   ];
 
   return (
-    <div className="font-epilogue bg-white min-h-screen py-20 px-4">
-      <div className="container mx-auto max-w-6xl">
+    <div className="font-epilogue bg-white min-h-screen pt-24 pb-10">
+      <div className="container mx-auto px-4 md:px-16">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-4">
             Career <span className="text-primary ">Advice</span> & Insights

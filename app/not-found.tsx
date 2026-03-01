@@ -10,14 +10,14 @@ const NotFound = () => {
     <main className="w-full min-h-screen flex flex-col bg-[#f8f9ff]">
       <Navbar />
 
-      <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden py-24">
+      <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden font-epilogue py-24">
         {/* Background Pattern */}
         <Image
           src="/asset/home/hero-pattern.png"
           alt="Decorative pattern"
           width={800}
           height={800}
-          className="absolute -top-40 -right-20 opacity-40 pointer-events-none"
+          className="absolute top-0 right-0 opacity-40 pointer-events-none"
         />
 
         <div className="container px-5 mx-auto text-center relative z-10">
@@ -26,7 +26,7 @@ const NotFound = () => {
               404
             </h1>
             <h2 className="text-4xl md:text-6xl font-bold text-[#25324B] -mt-10 md:-mt-16 mb-6">
-              Page <span className="text-primary italic">Not Found</span>
+              Page <span className="text-primary">Not Found</span>
             </h2>
           </div>
 
