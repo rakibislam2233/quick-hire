@@ -14,15 +14,20 @@ export default function LoginForm() {
   return (
     <div className="w-full max-w-[450px] mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center mb-10">
-        <div className="relative h-12 w-12 mb-6">
-          <Image
-            src="/asset/logo/logo.png"
-            alt="QuickHire Logo"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
+        <Link href="/" className="flex items-center justify-center gap-1 mb-6">
+          <div className="relative w-10 h-9">
+            <Image
+              src="/asset/logo/logo.png"
+              alt="QuickHire Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <span className="text-2xl font-extrabold text-[#25324B]">
+            QuickHire
+          </span>
+        </Link>
         <h1 className="text-3xl font-black text-[#25324B] mb-2  tracking-tighter">
           Welcome <span className="text-primary ">Back</span>
         </h1>

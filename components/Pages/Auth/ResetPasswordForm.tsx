@@ -5,23 +5,29 @@ import { Input } from "@/components/ui/input";
 import { resetPasswordAction } from "@/services/auth.service";
 import { Lock } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useActionState } from "react";
 
 export default function ResetPasswordForm() {
   const [state, action, isPending] = useActionState(resetPasswordAction, {});
 
   return (
-    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none">
+    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center mb-6">
-        <div className="relative h-10 w-10 mb-4">
-          <Image
-            src="/asset/logo/logo.png"
-            alt="QuickHire Logo"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
+        <Link href="/" className="flex items-center justify-center gap-1 mb-6">
+          <div className="relative w-10 h-9">
+            <Image
+              src="/asset/logo/logo.png"
+              alt="QuickHire Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <span className="text-2xl font-extrabold text-[#25324B]">
+            QuickHire
+          </span>
+        </Link>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
           Reset Password
         </h1>
@@ -48,8 +54,8 @@ export default function ResetPasswordForm() {
             <Input
               name="password"
               type="password"
-              placeholder="Enter new password"
-              className="w-full pl-10 bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
+              placeholder="Enter your password"
+              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
             />
           </div>
           {state?.errors?.password && (
@@ -68,8 +74,8 @@ export default function ResetPasswordForm() {
             <Input
               name="confirmPassword"
               type="password"
-              placeholder="Confirm new password"
-              className="w-full pl-10 bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
+              placeholder="Enter your confirm password"
+              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
             />
           </div>
           {state?.errors?.confirmPassword && (

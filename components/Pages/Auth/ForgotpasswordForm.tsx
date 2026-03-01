@@ -14,15 +14,20 @@ export default function ForgotPasswordForm() {
   return (
     <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center mb-6">
-        <div className="relative h-10 w-10 mb-4">
-          <Image
-            src="/asset/logo/logo.png"
-            alt="QuickHire Logo"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
+        <Link href="/" className="flex items-center justify-center gap-1 mb-6">
+          <div className="relative w-10 h-9">
+            <Image
+              src="/asset/logo/logo.png"
+              alt="QuickHire Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <span className="text-2xl font-extrabold text-[#25324B]">
+            QuickHire
+          </span>
+        </Link>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
           Reset Password
         </h1>

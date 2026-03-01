@@ -1,5 +1,4 @@
 "use client";
-
 import { cn } from "@/lib/utils";
 import {
   Building2,
@@ -72,21 +71,25 @@ const CompanySidebar = ({
 
       <aside
         className={cn(
-          "fixed md:sticky top-0 left-0 z-50 w-64 bg-[#F8F9FF] border-r border-gray-100 flex flex-col h-screen transition-transform duration-300 md:translate-x-0",
+          "fixed md:sticky top-0 left-0 z-50 w-64 bg-[#F8F8FD] border-r border-gray-100 flex flex-col h-screen transition-transform duration-300 md:translate-x-0 font-epilogue",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="p-6 mb-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 no-underline">
-            <div className="relative w-8 h-8">
+        <div className="p-6 flex items-center justify-between">
+          <Link
+            href="/"
+            className="flex items-center justify-center gap-1 mb-6"
+          >
+            <div className="relative size-12">
               <Image
                 src="/asset/logo/logo.png"
                 alt="QuickHire Logo"
                 fill
                 className="object-contain"
+                priority
               />
             </div>
-            <span className="text-xl font-extrabold text-[#25324B] font-epilogue tracking-tight">
+            <span className="text-2xl md:text-3xl font-extrabold text-[#25324B]">
               QuickHire
             </span>
           </Link>
@@ -108,9 +111,9 @@ const CompanySidebar = ({
                 href={item.href}
                 onClick={onClose}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors no-underline",
+                  "flex items-center gap-3 px-4 py-4.5 text-sm font-semibold transition-colors no-underline",
                   isActive
-                    ? "bg-white text-primary border-l-4 border-primary"
+                    ? "bg-[#E9EBFD] text-primary border-l-4 border-primary"
                     : "text-gray-500 hover:text-primary",
                 )}
               >
