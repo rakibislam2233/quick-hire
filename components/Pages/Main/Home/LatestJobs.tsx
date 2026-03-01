@@ -1,3 +1,4 @@
+import LatestJobCard from "@/components/Card/LatestJobCard";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -103,7 +104,7 @@ const latestJobs = [
 
 const LatestJobs = () => {
   return (
-    <section className="w-full bg-[#F8F8FD] py-16 md:py-24 relative overflow-hidden">
+    <section className="w-full bg-[#F8F8FD] py-10 md:py-16 relative overflow-hidden">
       <div className="w-full container mx-auto px-5 md:px-16 relative z-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
@@ -122,50 +123,7 @@ const LatestJobs = () => {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
           {latestJobs.map((job) => (
-            <div
-              key={job.id}
-              className="bg-white border border-transparent hover:border-primary/20 transition-all duration-300 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-6 shadow-[0_4px_30px_rgb(0,0,0,0.03)]"
-            >
-              {/* Logo */}
-              <div className="w-16 h-16 shrink-0 relative flex items-center justify-center grayscale">
-                <Image
-                  src={job.logo}
-                  alt={`${job.company} logo`}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="flex flex-col flex-1">
-                <h3 className="text-xl font-bold text-[#25324B] mb-2">
-                  {job.title}
-                </h3>
-                <p className="text-slate-500 font-epilogue text-sm mb-4 flex items-center gap-1">
-                  <span className="text-[#25324B] font-medium">
-                    {job.company}
-                  </span>
-                  <span className="w-1 h-1 rounded-full bg-gray-400 mx-2 block"></span>
-                  {job.location}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="font-epilogue font-semibold text-xs px-4 py-1.5 rounded-full text-emerald-500 bg-emerald-50">
-                    {job.type}
-                  </span>
-                  <div className="w-px h-4 bg-gray-200 mx-1"></div>
-                  {job.tags.map((tag) => (
-                    <span
-                      key={tag.name}
-                      className={`font-epilogue font-semibold text-xs px-4 py-1.5 rounded-full border ${tag.color}`}
-                    >
-                      {tag.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <LatestJobCard key={job.id} job={job} />
           ))}
         </div>
       </div>

@@ -33,7 +33,7 @@ const Footer = () => {
 
           {/* Links: About */}
           <div className="lg:col-span-2">
-            <h4 className="text-lg font-semibold mb-6 font-sans text-white">
+            <h4 className="text-lg font-semibold mb-6 font-epilogue text-white">
               About
             </h4>
             <ul className="flex flex-col gap-4 text-gray-400 text-sm md:text-base">
@@ -82,7 +82,7 @@ const Footer = () => {
 
           {/* Links: Resources */}
           <div className="lg:col-span-2">
-            <h4 className="text-lg font-semibold mb-6 font-sans text-white">
+            <h4 className="text-lg font-semibold mb-6 font-epilogue text-white">
               Resources
             </h4>
             <ul className="flex flex-col gap-4 text-gray-400 text-sm md:text-base">
@@ -123,7 +123,7 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div className="lg:col-span-4">
-            <h4 className="text-lg font-semibold mb-6 font-sans text-white">
+            <h4 className="text-lg font-semibold mb-6 font-epilogue text-white">
               Get job notifications
             </h4>
             <p className="text-gray-400 text-sm md:text-base mb-6 max-w-sm leading-relaxed">
@@ -133,9 +133,9 @@ const Footer = () => {
               <Input
                 type="email"
                 placeholder="Email Address"
-                className="bg-white text-gray-900 border-none rounded-sm h-12 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0 focus-visible:ring-offset-transparent flex-1"
+                className="bg-white text-gray-900 border-none rounded-none h-12 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0 focus-visible:ring-offset-transparent flex-1"
               />
-              <Button className="bg-primary hover:bg-blue-700 text-white rounded-sm h-12 px-8 font-semibold w-full sm:w-auto">
+              <Button className="bg-primary cursor-pointer text-white rounded-none h-12 px-8 font-semibold w-full sm:w-auto">
                 Subscribe
               </Button>
             </div>
@@ -147,7 +147,7 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-gray-400 text-sm font-medium">
-          <p>2021 © QuickHire. All rights reserved.</p>
+          <p>{new Date().getFullYear()} © QuickHire. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link
               href="#"
