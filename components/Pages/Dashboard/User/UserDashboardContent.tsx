@@ -56,10 +56,10 @@ const UserDashboardContent = () => {
             className={`${stat.color} p-6 text-white flex items-center justify-between group cursor-pointer transition-all`}
           >
             <div>
-              <span className="text-4xl font-extrabold block mb-1">
+              <span className="text-5xl font-extrabold block mb-2">
                 {stat.value}
               </span>
-              <p className="text-white/80 font-bold uppercase text-[10px] tracking-widest">
+              <p className="text-white/90 font-semibold leading-tight">
                 {stat.label}
               </p>
             </div>

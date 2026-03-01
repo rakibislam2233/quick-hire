@@ -57,30 +57,24 @@ const AdminSidebar = ({
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="p-6 mb-4 flex items-center justify-between">
+        <div className="p-6 flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-2 no-underline"
-            onClick={onClose}
+            className="flex items-center justify-center gap-1 mb-6"
           >
-            <div className="relative w-8 h-8">
+            <div className="relative size-12">
               <Image
                 src="/asset/logo/logo.png"
                 alt="QuickHire Logo"
                 fill
                 className="object-contain"
+                priority
               />
             </div>
-            <span className="text-xl font-extrabold text-[#25324B] font-epilogue tracking-tight">
-              QuickHire Admin
+            <span className="text-2xl md:text-3xl font-extrabold text-[#25324B]">
+              QuickHire
             </span>
           </Link>
-          <button
-            onClick={onClose}
-            className="md:hidden text-gray-400 hover:text-primary"
-          >
-            <X className="w-6 h-6" />
-          </button>
         </div>
 
         <nav className="flex-1 px-4 space-y-1">

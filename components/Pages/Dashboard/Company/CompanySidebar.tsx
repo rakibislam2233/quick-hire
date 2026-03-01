@@ -93,12 +93,6 @@ const CompanySidebar = ({
               QuickHire
             </span>
           </Link>
-          <button
-            onClick={onClose}
-            className="md:hidden text-gray-400 hover:text-primary"
-          >
-            <X className="w-6 h-6" />
-          </button>
         </div>
 
         {/* Navigation contents same as before */}
