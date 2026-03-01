@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import React, { ElementType } from "react";
+import { ElementType } from "react";
 
 interface Category {
   title: string;
@@ -21,7 +21,7 @@ const CategoryCard = ({ category }: { category: Category }) => {
       }`}
     >
       <div className="flex flex-row md:flex-col justify-between gap-6 md:gap-8 w-full h-full">
-        <category.icon strokeWidth={1.5} className="w-10 h-10 text-primary" />
+        <category.icon strokeWidth={1.5} className={`w-10 h-10 ${category.isActive ? "text-white" : "text-primary"}`} />
         <div className="w-full">
           <h3
             className={`text-xl font-semibold mb-3 font-sans ${
