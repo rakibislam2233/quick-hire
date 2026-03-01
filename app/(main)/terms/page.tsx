@@ -33,7 +33,7 @@ const TermsPage = () => {
     <div className="font-epilogue bg-white min-h-screen py-20 px-4">
       <div className="container mx-auto max-w-4xl">
         <div className="mb-16">
-          <h1 className="text-4xl font-black text-[#25324B] mb-4 uppercase tracking-tighter">
+          <h1 className="text-4xl font-black text-[#25324B] mb-4  tracking-tighter">
             Terms <span className="text-primary ">of Service</span>
           </h1>
           <p className="text-gray-400 font-medium">

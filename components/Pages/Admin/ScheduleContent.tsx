@@ -69,7 +69,7 @@ const ScheduleContent = () => {
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
               <div
                 key={day}
-                className="bg-[#F8F9FF] p-2 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest"
+                className="bg-[#F8F9FF] p-2 text-center text-[10px] font-bold text-gray-400  tracking-widest"
               >
                 {day}
               </div>
@@ -110,7 +110,7 @@ const ScheduleContent = () => {
                 <h4 className="text-sm font-bold text-[#25324B] mb-1">
                   {event.title}
                 </h4>
-                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                <p className="text-[10px] text-gray-500 font-bold  tracking-wider">
                   {event.role}
                 </p>
               </div>
@@ -118,14 +118,14 @@ const ScheduleContent = () => {
           </div>
 
           <div className="bg-[#F8F9FF] p-6 border border-gray-100">
-            <h4 className="text-sm font-bold text-[#25324B] mb-2 uppercase tracking-tight">
+            <h4 className="text-sm font-bold text-[#25324B] mb-2  tracking-tight">
               Pro Tip
             </h4>
             <p className="text-xs text-gray-500 font-medium leading-relaxed">
               Sync your QuickHire calendar with Google Calendar or Outlook for a
               seamless scheduling experience.
             </p>
-            <Button className="mt-4 w-full bg-primary text-white rounded-none h-10 text-xs font-bold uppercase shadow-none">
+            <Button className="mt-4 w-full bg-primary text-white rounded-none h-10 text-xs font-bold  shadow-none">
               Sync Now
             </Button>
           </div>

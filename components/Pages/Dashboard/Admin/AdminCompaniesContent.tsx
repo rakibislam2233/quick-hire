@@ -55,16 +55,16 @@ const AdminCompaniesContent = () => {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-gray-50 bg-[#F8F9FF]">
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest">
                   Company
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest">
                   Website
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
                   Status
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-right">
                   Actions
                 </th>
               </tr>
@@ -105,16 +105,16 @@ const AdminCompaniesContent = () => {
                   <td className="px-6 py-5 text-center">
                     <div className="flex items-center justify-center gap-2">
                       {company.status === "Verified" ? (
-                        <span className="flex items-center gap-1 bg-green-50 text-green-600 px-2 py-0.5 rounded text-[10px] font-black uppercase">
+                        <span className="flex items-center gap-1 bg-green-50 text-green-600 px-2 py-0.5 rounded text-[10px] font-black ">
                           <CheckCircle className="w-3 h-3" />
                           {company.status}
                         </span>
                       ) : company.status === "Pending" ? (
-                        <span className="bg-orange-50 text-orange-600 px-2 py-0.5 rounded text-[10px] font-black uppercase">
+                        <span className="bg-orange-50 text-orange-600 px-2 py-0.5 rounded text-[10px] font-black ">
                           {company.status}
                         </span>
                       ) : (
-                        <span className="flex items-center gap-1 bg-red-50 text-red-600 px-2 py-0.5 rounded text-[10px] font-black uppercase">
+                        <span className="flex items-center gap-1 bg-red-50 text-red-600 px-2 py-0.5 rounded text-[10px] font-black ">
                           <XCircle className="w-3 h-3" />
                           {company.status}
                         </span>

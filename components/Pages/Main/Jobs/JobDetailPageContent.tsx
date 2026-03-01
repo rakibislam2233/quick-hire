@@ -77,7 +77,7 @@ export default function JobDetailPageContent({
                   />
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h1 className="text-3xl font-extrabold text-[#25324B] mb-2 font-epilogue uppercase tracking-tighter">
+                  <h1 className="text-3xl font-extrabold text-[#25324B] mb-2 font-epilogue  tracking-tighter">
                     {job.title}
                   </h1>
                   <p className="text-gray-600 font-medium text-lg mb-4">
@@ -105,12 +105,12 @@ export default function JobDetailPageContent({
               </div>
 
               <div className="prose max-w-none text-gray-600 space-y-6">
-                <h2 className="text-2xl font-bold text-[#25324B] font-epilogue uppercase tracking-tighter">
+                <h2 className="text-2xl font-bold text-[#25324B] font-epilogue  tracking-tighter">
                   Job Description
                 </h2>
                 <p>{job.description}</p>
 
-                <h3 className="text-xl font-bold text-[#25324B] font-epilogue uppercase tracking-tighter">
+                <h3 className="text-xl font-bold text-[#25324B] font-epilogue  tracking-tighter">
                   Responsibilities
                 </h3>
                 <ul className="list-disc pl-5 space-y-2">
@@ -130,7 +130,7 @@ export default function JobDetailPageContent({
                   </li>
                 </ul>
 
-                <h3 className="text-xl font-bold text-[#25324B] font-epilogue uppercase tracking-tighter">
+                <h3 className="text-xl font-bold text-[#25324B] font-epilogue  tracking-tighter">
                   Requirements
                 </h3>
                 <ul className="list-disc pl-5 space-y-2">
@@ -157,7 +157,7 @@ export default function JobDetailPageContent({
           <div className="lg:col-span-1 space-y-8">
             {/* Action Card */}
             <div className="bg-primary p-8 text-white shadow-none">
-              <h3 className="text-xl font-bold mb-4 font-epilogue uppercase tracking-tighter">
+              <h3 className="text-xl font-bold mb-4 font-epilogue  tracking-tighter">
                 Apply for this position
               </h3>
               <p className="mb-8 opacity-90 text-sm">
@@ -168,7 +168,7 @@ export default function JobDetailPageContent({
                 onClick={() =>
                   applyRef.current?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="w-full bg-white text-primary hover:bg-white/90 rounded-none h-12 font-bold shadow-none uppercase text-sm tracking-wider"
+                className="w-full bg-white text-primary hover:bg-white/90 rounded-none h-12 font-bold shadow-none  text-sm tracking-wider"
               >
                 Apply Now
               </Button>
@@ -176,7 +176,7 @@ export default function JobDetailPageContent({
 
             {/* Job Summary */}
             <div className="bg-white border border-gray-100 p-8 shadow-none">
-              <h3 className="text-lg font-bold text-[#25324B] mb-6 font-epilogue uppercase tracking-tighter">
+              <h3 className="text-lg font-bold text-[#25324B] mb-6 font-epilogue  tracking-tighter">
                 Job Summary
               </h3>
               <div className="space-y-4 text-sm">
@@ -215,14 +215,14 @@ export default function JobDetailPageContent({
 
             {/* Tags */}
             <div className="bg-white border border-gray-100 p-8 shadow-none">
-              <h3 className="text-lg font-bold text-[#25324B] mb-6 font-epilogue uppercase tracking-tighter">
+              <h3 className="text-lg font-bold text-[#25324B] mb-6 font-epilogue  tracking-tighter">
                 Skills & Tags
               </h3>
               <div className="flex flex-wrap gap-2">
                 {job.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 bg-gray-50 text-gray-600 text-[10px] font-bold border border-gray-200 uppercase tracking-wider"
+                    className="px-3 py-1 bg-gray-50 text-gray-600 text-[10px] font-bold border border-gray-200  tracking-wider"
                   >
                     {tag}
                   </span>

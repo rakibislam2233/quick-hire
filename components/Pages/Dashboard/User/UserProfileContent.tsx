@@ -42,7 +42,7 @@ const UserProfileContent = () => {
                 </p>
                 <Button
                   variant="outline"
-                  className="h-9 px-4 rounded-none text-xs font-bold uppercase border-gray-200"
+                  className="h-9 px-4 rounded-none text-xs font-bold  border-gray-200"
                 >
                   Change Photo
                 </Button>
@@ -51,7 +51,7 @@ const UserProfileContent = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <label className="text-[10px] font-bold text-gray-400  tracking-widest">
                   Full Name
                 </label>
                 <div className="relative">
@@ -63,7 +63,7 @@ const UserProfileContent = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <label className="text-[10px] font-bold text-gray-400  tracking-widest">
                   Email Address
                 </label>
                 <div className="relative">
@@ -75,7 +75,7 @@ const UserProfileContent = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <label className="text-[10px] font-bold text-gray-400  tracking-widest">
                   Phone Number
                 </label>
                 <div className="relative">
@@ -87,7 +87,7 @@ const UserProfileContent = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <label className="text-[10px] font-bold text-gray-400  tracking-widest">
                   Location
                 </label>
                 <div className="relative">
@@ -99,7 +99,7 @@ const UserProfileContent = () => {
                 </div>
               </div>
               <div className="col-span-full space-y-2">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <label className="text-[10px] font-bold text-gray-400  tracking-widest">
                   Short Bio
                 </label>
                 <Textarea
@@ -110,7 +110,7 @@ const UserProfileContent = () => {
             </div>
 
             <div className="mt-10 pt-8 border-t border-gray-50 text-right">
-              <Button className="bg-primary text-white rounded-none h-11 px-8 font-bold uppercase shadow-none text-xs">
+              <Button className="bg-primary text-white rounded-none h-11 px-8 font-bold  shadow-none text-xs">
                 Save Profile
               </Button>
             </div>
@@ -120,11 +120,11 @@ const UserProfileContent = () => {
         <div className="space-y-8">
           <div className="bg-[#25324B] p-8 text-white relative overflow-hidden">
             <div className="relative z-10">
-              <h3 className="text-lg font-extrabold mb-4 uppercase tracking-tighter">
+              <h3 className="text-lg font-extrabold mb-4  tracking-tighter">
                 Profile Completion
               </h3>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase text-white/60">
+                <span className="text-[10px] font-bold  text-white/60">
                   Progress
                 </span>
                 <span className="text-xl font-black">75%</span>
@@ -136,21 +136,21 @@ const UserProfileContent = () => {
                 Completing your profile increases your chances of getting hired
                 by 3x.
               </p>
-              <Button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-none h-10 text-[10px] font-bold uppercase">
+              <Button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-none h-10 text-[10px] font-bold ">
                 Finish Setup
               </Button>
             </div>
           </div>
 
           <div className="bg-white border border-gray-100 p-8 shadow-none">
-            <h3 className="text-sm font-extrabold text-[#25324B] mb-6 uppercase tracking-widest">
+            <h3 className="text-sm font-extrabold text-[#25324B] mb-6  tracking-widest">
               My Resume
             </h3>
             <div className="border-2 border-dashed border-gray-100 p-8 text-center bg-gray-50/50 group hover:border-primary/30 transition-all cursor-pointer">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-100 group-hover:scale-110 transition-transform">
                 <User className="w-5 h-5 text-gray-400 group-hover:text-primary" />
               </div>
-              <p className="text-xs font-bold text-[#25324B] uppercase mb-1">
+              <p className="text-xs font-bold text-[#25324B]  mb-1">
                 Upload New CV
               </p>
               <p className="text-[10px] text-gray-400 font-medium lowercase">

@@ -50,22 +50,22 @@ const JobListingsContent = () => {
           <table className="w-full text-left">
             <thead>
               <tr className="bg-[#F8F9FF] border-b border-gray-100">
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Roles
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Date Posted
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Due Date
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Job Type
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Applicants
                 </th>
                 <th className="px-6 py-4"></th>
@@ -86,7 +86,7 @@ const JobListingsContent = () => {
                     </p>
                   </td>
                   <td className="px-6 py-6">
-                    <span className="px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold rounded-full border border-green-100 uppercase">
+                    <span className="px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold rounded-full border border-green-100 ">
                       Live
                     </span>
                   </td>
@@ -97,7 +97,7 @@ const JobListingsContent = () => {
                     Aug 15, 2026
                   </td>
                   <td className="px-6 py-6">
-                    <span className="px-3 py-1 bg-blue-50 text-primary text-[10px] font-bold border border-blue-100 uppercase">
+                    <span className="px-3 py-1 bg-blue-50 text-primary text-[10px] font-bold border border-blue-100 ">
                       {job.type}
                     </span>
                   </td>

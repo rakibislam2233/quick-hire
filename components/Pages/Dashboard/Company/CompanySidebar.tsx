@@ -9,7 +9,6 @@ import {
   MessageSquare,
   Settings,
   Users,
-  X,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -130,7 +129,7 @@ const CompanySidebar = ({
 
         <div className="px-4 pb-8 space-y-1">
           <div className="px-4 mb-4">
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+            <span className="text-[10px] font-bold text-gray-400  tracking-widest">
               Settings
             </span>
           </div>

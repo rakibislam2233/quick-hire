@@ -73,7 +73,7 @@ const PricingPage = () => {
               } shadow-sm group hover:shadow-xl transition-all duration-300 flex flex-col`}
             >
               {plan.isPremium && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black  tracking-widest px-4 py-1.5 rounded-full">
                   Most Popular
                 </div>
               )}
@@ -108,7 +108,7 @@ const PricingPage = () => {
               </div>
 
               <Button
-                className={`w-full h-12 font-bold uppercase text-xs tracking-widest rounded-none shadow-none transition-transform group-hover:-translate-y-1 ${
+                className={`w-full h-12 font-bold  text-xs tracking-widest rounded-none shadow-none transition-transform group-hover:-translate-y-1 ${
                   plan.isPremium
                     ? "bg-primary text-white"
                     : "bg-white text-primary border border-[#E9EBFD] hover:bg-gray-50"

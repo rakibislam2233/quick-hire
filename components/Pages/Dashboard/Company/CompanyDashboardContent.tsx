@@ -153,13 +153,13 @@ const CompanyDashboardContent = () => {
           <div className="flex items-center gap-6 mt-6">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-[#FFB836]"></div>
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <span className="text-xs font-bold text-gray-500  tracking-wider">
                 Job View
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-primary"></div>
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <span className="text-xs font-bold text-gray-500  tracking-wider">
                 Job Applied
               </span>
             </div>
@@ -172,7 +172,7 @@ const CompanyDashboardContent = () => {
             <h3 className="text-lg font-bold text-[#25324B] mb-4">Job Open</h3>
             <div className="flex items-baseline gap-2">
               <span className="text-5xl font-extrabold text-[#25324B]">12</span>
-              <span className="text-gray-400 font-bold uppercase text-xs">
+              <span className="text-gray-400 font-bold  text-xs">
                 Jobs Opened
               </span>
             </div>
@@ -184,7 +184,7 @@ const CompanyDashboardContent = () => {
             </h3>
             <div className="flex items-baseline gap-2 mb-8">
               <span className="text-5xl font-extrabold text-[#25324B]">67</span>
-              <span className="text-gray-400 font-bold uppercase text-xs">
+              <span className="text-gray-400 font-bold  text-xs">
                 Applicants
               </span>
             </div>
@@ -242,7 +242,7 @@ const CompanyDashboardContent = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white border border-gray-100 p-6 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                <p className="text-xs font-bold text-gray-400  tracking-wider mb-1">
                   Job Views
                 </p>
                 <div className="flex items-center gap-2">
@@ -253,7 +253,7 @@ const CompanyDashboardContent = () => {
                     6.4% <ChevronDown className="w-2.5 h-2.5 rotate-180" />
                   </span>
                 </div>
-                <p className="text-[10px] font-bold text-gray-400 mt-1 uppercase">
+                <p className="text-[10px] font-bold text-gray-400 mt-1 ">
                   This Week
                 </p>
               </div>
@@ -264,7 +264,7 @@ const CompanyDashboardContent = () => {
 
             <div className="bg-white border border-gray-100 p-6 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                <p className="text-xs font-bold text-gray-400  tracking-wider mb-1">
                   Job Applied
                 </p>
                 <div className="flex items-center gap-2">
@@ -275,7 +275,7 @@ const CompanyDashboardContent = () => {
                     0.5% <ChevronDown className="w-2.5 h-2.5" />
                   </span>
                 </div>
-                <p className="text-[10px] font-bold text-gray-400 mt-1 uppercase">
+                <p className="text-[10px] font-bold text-gray-400 mt-1 ">
                   This Week
                 </p>
               </div>

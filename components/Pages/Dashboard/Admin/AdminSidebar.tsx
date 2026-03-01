@@ -9,7 +9,6 @@ import {
   Settings,
   ShieldCheck,
   Users,
-  X,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -79,7 +78,7 @@ const AdminSidebar = ({
 
         <nav className="flex-1 px-4 space-y-1">
           <div className="px-4 mb-4">
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+            <span className="text-[10px] font-bold text-gray-400  tracking-widest">
               System Menu
             </span>
           </div>
@@ -111,7 +110,7 @@ const AdminSidebar = ({
 
         <div className="px-4 pb-8 space-y-1">
           <div className="px-4 mb-4">
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+            <span className="text-[10px] font-bold text-gray-400  tracking-widest">
               Configuration
             </span>
           </div>

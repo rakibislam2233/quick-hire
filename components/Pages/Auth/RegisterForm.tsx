@@ -39,7 +39,7 @@ export default function RegisterForm() {
       <form action={action} className="space-y-6">
         {state?.message && (
           <div
-            className={`p-4 text-xs font-bold uppercase tracking-widest rounded-none border ${
+            className={`p-4 text-xs font-bold  tracking-widest rounded-none border ${
               state.success
                 ? "bg-green-50 text-green-600 border-green-100"
                 : "bg-red-50 text-red-600 border-red-100"
@@ -65,7 +65,7 @@ export default function RegisterForm() {
               />
               <div className="px-4 py-2 border border-gray-100 peer-checked:border-primary peer-checked:bg-blue-50/30 transition-all flex flex-col items-center gap-2 group-hover:border-primary/50">
                 <User className="w-5 h-5 text-gray-300 peer-checked:text-primary group-hover:text-primary transition-colors" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 peer-checked:text-primary group-hover:text-primary">
+                <span className="text-[10px] font-black  tracking-widest text-gray-400 peer-checked:text-primary group-hover:text-primary">
                   Candidate
                 </span>
               </div>
@@ -79,14 +79,14 @@ export default function RegisterForm() {
               />
               <div className="px-4 py-2 border border-gray-100 peer-checked:border-primary peer-checked:bg-blue-50/30 transition-all flex flex-col items-center gap-2 group-hover:border-primary/50">
                 <Building2 className="w-5 h-5 text-gray-300 peer-checked:text-primary group-hover:text-primary transition-colors" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 peer-checked:text-primary group-hover:text-primary">
+                <span className="text-[10px] font-black  tracking-widest text-gray-400 peer-checked:text-primary group-hover:text-primary">
                   Company
                 </span>
               </div>
             </label>
           </div>
           {state?.errors?.role && (
-            <p className="text-[10px] font-bold text-red-500 uppercase tracking-tight mt-1">
+            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
               {state.errors.role[0]}
             </p>
           )}
@@ -106,7 +106,7 @@ export default function RegisterForm() {
             />
           </div>
           {state?.errors?.fullName && (
-            <p className="text-[10px] font-bold text-red-500 uppercase tracking-tight mt-1">
+            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
               {state.errors.fullName[0]}
             </p>
           )}
@@ -126,7 +126,7 @@ export default function RegisterForm() {
             />
           </div>
           {state?.errors?.email && (
-            <p className="text-[10px] font-bold text-red-500 uppercase tracking-tight mt-1">
+            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
               {state.errors.email[0]}
             </p>
           )}
@@ -146,7 +146,7 @@ export default function RegisterForm() {
             />
           </div>
           {state?.errors?.password && (
-            <p className="text-[10px] font-bold text-red-500 uppercase tracking-tight mt-1">
+            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
               {state.errors.password[0]}
             </p>
           )}
@@ -155,7 +155,7 @@ export default function RegisterForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="w-full bg-primary text-white rounded-none h-12 text-xs font-bold uppercase tracking-widest shadow-none hover:bg-blue-700 transition-all active:scale-[0.98] mt-4 cursor-pointer"
+          className="w-full bg-primary text-white rounded-none h-12 text-xs font-bold  tracking-widest shadow-none hover:bg-blue-700 transition-all active:scale-[0.98] mt-4 cursor-pointer"
         >
           {isPending ? "Creating Account..." : "Start Your Journey"}
         </Button>
@@ -167,7 +167,7 @@ export default function RegisterForm() {
         </p>
         <Link
           href="/login"
-          className="text-xs font-bold text-primary uppercase tracking-widest hover:underline"
+          className="text-xs font-bold text-primary  tracking-widest hover:underline"
         >
           Log In
         </Link>

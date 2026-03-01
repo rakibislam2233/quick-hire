@@ -67,7 +67,7 @@ const ProfileContent = () => {
                   <Building2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">
+                  <p className="text-[10px] text-gray-400 font-bold ">
                     Company Name
                   </p>
                   <p className="text-sm font-bold text-[#25324B]">Nomad</p>
@@ -78,7 +78,7 @@ const ProfileContent = () => {
                   <Globe className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">
+                  <p className="text-[10px] text-gray-400 font-bold ">
                     Website
                   </p>
                   <a
@@ -95,7 +95,7 @@ const ProfileContent = () => {
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">
+                  <p className="text-[10px] text-gray-400 font-bold ">
                     Company Size
                   </p>
                   <p className="text-sm font-bold text-[#25324B]">
@@ -116,7 +116,7 @@ const ProfileContent = () => {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">
+                  <p className="text-[10px] text-gray-400 font-bold ">
                     Headquarters
                   </p>
                   <p className="text-sm font-bold text-[#25324B]">
@@ -129,7 +129,7 @@ const ProfileContent = () => {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">
+                  <p className="text-[10px] text-gray-400 font-bold ">
                     Contact Email
                   </p>
                   <p className="text-sm font-bold text-[#25324B]">
@@ -142,7 +142,7 @@ const ProfileContent = () => {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">
+                  <p className="text-[10px] text-gray-400 font-bold ">
                     Phone Number
                   </p>
                   <p className="text-sm font-bold text-[#25324B]">

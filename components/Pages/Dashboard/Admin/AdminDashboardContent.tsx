@@ -81,7 +81,7 @@ const AdminDashboardContent = () => {
             <h3 className="text-2xl font-extrabold text-[#25324B] mb-1">
               {stat.value}
             </h3>
-            <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">
+            <p className="text-xs text-gray-400 font-bold  tracking-wider">
               {stat.label}
             </p>
           </div>
@@ -91,10 +91,10 @@ const AdminDashboardContent = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="bg-white border border-gray-100 p-8 shadow-none">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-lg font-bold text-[#25324B] uppercase tracking-tighter">
+            <h2 className="text-lg font-bold text-[#25324B]  tracking-tighter">
               Recent Registrations
             </h2>
-            <button className="text-primary text-xs font-bold uppercase hover:underline">
+            <button className="text-primary text-xs font-bold  hover:underline">
               View All
             </button>
           </div>
@@ -112,7 +112,7 @@ const AdminDashboardContent = () => {
                     <h4 className="text-sm font-bold text-[#25324B]">
                       {reg.name}
                     </h4>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase">
+                    <p className="text-[10px] text-gray-400 font-bold ">
                       {reg.type}
                     </p>
                   </div>
@@ -128,7 +128,7 @@ const AdminDashboardContent = () => {
         <div className="space-y-6">
           <div className="bg-[#25324B] p-8 text-white relative overflow-hidden">
             <div className="relative z-10">
-              <h3 className="text-xl font-extrabold mb-2 uppercase tracking-tighter">
+              <h3 className="text-xl font-extrabold mb-2  tracking-tighter">
                 System Health
               </h3>
               <p className="text-white/60 text-xs font-medium mb-6">
@@ -136,7 +136,7 @@ const AdminDashboardContent = () => {
               </p>
               <div className="flex items-center gap-2 text-green-400">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-[10px] font-bold uppercase tracking-widest">
+                <span className="text-[10px] font-bold  tracking-widest">
                   Live Status
                 </span>
               </div>
@@ -146,16 +146,16 @@ const AdminDashboardContent = () => {
 
           <div className="bg-white border border-gray-100 p-8 shadow-none group cursor-pointer hover:border-primary transition-all">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-bold text-[#25324B] uppercase tracking-tighter">
+              <h3 className="text-sm font-bold text-[#25324B]  tracking-tighter">
                 Quick Actions
               </h3>
               <ArrowUpRight className="w-4 h-4 text-gray-300 group-hover:text-primary" />
             </div>
             <div className="grid grid-cols-2 gap-4 mt-6">
-              <button className="h-10 border border-gray-100 text-[10px] font-bold uppercase tracking-wider text-gray-500 hover:bg-[#F8F9FF] hover:text-primary">
+              <button className="h-10 border border-gray-100 text-[10px] font-bold  tracking-wider text-gray-500 hover:bg-[#F8F9FF] hover:text-primary">
                 Verify Companies
               </button>
-              <button className="h-10 border border-gray-100 text-[10px] font-bold uppercase tracking-wider text-gray-500 hover:bg-[#F8F9FF] hover:text-primary">
+              <button className="h-10 border border-gray-100 text-[10px] font-bold  tracking-wider text-gray-500 hover:bg-[#F8F9FF] hover:text-primary">
                 System Settings
               </button>
             </div>

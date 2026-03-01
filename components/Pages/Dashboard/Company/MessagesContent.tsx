@@ -65,7 +65,7 @@ const MessagesContent = () => {
                   <h4 className="text-sm font-bold text-[#25324B] truncate">
                     {conv.name}
                   </h4>
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">
+                  <span className="text-[10px] text-gray-400 font-bold ">
                     {conv.time}
                   </span>
                 </div>
@@ -91,7 +91,7 @@ const MessagesContent = () => {
             </div>
             <div>
               <h4 className="text-sm font-bold text-[#25324B]">Maria Garcia</h4>
-              <p className="text-[10px] text-green-500 font-bold uppercase">
+              <p className="text-[10px] text-green-500 font-bold ">
                 Online Now
               </p>
             </div>

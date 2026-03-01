@@ -95,19 +95,19 @@ const ApplicantsContent = () => {
           <table className="w-full text-left">
             <thead>
               <tr className="bg-[#F8F9FF] border-b border-gray-100">
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Candidate Name
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Applied Role
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Application Date
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Score
                 </th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-bold text-gray-400  tracking-wider">
                   Stage
                 </th>
                 <th className="px-6 py-4"></th>
@@ -120,7 +120,7 @@ const ApplicantsContent = () => {
                   className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors"
                 >
                   <td className="px-6 py-6 flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-100 flex items-center justify-center text-primary font-bold text-xs uppercase border border-gray-200 rounded">
+                    <div className="w-10 h-10 bg-gray-100 flex items-center justify-center text-primary font-bold text-xs  border border-gray-200 rounded">
                       {app.name
                         .split(" ")
                         .map((n) => n[0])
@@ -143,7 +143,7 @@ const ApplicantsContent = () => {
                   </td>
                   <td className="px-6 py-6">
                     <span
-                      className={`px-3 py-1 text-[10px] font-bold rounded-full border uppercase ${getStageColor(app.stage)}`}
+                      className={`px-3 py-1 text-[10px] font-bold rounded-full border  ${getStageColor(app.stage)}`}
                     >
                       {app.stage}
                     </span>

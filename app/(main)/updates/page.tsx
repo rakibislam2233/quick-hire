@@ -51,7 +51,7 @@ const UpdatesPage = () => {
     <div className="font-epilogue bg-white min-h-screen py-20 px-4">
       <div className="container mx-auto max-w-4xl">
         <div className="mb-20 text-center">
-          <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-4 uppercase tracking-tighter">
+          <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-4  tracking-tighter">
             Platform <span className="text-primary ">Updates</span>
           </h1>
           <p className="text-gray-500 font-medium text-lg leading-relaxed">
@@ -69,11 +69,11 @@ const UpdatesPage = () => {
               <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-4 border-primary"></div>
               <div className="mb-4">
                 <div className="flex items-center gap-4 mb-2">
-                  <span className="text-primary font-black uppercase text-xs tracking-widest">
+                  <span className="text-primary font-black  text-xs tracking-widest">
                     {update.version}
                   </span>
                   <span className="text-gray-300">•</span>
-                  <div className="flex items-center gap-1.5 text-gray-400 font-bold uppercase text-[10px] tracking-widest">
+                  <div className="flex items-center gap-1.5 text-gray-400 font-bold  text-[10px] tracking-widest">
                     <Calendar className="w-3.5 h-3.5" />
                     {update.date}
                   </div>
@@ -95,18 +95,18 @@ const UpdatesPage = () => {
               </div>
               <div className="pt-4 border-t border-gray-50 flex items-center justify-between">
                 {update.type === "Major" ? (
-                  <Badge className="rounded-none bg-primary hover:bg-primary shadow-none font-black uppercase text-[10px] tracking-widest px-3">
+                  <Badge className="rounded-none bg-primary hover:bg-primary shadow-none font-black  text-[10px] tracking-widest px-3">
                     Update {update.type}
                   </Badge>
                 ) : (
                   <Badge
                     variant="outline"
-                    className="rounded-none border-gray-200 text-gray-400 font-black uppercase text-[10px] tracking-widest px-3 shadow-none"
+                    className="rounded-none border-gray-200 text-gray-400 font-black  text-[10px] tracking-widest px-3 shadow-none"
                   >
                     Update {update.type}
                   </Badge>
                 )}
-                <button className="text-xs font-black text-primary uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
+                <button className="text-xs font-black text-primary  tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
                   View Changelog <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

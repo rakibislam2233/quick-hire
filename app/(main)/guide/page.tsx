@@ -54,7 +54,7 @@ const GuidePage = () => {
                   <h3 className="text-xl font-extrabold text-[#25324B] tracking-tight">
                     {step.title}
                   </h3>
-                  <span className="text-[10px] font-black uppercase text-primary bg-blue-50 px-2 py-1 rounded">
+                  <span className="text-[10px] font-black  text-primary bg-blue-50 px-2 py-1 rounded">
                     {step.time}
                   </span>
                 </div>
@@ -75,7 +75,7 @@ const GuidePage = () => {
               A visual walkthrough of how to navigate the dashboard and manage
               your applications efficiently.
             </p>
-            <button className="flex items-center gap-3 bg-white text-primary px-8 h-12 font-black uppercase text-xs tracking-widest hover:bg-opacity-90 transition-all">
+            <button className="flex items-center gap-3 bg-white text-primary px-8 h-12 font-black  text-xs tracking-widest hover:bg-opacity-90 transition-all">
               <PlayCircle className="w-5 h-5" />
               Watch Now
             </button>

@@ -19,10 +19,10 @@ const AdminHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
             <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
           </div>
           <div>
-            <h1 className="text-lg md:text-xl font-extrabold text-[#25324B] uppercase tracking-tighter">
+            <h1 className="text-lg md:text-xl font-extrabold text-[#25324B]  tracking-tighter">
               Admin
             </h1>
-            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider hidden sm:block">
+            <p className="text-[10px] text-gray-400 font-bold  tracking-wider hidden sm:block">
               Super Admin Access
             </p>
           </div>
@@ -36,12 +36,12 @@ const AdminHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
         </button>
 
         <div className="flex items-center gap-3 cursor-pointer group">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#25324B] flex items-center justify-center text-white font-bold text-xs uppercase tracking-tighter">
+          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#25324B] flex items-center justify-center text-white font-bold text-xs  tracking-tighter">
             AD
           </div>
           <div className="hidden md:block">
             <p className="text-sm font-bold text-[#25324B]">Admin Access</p>
-            <p className="text-[10px] text-red-500 font-bold uppercase tracking-wider">
+            <p className="text-[10px] text-red-500 font-bold  tracking-wider">
               System Root
             </p>
           </div>

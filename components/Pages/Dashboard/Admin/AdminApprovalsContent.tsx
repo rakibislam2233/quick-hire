@@ -62,8 +62,8 @@ const AdminApprovalsContent = () => {
                 <h3 className="text-lg font-extrabold text-[#25324B] mb-1">
                   {job.role}
                 </h3>
-                <div className="flex items-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-                  <span className="text-primary font-black uppercase underline decoration-primary/20 underline-offset-4 decoration-2">
+                <div className="flex items-center gap-4 text-xs font-bold text-gray-400  tracking-widest">
+                  <span className="text-primary font-black  underline decoration-primary/20 underline-offset-4 decoration-2">
                     {job.company}
                   </span>
                   <div className="flex items-center gap-1.5">
@@ -97,7 +97,7 @@ const AdminApprovalsContent = () => {
               >
                 <Check className="w-4 h-4" />
               </Button>
-              <Button className="h-10 px-6 bg-primary text-white font-bold text-xs uppercase rounded-none shadow-none ml-2">
+              <Button className="h-10 px-6 bg-primary text-white font-bold text-xs  rounded-none shadow-none ml-2">
                 Approve
               </Button>
             </div>
@@ -106,7 +106,7 @@ const AdminApprovalsContent = () => {
 
         {pendingJobs.length === 0 && (
           <div className="bg-gray-50/50 border border-dashed border-gray-100 p-20 text-center">
-            <p className="text-gray-400 text-sm font-bold uppercase tracking-widest">
+            <p className="text-gray-400 text-sm font-bold  tracking-widest">
               No pending approvals at the moment.
             </p>
           </div>

@@ -15,7 +15,7 @@ const UserHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
             <Menu className="w-6 h-6" />
           </button>
         )}
-        <h1 className="text-lg md:text-xl font-extrabold text-[#25324B] uppercase tracking-tighter">
+        <h1 className="text-lg md:text-xl font-extrabold text-[#25324B]  tracking-tighter">
           Dashboard
         </h1>
       </div>
@@ -37,7 +37,7 @@ const UserHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
           </div>
           <div className="hidden md:block">
             <p className="text-sm font-bold text-[#25324B]">Jake Richards</p>
-            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+            <p className="text-[10px] text-gray-400 font-bold  tracking-wider">
               Job Seeker
             </p>
           </div>

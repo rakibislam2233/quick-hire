@@ -50,7 +50,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
         <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
           <CheckCircle2 className="w-10 h-10" />
         </div>
-        <h2 className="text-2xl font-extrabold text-[#25324B] mb-2 uppercase tracking-tighter">
+        <h2 className="text-2xl font-extrabold text-[#25324B] mb-2  tracking-tighter">
           {state.message}
         </h2>
         <p className="text-gray-500 font-medium mb-8">
@@ -70,11 +70,11 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
         <div>
           <Link
             href="/admin/job-listing"
-            className="flex items-center gap-2 text-gray-500 font-bold text-xs uppercase tracking-widest mb-2 no-underline hover:text-primary transition-colors"
+            className="flex items-center gap-2 text-gray-500 font-bold text-xs  tracking-widest mb-2 no-underline hover:text-primary transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back to listings
           </Link>
-          <h2 className="text-2xl font-extrabold text-[#25324B] uppercase tracking-tighter">
+          <h2 className="text-2xl font-extrabold text-[#25324B]  tracking-tighter">
             {isEdit ? "Edit Job Post" : "Post a New Job"}
           </h2>
         </div>
@@ -82,7 +82,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
 
       <div className="bg-white border border-gray-100 p-8 shadow-none space-y-8">
         {state.message && !state.success && (
-          <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-sm font-bold uppercase">
+          <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-sm font-bold ">
             {state.message}
           </div>
         )}
@@ -91,14 +91,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
         <div className="space-y-6">
           <div className="flex items-center gap-2 border-b border-gray-50 pb-4">
             <Briefcase className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-bold text-[#25324B] uppercase tracking-tighter">
+            <h3 className="text-lg font-bold text-[#25324B]  tracking-tighter">
               Job Details
             </h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2 col-span-1 md:col-span-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase ">
+              <label className="text-xs font-bold text-[#25324B]  ">
                 Job Title
               </label>
               <Input
@@ -108,14 +108,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                 className={`rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.title ? "border-red-500" : ""}`}
               />
               {state.errors?.title && (
-                <p className="text-[10px] text-red-500 font-bold uppercase">
+                <p className="text-[10px] text-red-500 font-bold ">
                   {state.errors.title[0]}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase ">
+              <label className="text-xs font-bold text-[#25324B]  ">
                 Category
               </label>
               <select
@@ -130,14 +130,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                 <option value="Business">Business</option>
               </select>
               {state.errors?.category && (
-                <p className="text-[10px] text-red-500 font-bold uppercase">
+                <p className="text-[10px] text-red-500 font-bold ">
                   {state.errors.category[0]}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase ">
+              <label className="text-xs font-bold text-[#25324B]  ">
                 Job Type
               </label>
               <select
@@ -152,14 +152,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                 <option value="Contract">Contract</option>
               </select>
               {state.errors?.type && (
-                <p className="text-[10px] text-red-500 font-bold uppercase">
+                <p className="text-[10px] text-red-500 font-bold ">
                   {state.errors.type[0]}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase ">
+              <label className="text-xs font-bold text-[#25324B]  ">
                 Salary Range
               </label>
               <div className="relative">
@@ -172,14 +172,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                 />
               </div>
               {state.errors?.salary && (
-                <p className="text-[10px] text-red-500 font-bold uppercase">
+                <p className="text-[10px] text-red-500 font-bold ">
                   {state.errors.salary[0]}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#25324B] uppercase ">
+              <label className="text-xs font-bold text-[#25324B]  ">
                 Location
               </label>
               <div className="relative">
@@ -192,7 +192,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                 />
               </div>
               {state.errors?.location && (
-                <p className="text-[10px] text-red-500 font-bold uppercase">
+                <p className="text-[10px] text-red-500 font-bold ">
                   {state.errors.location[0]}
                 </p>
               )}
@@ -204,12 +204,12 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
         <div className="space-y-6">
           <div className="flex items-center gap-2 border-b border-gray-50 pb-4">
             <Layers className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-bold text-[#25324B] uppercase tracking-tighter">
+            <h3 className="text-lg font-bold text-[#25324B]  tracking-tighter">
               Job Description
             </h3>
           </div>
           <div className="space-y-2">
-            <label className="text-xs font-bold text-[#25324B] uppercase ">
+            <label className="text-xs font-bold text-[#25324B]  ">
               Description
             </label>
             <Textarea
@@ -219,7 +219,7 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
               className={`rounded-none min-h-[200px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.description ? "border-red-500" : ""}`}
             />
             {state.errors?.description && (
-              <p className="text-[10px] text-red-500 font-bold uppercase">
+              <p className="text-[10px] text-red-500 font-bold ">
                 {state.errors.description[0]}
               </p>
             )}
@@ -231,14 +231,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             type="button"
             variant="outline"
             onClick={() => router.back()}
-            className="rounded-none h-12 px-8 font-bold border-gray-200 uppercase tracking-widest text-xs"
+            className="rounded-none h-12 px-8 font-bold border-gray-200  tracking-widest text-xs"
           >
             Cancel
           </Button>
           <Button
             type="submit"
             disabled={isPending}
-            className="bg-primary text-white rounded-none h-12 px-10 font-bold shadow-none uppercase tracking-widest text-xs"
+            className="bg-primary text-white rounded-none h-12 px-10 font-bold shadow-none  tracking-widest text-xs"
           >
             {isPending ? (
               <>

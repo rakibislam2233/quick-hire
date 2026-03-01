@@ -39,7 +39,7 @@ const SettingsContent = () => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#25324B] uppercase ">
+                <label className="text-xs font-bold text-[#25324B]  ">
                   Full Name
                 </label>
                 <Input
@@ -48,7 +48,7 @@ const SettingsContent = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#25324B] uppercase ">
+                <label className="text-xs font-bold text-[#25324B]  ">
                   Email Address
                 </label>
                 <Input
@@ -57,7 +57,7 @@ const SettingsContent = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#25324B] uppercase ">
+                <label className="text-xs font-bold text-[#25324B]  ">
                   Phone Number
                 </label>
                 <Input
@@ -66,7 +66,7 @@ const SettingsContent = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#25324B] uppercase ">
+                <label className="text-xs font-bold text-[#25324B]  ">
                   Role
                 </label>
                 <Input
@@ -77,7 +77,7 @@ const SettingsContent = () => {
               </div>
             </div>
             <div className="flex justify-end pt-4">
-              <Button className="bg-primary text-white rounded-none h-11 px-8 font-bold shadow-none uppercase">
+              <Button className="bg-primary text-white rounded-none h-11 px-8 font-bold shadow-none ">
                 Save Changes
               </Button>
             </div>
@@ -98,7 +98,7 @@ const SettingsContent = () => {
               </div>
               <Button
                 variant="destructive"
-                className="rounded-none h-11 px-6 font-bold shadow-none uppercase"
+                className="rounded-none h-11 px-6 font-bold shadow-none "
               >
                 Delete
               </Button>

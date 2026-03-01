@@ -50,7 +50,7 @@ const HelpCenterPage = () => {
     <div className="font-epilogue bg-white min-h-screen py-20 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-8 uppercase tracking-tighter">
+          <h1 className="text-4xl md:text-5xl font-black text-[#25324B] mb-8  tracking-tighter">
             How can we <span className="text-primary ">help?</span>
           </h1>
           <div className="relative max-w-2xl mx-auto">
@@ -74,7 +74,7 @@ const HelpCenterPage = () => {
                 <cat.icon className="w-6 h-6" />
               </div>
               <h3 className="font-extrabold text-[#25324B] mb-2">{cat.name}</h3>
-              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">
+              <p className="text-xs text-gray-400 font-bold  tracking-widest">
                 {cat.articles} Articles
               </p>
             </div>
@@ -83,7 +83,7 @@ const HelpCenterPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-[#F8F9FF] p-10 md:p-16">
           <div>
-            <h2 className="text-2xl font-black text-[#25324B] mb-8 uppercase tracking-tighter">
+            <h2 className="text-2xl font-black text-[#25324B] mb-8  tracking-tighter">
               Popular Articles
             </h2>
             <div className="space-y-4">
@@ -110,7 +110,7 @@ const HelpCenterPage = () => {
                   Our support team is always ready to assist you. Get in touch
                   with us.
                 </p>
-                <button className="bg-primary hover:bg-blue-700 text-white px-8 h-12 font-bold uppercase text-[10px] tracking-widest transition-all">
+                <button className="bg-primary hover:bg-blue-700 text-white px-8 h-12 font-bold  text-[10px] tracking-widest transition-all">
                   Support Center
                 </button>
               </div>

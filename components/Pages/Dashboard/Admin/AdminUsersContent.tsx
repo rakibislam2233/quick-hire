@@ -54,19 +54,19 @@ const AdminUsersContent = () => {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-gray-50 bg-[#F8F9FF]">
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest">
                   User
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest">
                   Role
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
                   Status
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
                   Joined Date
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-right">
                   Actions
                 </th>
               </tr>
@@ -107,7 +107,7 @@ const AdminUsersContent = () => {
                   </td>
                   <td className="px-6 py-5 text-center">
                     <span
-                      className={`px-2.5 py-0.5 rounded text-[10px] font-black uppercase ${
+                      className={`px-2.5 py-0.5 rounded text-[10px] font-black  ${
                         user.status === "Active"
                           ? "bg-green-50 text-green-600"
                           : user.status === "Pending"

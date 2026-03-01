@@ -20,7 +20,7 @@ const AdminHeader = () => {
           </div>
         </div>
         <div>
-          <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+          <p className="text-[10px] text-gray-500 font-bold  tracking-wider">
             Company
           </p>
           <div className="flex items-center gap-2 cursor-pointer group">

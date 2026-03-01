@@ -44,7 +44,7 @@ const UserSavedJobsContent = () => {
             Review the jobs you&apos;ve saved for later.
           </p>
         </div>
-        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest bg-gray-50 px-3 py-1.5 border border-gray-100">
+        <span className="text-xs font-bold text-gray-400  tracking-widest bg-gray-50 px-3 py-1.5 border border-gray-100">
           {savedJobs.length} Jobs Total
         </span>
       </div>
@@ -78,7 +78,7 @@ const UserSavedJobsContent = () => {
               <h3 className="text-lg font-extrabold text-[#25324B] mb-1 group-hover:text-primary transition-colors cursor-pointer">
                 {job.role}
               </h3>
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+              <p className="text-xs font-bold text-gray-400  tracking-widest mb-4">
                 {job.company} • {job.type}
               </p>
               <div className="flex items-center gap-2 text-gray-400 text-xs font-medium">
@@ -91,7 +91,7 @@ const UserSavedJobsContent = () => {
               <span className="text-sm font-black text-[#25324B]">
                 {job.salary}
               </span>
-              <Button className="bg-primary/5 hover:bg-primary hover:text-white text-primary rounded-none h-8 px-4 text-[10px] font-black uppercase transition-all shadow-none border-none">
+              <Button className="bg-primary/5 hover:bg-primary hover:text-white text-primary rounded-none h-8 px-4 text-[10px] font-black  transition-all shadow-none border-none">
                 Apply Now
               </Button>
             </div>
@@ -100,7 +100,7 @@ const UserSavedJobsContent = () => {
 
         {savedJobs.length === 0 && (
           <div className="col-span-full py-20 bg-gray-50/50 border border-dashed border-gray-100 text-center">
-            <p className="text-gray-400 text-sm font-bold uppercase tracking-widest">
+            <p className="text-gray-400 text-sm font-bold  tracking-widest">
               You haven&apos;t saved any jobs yet.
             </p>
           </div>

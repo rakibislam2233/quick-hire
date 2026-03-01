@@ -71,10 +71,10 @@ const UserDashboardContent = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-bold text-[#25324B] uppercase tracking-tighter">
+            <h2 className="text-lg font-bold text-[#25324B]  tracking-tighter">
               Recent Applications
             </h2>
-            <button className="text-primary text-xs font-bold uppercase flex items-center gap-1 hover:underline">
+            <button className="text-primary text-xs font-bold  flex items-center gap-1 hover:underline">
               View All <ArrowRight className="w-3 h-3" />
             </button>
           </div>
@@ -100,7 +100,7 @@ const UserDashboardContent = () => {
                 </div>
                 <div className="flex items-center gap-6">
                   <span
-                    className={`px-3 py-1 text-[10px] font-bold rounded-full border uppercase ${
+                    className={`px-3 py-1 text-[10px] font-bold rounded-full border  ${
                       app.status === "Interviewing"
                         ? "bg-purple-50 text-purple-600 border-purple-100"
                         : app.status === "Declined"
@@ -119,7 +119,7 @@ const UserDashboardContent = () => {
 
         <div className="lg:col-span-1 space-y-8">
           <div className="bg-primary p-8 text-white">
-            <h3 className="text-xl font-extrabold mb-4 uppercase tracking-tighter">
+            <h3 className="text-xl font-extrabold mb-4  tracking-tighter">
               Find your dream job
             </h3>
             <p className="text-white/70 text-sm font-medium mb-6 leading-relaxed">
@@ -133,13 +133,13 @@ const UserDashboardContent = () => {
                 className="w-full h-11 pl-10 bg-white text-[#25324B] text-xs font-bold rounded-none border-none focus:outline-none"
               />
             </div>
-            <button className="w-full bg-[#FFB836] text-[#25324B] h-11 font-bold uppercase text-xs tracking-widest shadow-none">
+            <button className="w-full bg-[#FFB836] text-[#25324B] h-11 font-bold  text-xs tracking-widest shadow-none">
               Explore Now
             </button>
           </div>
 
           <div className="bg-white border border-gray-100 p-8 shadow-none">
-            <h3 className="text-lg font-bold text-[#25324B] mb-6 uppercase tracking-tighter">
+            <h3 className="text-lg font-bold text-[#25324B] mb-6  tracking-tighter">
               Profile Completion
             </h3>
             <div className="flex items-center gap-4 mb-4">
@@ -152,7 +152,7 @@ const UserDashboardContent = () => {
               Complete your profile to increase your chances of getting hired by
               top companies.
             </p>
-            <button className="text-primary text-xs font-bold uppercase flex items-center gap-1 hover:underline">
+            <button className="text-primary text-xs font-bold  flex items-center gap-1 hover:underline">
               Edit Profile <ArrowRight className="w-3 h-3" />
             </button>
           </div>

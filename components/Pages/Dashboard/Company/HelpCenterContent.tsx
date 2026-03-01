@@ -33,7 +33,7 @@ const HelpCenterContent = () => {
   return (
     <div className="font-epilogue">
       <div className="bg-primary p-12 -mx-8 -mt-8 mb-12 text-center text-white font-epilogue">
-        <h2 className="text-3xl font-extrabold mb-4 uppercase tracking-tighter">
+        <h2 className="text-3xl font-extrabold mb-4  tracking-tighter">
           How can we help you today?
         </h2>
         <div className="max-w-2xl mx-auto relative">
@@ -46,7 +46,7 @@ const HelpCenterContent = () => {
       </div>
 
       <div className="max-w-6xl mx-auto">
-        <h3 className="text-xl font-bold text-[#25324B] mb-8 uppercase tracking-tighter">
+        <h3 className="text-xl font-bold text-[#25324B] mb-8  tracking-tighter">
           Browse by Category
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -64,7 +64,7 @@ const HelpCenterContent = () => {
               <p className="text-sm text-gray-500 font-medium mb-6 leading-relaxed">
                 {cat.description}
               </p>
-              <div className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-wider">
+              <div className="flex items-center gap-2 text-primary text-xs font-bold  tracking-wider">
                 Explore Articles <ChevronRight className="w-4 h-4" />
               </div>
             </div>
@@ -77,7 +77,7 @@ const HelpCenterContent = () => {
               <MessageCircle className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="text-2xl font-extrabold text-[#25324B] mb-2 uppercase tracking-tighter">
+              <h3 className="text-2xl font-extrabold text-[#25324B] mb-2  tracking-tighter">
                 Still need help?
               </h3>
               <p className="text-gray-500 font-medium max-w-md">
@@ -86,7 +86,7 @@ const HelpCenterContent = () => {
               </p>
             </div>
           </div>
-          <Button className="bg-primary text-white rounded-none h-14 px-10 font-bold shadow-none uppercase tracking-widest text-sm">
+          <Button className="bg-primary text-white rounded-none h-14 px-10 font-bold shadow-none  tracking-widest text-sm">
             Contact Support
           </Button>
         </div>

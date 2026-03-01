@@ -64,11 +64,11 @@ const AdvicePage = () => {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <span
-                    className={`text-[10px] font-black uppercase px-2 py-0.5 rounded ${article.color}`}
+                    className={`text-[10px] font-black  px-2 py-0.5 rounded ${article.color}`}
                   >
                     {article.category}
                   </span>
-                  <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                  <span className="text-[10px] text-gray-400 font-bold  tracking-widest">
                     {article.date}
                   </span>
                 </div>
@@ -78,7 +78,7 @@ const AdvicePage = () => {
                 <p className="text-sm text-gray-500 font-medium leading-relaxed ">
                   {article.excerpt}
                 </p>
-                <div className="pt-2 flex items-center gap-2 text-primary font-black text-xs uppercase tracking-widest group-hover:gap-4 transition-all">
+                <div className="pt-2 flex items-center gap-2 text-primary font-black text-xs  tracking-widest group-hover:gap-4 transition-all">
                   Read More <ArrowRight className="w-4 h-4" />
                 </div>
               </div>

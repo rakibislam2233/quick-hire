@@ -30,7 +30,7 @@ const CompanyHeader = ({ onMenuClick }: { onMenuClick?: () => void }) => {
             <h1 className="text-lg md:text-xl font-extrabold text-[#25324B]">
               Nomad
             </h1>
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+            <p className="text-[10px] font-bold text-gray-400  tracking-wider">
               Technology & Software
             </p>
           </div>

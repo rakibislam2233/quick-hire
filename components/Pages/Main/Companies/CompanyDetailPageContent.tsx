@@ -83,7 +83,7 @@ export default function CompanyDetailPageContent({
                   />
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h1 className="text-3xl font-extrabold text-[#25324B] mb-2 uppercase tracking-tighter">
+                  <h1 className="text-3xl font-extrabold text-[#25324B] mb-2  tracking-tighter">
                     {company.name}
                   </h1>
                   <p className="text-gray-600 font-medium text-lg mb-4">
@@ -110,7 +110,7 @@ export default function CompanyDetailPageContent({
               </div>
 
               <div className="prose max-w-none text-gray-600 space-y-6">
-                <h2 className="text-2xl font-bold text-[#25324B] uppercase tracking-tighter">
+                <h2 className="text-2xl font-bold text-[#25324B]  tracking-tighter">
                   About {company.name}
                 </h2>
                 <p>{company.description}</p>
@@ -125,7 +125,7 @@ export default function CompanyDetailPageContent({
 
             {/* Open Positions */}
             <div>
-              <h2 className="text-2xl font-bold text-[#25324B] mb-6 uppercase tracking-tighter">
+              <h2 className="text-2xl font-bold text-[#25324B] mb-6  tracking-tighter">
                 Open Positions
               </h2>
               <div className="space-y-4">
@@ -146,7 +146,7 @@ export default function CompanyDetailPageContent({
           <div className="lg:col-span-1 space-y-8">
             {/* Company Info Card */}
             <div className="bg-white border border-gray-100 p-8 shadow-none">
-              <h3 className="text-lg font-bold text-[#25324B] mb-6 uppercase tracking-tighter">
+              <h3 className="text-lg font-bold text-[#25324B] mb-6  tracking-tighter">
                 Company Information
               </h3>
               <div className="space-y-4 text-sm">
@@ -187,7 +187,7 @@ export default function CompanyDetailPageContent({
 
             {/* Contact Card */}
             <div className="bg-primary p-8 text-white shadow-none">
-              <h3 className="text-xl font-bold mb-4 uppercase tracking-tighter">
+              <h3 className="text-xl font-bold mb-4  tracking-tighter">
                 Interested in working with us?
               </h3>
               <p className="mb-8 opacity-90 text-sm">
@@ -199,7 +199,7 @@ export default function CompanyDetailPageContent({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="w-full bg-white text-primary hover:bg-white/90 rounded-none h-12 font-bold transition-colors uppercase text-sm tracking-wider">
+                <button className="w-full bg-white text-primary hover:bg-white/90 rounded-none h-12 font-bold transition-colors  text-sm tracking-wider">
                   Contact Us
                 </button>
               </a>
