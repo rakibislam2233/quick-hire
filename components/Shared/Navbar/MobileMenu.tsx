@@ -26,7 +26,7 @@ const MobileMenu = () => {
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-60 md:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/50 z-150 md:hidden transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -34,7 +34,7 @@ const MobileMenu = () => {
       {/* Sidebar aside */}
       <aside
         className={cn(
-          "fixed top-0 left-0 z-70 w-72 bg-[#F8F9FF] flex flex-col h-screen transition-transform duration-300 ease-in-out md:hidden font-epilogue border-r border-gray-100",
+          "fixed top-0 left-0 z-200 w-72 bg-[#F8F9FF] flex flex-col h-screen transition-transform duration-300 ease-in-out md:hidden font-epilogue border-r border-gray-100",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
