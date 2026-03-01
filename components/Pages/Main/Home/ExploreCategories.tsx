@@ -1,8 +1,4 @@
-import {
-  ArrowRight,
-  BarChart,
-  Monitor,
-} from "lucide-react";
+import { ArrowRight, BarChart, Monitor } from "lucide-react";
 import Link from "next/link";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import { HiOutlineMegaphone } from "react-icons/hi2";
@@ -63,7 +59,7 @@ const categories = [
 
 const ExploreCategories = () => {
   return (
-    <section className="w-full bg-white py-16 md:py-24">
+    <section className="w-full bg-white py-10 md:py-16 ">
       <div className="w-full container mx-auto px-5 md:px-16">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">

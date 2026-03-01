@@ -99,11 +99,11 @@ const featuredJobs = [
 
 const FeaturedJobs = () => {
   return (
-    <section className="w-full bg-white py-16 md:py-24">
+    <section className="w-full bg-white py-10 md:py-16 ">
       <div className="w-full container mx-auto px-5 md:px-16">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#25324B]">
+          <h2 className="text-4xl md:text-5xl font-semibold text-[#25324B]">
             Featured <span className="text-[#26A4FF]">jobs</span>
           </h2>
           <Link
@@ -116,11 +116,11 @@ const FeaturedJobs = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {featuredJobs.map((job) => (
             <div
               key={job.id}
-              className="border border-gray-100 p-6 flex flex-col bg-white hover:border-primary/30 transition-colors duration-300"
+              className="border border-[#D6DDEB] p-6 flex flex-col bg-white hover:border-primary/30 transition-colors duration-300"
             >
               {/* Card Header */}
               <div className="flex justify-between items-start mb-6">
@@ -138,7 +138,7 @@ const FeaturedJobs = () => {
               </div>
 
               {/* Card Body */}
-              <h3 className="text-xl font-bold text-[#25324B] mb-2">
+              <h3 className="text-lg md:text-[18px] font-semibold text-[#25324B] mb-2">
                 {job.title}
               </h3>
               <p className="text-slate-500 font-epilogue text-sm mb-6 flex items-center gap-1">
