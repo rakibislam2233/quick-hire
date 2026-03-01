@@ -54,13 +54,13 @@ export default function JobCard({ job }: JobCardProps) {
         <Link href={`/jobs/${job.id}`} className="w-full md:w-auto">
           <Button
             variant="outline"
-            className="w-full md:w-auto border-primary text-primary rounded-none px-8"
+            className="w-full md:w-auto border-primary text-primary rounded-none px-8 cursor-pointer"
           >
             View Details
           </Button>
         </Link>
         <Link href={`/jobs/${job.id}?apply=true`} className="w-full md:w-auto">
-          <Button className="w-full md:w-auto bg-primary text-white rounded-none px-8">
+          <Button className="w-full md:w-auto bg-primary text-white rounded-none px-8 cursor-pointer">
             Apply Now
           </Button>
         </Link>

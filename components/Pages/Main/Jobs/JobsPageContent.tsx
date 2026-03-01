@@ -1,6 +1,6 @@
 "use client";
 
-import JobCard from "@/components/Pages/Main/Jobs/JobCard";
+import JobCard from "@/components/Card/JobCard";
 import JobFilters from "@/components/Pages/Main/Jobs/JobFilters";
 import { Job } from "@/interface/job.interface";
 import { getAllJobs } from "@/services/job.service";
@@ -37,8 +37,8 @@ export default function JobsPageContent() {
   return (
     <div className="bg-gray-50 min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-6 md:px-16">
-        <div className="mb-12">
-          <h1 className="text-4xl font-extrabold text-[#25324B] mb-2 font-epilogue uppercase tracking-tighter">
+        <div className="mb-12 font-epilogue">
+          <h1 className="text-4xl  text-[#25324B] mb-2 font-bold tracking-tighter">
             Find Jobs
           </h1>
           <p className="text-gray-500 text-lg">

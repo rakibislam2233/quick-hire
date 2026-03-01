@@ -1,5 +1,4 @@
 "use client";
-
 import { Input } from "@/components/ui/input";
 import { Filter, MapPin, Search } from "lucide-react";
 

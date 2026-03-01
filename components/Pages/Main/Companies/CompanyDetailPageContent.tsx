@@ -1,6 +1,6 @@
 "use client";
 
-import JobCard from "@/components/Pages/Main/Jobs/JobCard";
+import JobCard from "@/components/Card/JobCard";
 import { Company, Job } from "@/interface/job.interface";
 import { getAllJobs, getCompanyById } from "@/services/job.service";
 import {
