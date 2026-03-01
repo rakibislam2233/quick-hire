@@ -23,7 +23,7 @@ export default function LoginForm() {
             priority
           />
         </div>
-        <h1 className="text-3xl font-black text-[#25324B] mb-2 uppercase tracking-tighter">
+        <h1 className="text-3xl font-black text-[#25324B] mb-2  tracking-tighter">
           Welcome <span className="text-primary ">Back</span>
         </h1>
         <p className="text-sm text-gray-400 font-medium text-center">
@@ -34,7 +34,7 @@ export default function LoginForm() {
       <form action={action} className="space-y-6">
         {state?.message && (
           <div
-            className={`p-4 text-xs font-bold uppercase tracking-widest rounded-none border ${
+            className={`p-4 text-xs font-bold  tracking-widest rounded-none border ${
               state.success
                 ? "bg-green-50 text-green-600 border-green-100"
                 : "bg-red-50 text-red-600 border-red-100"
@@ -45,7 +45,7 @@ export default function LoginForm() {
         )}
 
         <div className="space-y-2">
-          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
+          <label className="text-sm font-medium text-gray-700 block text-left">
             Email Address
           </label>
           <div className="relative group">
@@ -54,11 +54,11 @@ export default function LoginForm() {
               name="email"
               type="email"
               placeholder="Enter your email"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm font-semibold"
+              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
             />
           </div>
           {state?.errors?.email && (
-            <p className="text-[10px] font-bold text-red-500 uppercase tracking-tight mt-1">
+            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
               {state.errors.email[0]}
             </p>
           )}
@@ -66,12 +66,12 @@ export default function LoginForm() {
 
         <div className="space-y-2">
           <div className="flex justify-between items-center mb-1">
-            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+            <label className="text-sm font-medium text-gray-700 block text-left">
               Password
             </label>
             <Link
               href="/forgot-password"
-              className="text-[10px] font-bold text-primary uppercase tracking-widest hover:underline"
+              className="text-[10px] font-bold text-primary  tracking-widest hover:underline"
             >
               Forgot?
             </Link>
@@ -82,11 +82,11 @@ export default function LoginForm() {
               name="password"
               type="password"
               placeholder="Enter your password"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm font-semibold"
+              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
             />
           </div>
           {state?.errors?.password && (
-            <p className="text-[10px] font-bold text-red-500 uppercase tracking-tight mt-1">
+            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
               {state.errors.password[0]}
             </p>
           )}
@@ -95,7 +95,7 @@ export default function LoginForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="w-full bg-primary text-white rounded-none h-12 text-xs font-bold uppercase tracking-widest shadow-none hover:bg-blue-700 transition-all active:scale-[0.98] mt-4"
+          className="w-full bg-primary text-white rounded-none h-12 text-xs font-bold  tracking-widest shadow-none hover:bg-blue-700 transition-all active:scale-[0.98] mt-4 cursor-pointer"
         >
           {isPending ? "Authenticating..." : "Login to Account"}
         </Button>
@@ -107,7 +107,7 @@ export default function LoginForm() {
         </p>
         <Link
           href="/register"
-          className="text-xs font-bold text-primary uppercase tracking-widest hover:underline"
+          className="text-xs font-bold text-primary  tracking-widest hover:underline"
         >
           Create Account
         </Link>

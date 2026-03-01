@@ -11,7 +11,7 @@ export default function VerifyOtpForm() {
   const [state, action, isPending] = useActionState(verifyOtpAction, {});
 
   return (
-    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none">
+    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center mb-6">
         <div className="relative h-10 w-10 mb-4">
           <Image
@@ -40,17 +40,16 @@ export default function VerifyOtpForm() {
         )}
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 block text-center">
+          <label className="text-sm font-medium text-gray-700 block text-left">
             One-Time Password
           </label>
-          <div className="relative">
-            <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <div className="relative flex justify-center items-center">
             <Input
               name="otp"
               type="text"
               placeholder="e.g. 1234"
               maxLength={4}
-              className="w-full text-center tracking-widest text-xl bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary pl-10"
+              className="w-full h-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm text-center tracking-wider"
             />
           </div>
           {state?.errors?.otp && (

@@ -12,7 +12,7 @@ export default function ForgotPasswordForm() {
   const [state, action, isPending] = useActionState(forgotPasswordAction, {});
 
   return (
-    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none">
+    <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center mb-6">
         <div className="relative h-10 w-10 mb-4">
           <Image
@@ -51,7 +51,7 @@ export default function ForgotPasswordForm() {
               name="email"
               type="email"
               placeholder="Enter your email"
-              className="w-full pl-10 bg-gray-50 border-gray-200 outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary"
+              className="w-full h-12 pl-12 bg-gray-50 font-epilogue border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
             />
           </div>
           {state?.errors?.email && (

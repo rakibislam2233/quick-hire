@@ -46,7 +46,7 @@ export default function RegisterForm() {
 
         {/* Role Selection */}
         <div className="space-y-3">
-          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
+          <label className="text-sm font-medium text-gray-700 block text-left">
             Who are you?
           </label>
           <div className="grid grid-cols-2 gap-4">
@@ -88,7 +88,7 @@ export default function RegisterForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
+          <label className="text-sm font-medium text-gray-700 block text-left">
             Full Name
           </label>
           <div className="relative group">
@@ -97,7 +97,7 @@ export default function RegisterForm() {
               name="fullName"
               type="text"
               placeholder="Enter your name"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm font-semibold"
+              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
             />
           </div>
           {state?.errors?.fullName && (
@@ -108,7 +108,7 @@ export default function RegisterForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
+          <label className="text-sm font-medium text-gray-700 block text-left">
             Email Address
           </label>
           <div className="relative group">
@@ -117,7 +117,7 @@ export default function RegisterForm() {
               name="email"
               type="email"
               placeholder="Enter your email"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm font-semibold"
+              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
             />
           </div>
           {state?.errors?.email && (
@@ -128,7 +128,7 @@ export default function RegisterForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
+          <label className="text-sm font-medium text-gray-700 block text-left">
             Password
           </label>
           <div className="relative group">
@@ -137,7 +137,7 @@ export default function RegisterForm() {
               name="password"
               type="password"
               placeholder="Create a strong password"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm font-semibold"
+              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
             />
           </div>
           {state?.errors?.password && (
