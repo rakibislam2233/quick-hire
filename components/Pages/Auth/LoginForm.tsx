@@ -2,13 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/form-input";
-import { toast } from "@/lib/toast";
 import { AuthActionState, loginUser } from "@/services/auth.service";
 import { Lock, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
 const initialState: AuthActionState = {
   success: false,

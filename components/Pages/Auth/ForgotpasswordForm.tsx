@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/lib/toast";
+import { toast } from "sonner";
 import { AuthActionState, forgotPassword } from "@/services/auth.service";
 import { Mail } from "lucide-react";
 import Image from "next/image";

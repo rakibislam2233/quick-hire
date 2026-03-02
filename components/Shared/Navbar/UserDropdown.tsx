@@ -9,7 +9,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IUser, UserRole } from "@/interface/user.interface";
-import { toast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 import { logoutUser } from "@/services/auth.service";
 import { motion } from "framer-motion";
@@ -23,6 +22,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 
 interface UserDropdownProps {
   user: IUser | null;
