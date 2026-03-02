@@ -1,42 +1,91 @@
 "use client";
 
-import { ArrowRight, Bookmark, Briefcase, Clock, Search } from "lucide-react";
+import { getUserDashboardStats } from "@/services/dashboard.service";
+import { getMyProfile } from "@/services/user.service";
+import { ArrowRight, Bookmark, Briefcase, Clock, Loader2, Search } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface UserDashboardStats {
+  appliedJobs: number;
+  savedJobs: number;
+  interviews: number;
+  recentApplications: Array<{
+    id: string;
+    company: string;
+    role: string;
+    status: string;
+    date: string;
+  }>;
+  profileCompletion: number;
+  upcomingInterviews: number;
+}
 
 const UserDashboardContent = () => {
-  const stats = [
+  const [stats, setStats] = useState<UserDashboardStats | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [dashboardData, userData] = await Promise.all([
+          getUserDashboardStats(),
+          getMyProfile(),
+        ]);
+        setStats(dashboardData);
+        setUser(userData);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <p className="text-red-500 font-medium">Error loading dashboard</p>
+          <p className="text-gray-500 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  const statsData = [
     {
       label: "Applied Jobs",
-      value: 12,
+      value: stats?.appliedJobs || 0,
       icon: Briefcase,
       color: "bg-primary",
     },
-    { label: "Saved Jobs", value: 8, icon: Bookmark, color: "bg-[#FFB836]" },
-    { label: "Interviews", value: 3, icon: Clock, color: "bg-[#56CDAD]" },
+    { 
+      label: "Saved Jobs", 
+      value: stats?.savedJobs || 0, 
+      icon: Bookmark, 
+      color: "bg-[#FFB836]" 
+    },
+    { 
+      label: "Interviews", 
+      value: stats?.interviews || 0, 
+      icon: Clock, 
+      color: "bg-[#56CDAD]" 
+    },
   ];
 
-  const recentApplications = [
-    {
-      id: 1,
-      company: "Nomad",
-      role: "Senior UI/UX Designer",
-      status: "Interviewing",
-      date: "2 days ago",
-    },
-    {
-      id: 2,
-      company: "Dropbox",
-      role: "Product Designer",
-      status: "Applied",
-      date: "4 days ago",
-    },
-    {
-      id: 3,
-      company: "Terraform",
-      role: "Visual Designer",
-      status: "Declined",
-      date: "1 week ago",
-    },
-  ];
+  const recentApplications = stats?.recentApplications || [];
 
   return (
     <div className="font-epilogue">
@@ -50,7 +99,7 @@ const UserDashboardContent = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        {stats.map((stat) => (
+        {statsData.map((stat) => (
           <div
             key={stat.label}
             className={`${stat.color} p-6 text-white flex items-center justify-between group cursor-pointer transition-all`}

@@ -1,18 +1,72 @@
 "use client";
 
+import { getAdminDashboardStats } from "@/services/dashboard.service";
 import {
   Activity,
   AlertCircle,
   ArrowUpRight,
   Building2,
+  Loader2,
   Users,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface DashboardStats {
+  totalUsers: number;
+  totalCompanies: number;
+  activeJobs: number;
+  pendingApprovals: number;
+  recentRegistrations: Array<{
+    id: string;
+    name: string;
+    type: string;
+    date: string;
+  }>;
+}
 
 const AdminDashboardContent = () => {
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const data = await getAdminDashboardStats();
+        setStats(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <p className="text-red-500 font-medium">Error loading dashboard</p>
+          <p className="text-gray-500 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   const systemStats = [
     {
       label: "Total Users",
-      value: "12,842",
+      value: stats?.totalUsers?.toLocaleString() || "0",
       change: "+12%",
       icon: Users,
       color: "text-blue-600",
@@ -20,7 +74,7 @@ const AdminDashboardContent = () => {
     },
     {
       label: "Total Companies",
-      value: "842",
+      value: stats?.totalCompanies?.toLocaleString() || "0",
       change: "+5%",
       icon: Building2,
       color: "text-purple-600",
@@ -28,7 +82,7 @@ const AdminDashboardContent = () => {
     },
     {
       label: "Active Jobs",
-      value: "3,254",
+      value: stats?.activeJobs?.toLocaleString() || "0",
       change: "+18%",
       icon: Activity,
       color: "text-green-600",
@@ -36,7 +90,7 @@ const AdminDashboardContent = () => {
     },
     {
       label: "Pending Approvals",
-      value: "12",
+      value: stats?.pendingApprovals?.toLocaleString() || "0",
       change: "-2",
       icon: AlertCircle,
       color: "text-red-600",
@@ -44,12 +98,7 @@ const AdminDashboardContent = () => {
     },
   ];
 
-  const recentRegistrations = [
-    { id: 1, name: "Maria Garcia", type: "Candidate", date: "2 mins ago" },
-    { id: 2, name: "Nomad Tech", type: "Company", date: "15 mins ago" },
-    { id: 3, name: "James Wilson", type: "Candidate", date: "1 hour ago" },
-    { id: 4, name: "Dropbox", type: "Company", date: "3 hours ago" },
-  ];
+  const recentRegistrations = stats?.recentRegistrations || [];
 
   return (
     <div className="font-epilogue">
