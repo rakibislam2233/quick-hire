@@ -1,66 +1,20 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getAllJobs } from "@/services/job.service";
-import { Filter, Loader2, MoreVertical, Plus, Search } from "lucide-react";
+import { Job, JobStatus } from "@/interface/job.interface";
+import { Filter, MoreVertical, Plus, Search } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-interface Job {
-  id: string;
-  title: string;
-  type: string;
-  location: string;
-  status: string;
-  applicantsCount: number;
-  createdAt: string;
-}
-
-const JobListingsContent = () => {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const JobListingsContent = ({ jobListings }: { jobListings: Job[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const data = await getAllJobs();
-        setJobs(data.jobs || []);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchJobs();
-  }, []);
-
-  const filteredJobs = jobs.filter(job =>
-    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.location.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredJobs = jobListings?.filter(
+    (job) =>
+      job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      job.location.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <p className="text-red-500 font-medium">Error loading jobs</p>
-          <p className="text-gray-500 text-sm">{error}</p>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="font-epilogue">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
@@ -155,16 +109,16 @@ const JobListingsContent = () => {
                   </td>
                   <td className="px-6 py-5 text-center">
                     <span className="text-sm font-bold text-[#25324B]">
-                      {job.applicantsCount}
+                      {job._count?.applications || 0}
                     </span>
                   </td>
                   <td className="px-6 py-5 text-center">
                     <span
                       className={`px-2.5 py-0.5 rounded text-[10px] font-black ${
-                        job.status === "ACTIVE"
+                        job.status === JobStatus.PENDING
                           ? "bg-green-50 text-green-600"
-                          : job.status === "DRAFT"
-                            ? "bg-gray-50 text-gray-600"
+                          : job.status === JobStatus.APPROVED
+                            ? "bg-blue-50 text-blue-600"
                             : "bg-red-50 text-red-600"
                       }`}
                     >

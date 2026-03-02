@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -32,15 +31,15 @@ const HelpCenterContent = () => {
 
   return (
     <div className="font-epilogue">
-      <div className="bg-primary p-12 -mx-8 -mt-8 mb-12 text-center text-white font-epilogue">
-        <h2 className="text-3xl font-extrabold mb-4  tracking-tighter">
+      <div className=" p-12 -mx-8 -mt-8 mb-12 text-center text-white font-epilogue">
+        <h2 className="text-3xl font-extrabold mb-4 text-gray-800 tracking-tighter">
           How can we help you today?
         </h2>
         <div className="max-w-2xl mx-auto relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input
             placeholder="Search for articles, guides, and more..."
-            className="w-full h-14 pl-12 rounded-none border-none text-[#25324B] font-medium shadow-lg focus-visible:ring-2 focus-visible:ring-primary/20"
+            className="w-full h-14 pl-12 border rounded-none  text-[#25324B] font-medium focus-visible:ring-2 focus-visible:ring-primary/20"
           />
         </div>
       </div>

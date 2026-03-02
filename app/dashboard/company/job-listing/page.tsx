@@ -1,5 +1,9 @@
 import JobListingsContent from "@/components/Pages/Dashboard/Company/JobListingsContent";
+import { getAllJobsAction } from "../_actions";
 
-export default function CompanyJobListingsPage() {
-  return <JobListingsContent />;
-}
+const CompanyJobListingsPage = async () => {
+  const jobListings = await getAllJobsAction();
+  return <JobListingsContent jobListings={jobListings?.data} />;
+};
+
+export default CompanyJobListingsPage;
