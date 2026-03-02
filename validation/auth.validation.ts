@@ -110,7 +110,7 @@ export const verifyOtpValidationSchema = z.object({
   code: z
     .string()
     .min(1, "OTP code is required")
-    .min(4, "Invalid OTP code length"),
+    .min(6, "Invalid OTP code length"),
 });
 
 export const resetPasswordValidationSchema = z

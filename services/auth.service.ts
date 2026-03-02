@@ -9,7 +9,7 @@ import {
   loginValidationSchema,
   registerFormValidationSchema,
   resetPasswordValidationSchema,
-  verifyOtpValidationSchema
+  verifyOtpValidationSchema,
 } from "@/validation/auth.validation";
 import { cookies } from "next/headers";
 
@@ -128,8 +128,10 @@ export async function register(
 
   // include company details if present (the form may add these when role=COMPANY)
   if (values.companyName) registrationData.companyName = values.companyName;
-  if (values.companyLocation) registrationData.companyLocation = values.companyLocation;
-  if (values.companyIndustry) registrationData.companyIndustry = values.companyIndustry;
+  if (values.companyLocation)
+    registrationData.companyLocation = values.companyLocation;
+  if (values.companyIndustry)
+    registrationData.companyIndustry = values.companyIndustry;
 
   const parsed = registerFormValidationSchema.safeParse(registrationData);
 
@@ -242,7 +244,6 @@ export async function verifyOtp(
     sessionId: sessionId,
     code: values.otp || values.code,
   };
-
   const parsed = verifyOtpValidationSchema.safeParse(values);
 
   if (!parsed.success) {
