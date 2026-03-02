@@ -1,23 +1,14 @@
 "use client";
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Link from "@tiptap/extension-link";
-import BulletList from "@tiptap/extension-bullet-list";
-import OrderedList from "@tiptap/extension-ordered-list";
-import ListItem from "@tiptap/extension-list-item";
-import Bold from "@tiptap/extension-bold";
-import Italic from "@tiptap/extension-italic";
-import Underline from "@tiptap/extension-underline";
 import {
   Bold as BoldIcon,
   Italic as ItalicIcon,
-  Underline as UnderlineIcon,
+  Link as LinkIcon,
   List,
   ListOrdered,
-  Link as LinkIcon,
+  Underline as UnderlineIcon,
 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "./button";
-import { useState } from "react";
 
 interface RichTextEditorProps {
   value: string;
@@ -27,73 +18,57 @@ interface RichTextEditorProps {
 }
 
 const RichTextEditor = ({ value, onChange, placeholder = "Start typing...", className = "" }: RichTextEditorProps) => {
+  const editorRef = useRef<HTMLDivElement>(null);
   const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState("");
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        heading: false,
-      }),
-      Bold,
-      Italic,
-      Underline,
-      BulletList.configure({
-        HTMLAttributes: {
-          class: "list-disc list-inside",
-        },
-      }),
-      OrderedList.configure({
-        HTMLAttributes: {
-          class: "list-decimal list-inside",
-        },
-      }),
-      ListItem,
-      Link.configure({
-        openOnClick: false,
-        HTMLAttributes: {
-          class: "text-blue-600 underline hover:text-blue-800",
-        },
-      }),
-    ],
-    content: value,
-    onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
-    },
-    editorProps: {
-      attributes: {
-        class: `prose prose-sm max-w-none focus:outline-none min-h-[120px] p-3 border border-gray-200 rounded-none ${className}`,
-        placeholder,
-      },
-    },
-  });
+  useEffect(() => {
+    if (editorRef.current && value !== editorRef.current.innerHTML) {
+      editorRef.current.innerHTML = value;
+    }
+  }, [value]);
+
+  const execCommand = (command: string, value?: string) => {
+    document.execCommand(command, false, value);
+    handleChange();
+  };
+
+  const handleChange = () => {
+    if (editorRef.current) {
+      onChange(editorRef.current.innerHTML);
+    }
+  };
 
   const addLink = () => {
     if (linkUrl) {
-      editor?.chain().focus().setLink({ href: linkUrl }).run();
+      const selection = window.getSelection();
+      if (selection && selection.toString()) {
+        execCommand("createLink", linkUrl);
+      }
       setLinkUrl("");
       setIsLinkDialogOpen(false);
     }
   };
 
   const removeLink = () => {
-    editor?.chain().focus().unsetLink().run();
+    execCommand("unlink");
   };
 
-  if (!editor) {
-    return <div className="min-h-[120px] border border-gray-200 rounded-none animate-pulse" />;
-  }
+  const insertList = (ordered: boolean = false) => {
+    const command = ordered ? "insertOrderedList" : "insertUnorderedList";
+    execCommand(command);
+  };
 
   return (
-    <div className="border border-gray-200 rounded-none">
+    <div className={`border border-gray-200 rounded-none ${className}`}>
       {/* Toolbar */}
       <div className="border-b border-gray-200 p-2 flex items-center gap-1 bg-gray-50">
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          className={`p-2 ${editor.isActive("bold") ? "bg-gray-200" : ""}`}
+          onClick={() => execCommand("bold")}
+          className="p-2"
         >
           <BoldIcon className="w-4 h-4" />
         </Button>
@@ -101,8 +76,8 @@ const RichTextEditor = ({ value, onChange, placeholder = "Start typing...", clas
           type="button"
           variant="ghost"
           size="sm"
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={`p-2 ${editor.isActive("italic") ? "bg-gray-200" : ""}`}
+          onClick={() => execCommand("italic")}
+          className="p-2"
         >
           <ItalicIcon className="w-4 h-4" />
         </Button>
@@ -110,8 +85,8 @@ const RichTextEditor = ({ value, onChange, placeholder = "Start typing...", clas
           type="button"
           variant="ghost"
           size="sm"
-          onClick={() => editor.chain().focus().toggleUnderline().run()}
-          className={`p-2 ${editor.isActive("underline") ? "bg-gray-200" : ""}`}
+          onClick={() => execCommand("underline")}
+          className="p-2"
         >
           <UnderlineIcon className="w-4 h-4" />
         </Button>
@@ -120,8 +95,8 @@ const RichTextEditor = ({ value, onChange, placeholder = "Start typing...", clas
           type="button"
           variant="ghost"
           size="sm"
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={`p-2 ${editor.isActive("bulletList") ? "bg-gray-200" : ""}`}
+          onClick={() => insertList(false)}
+          className="p-2"
         >
           <List className="w-4 h-4" />
         </Button>
@@ -129,33 +104,30 @@ const RichTextEditor = ({ value, onChange, placeholder = "Start typing...", clas
           type="button"
           variant="ghost"
           size="sm"
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={`p-2 ${editor.isActive("orderedList") ? "bg-gray-200" : ""}`}
+          onClick={() => insertList(true)}
+          className="p-2"
         >
           <ListOrdered className="w-4 h-4" />
         </Button>
         <div className="w-px h-6 bg-gray-300 mx-1" />
-        {editor.isActive("link") ? (
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={removeLink}
-            className="p-2 bg-red-100 text-red-600"
-          >
-            Remove Link
-          </Button>
-        ) : (
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsLinkDialogOpen(true)}
-            className="p-2"
-          >
-            <LinkIcon className="w-4 h-4" />
-          </Button>
-        )}
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() => setIsLinkDialogOpen(true)}
+          className="p-2"
+        >
+          <LinkIcon className="w-4 h-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={removeLink}
+          className="p-2"
+        >
+          Remove Link
+        </Button>
       </div>
 
       {/* Link Dialog */}
@@ -194,7 +166,19 @@ const RichTextEditor = ({ value, onChange, placeholder = "Start typing...", clas
       )}
 
       {/* Editor */}
-      <EditorContent editor={editor} />
+      <div
+        ref={editorRef}
+        contentEditable
+        onInput={handleChange}
+        className="min-h-[120px] p-3 focus:outline-none prose prose-sm max-w-none"
+        style={{
+          minHeight: "120px",
+          padding: "12px",
+          outline: "none",
+        }}
+        suppressContentEditableWarning={true}
+        dangerouslySetInnerHTML={{ __html: placeholder && !value ? `<p style="color: #9ca3af;">${placeholder}</p>` : "" }}
+      />
     </div>
   );
 };

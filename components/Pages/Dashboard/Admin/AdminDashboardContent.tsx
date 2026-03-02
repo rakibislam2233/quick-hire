@@ -1,9 +1,14 @@
 "use client";
 
-import { Briefcase, Building2, FileText, TrendingUp, Users } from "lucide-react";
+import { Briefcase, Building2, FileText, Users } from "lucide-react";
 
 interface AdminDashboardContentProps {
-  stats?: any;
+  stats?: {
+    totalUsers: number;
+    totalJobs: number;
+    totalCompanies: number;
+    totalApplications: number;
+  };
   error?: string;
 }
 
@@ -19,48 +24,30 @@ const AdminDashboardContent = ({ stats, error }: AdminDashboardContentProps) => 
     );
   }
 
-  if (!stats) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <p className="text-gray-500 font-medium">No data available</p>
-        </div>
-      </div>
-    );
-  }
-
   const systemStats = [
     {
       label: "Total Users",
-      value: stats.totalUsers || 0,
-      change: stats.userGrowth || "+0%",
+      value: stats?.totalUsers || 0,
       icon: Users,
-      color: "text-blue-600",
-      bg: "bg-blue-50",
+      color: "bg-primary",
     },
     {
       label: "Total Jobs",
-      value: stats.totalJobs || 0,
-      change: stats.jobGrowth || "+0%",
+      value: stats?.totalJobs || 0,
       icon: Briefcase,
-      color: "text-green-600",
-      bg: "bg-green-50",
+      color: "bg-[#56CDAD]",
     },
     {
       label: "Total Companies",
-      value: stats.totalCompanies || 0,
-      change: stats.companyGrowth || "+0%",
+      value: stats?.totalCompanies || 0,
       icon: Building2,
-      color: "text-purple-600",
-      bg: "bg-purple-50",
+      color: "bg-[#FFB836]",
     },
     {
       label: "Total Applications",
-      value: stats.totalApplications || 0,
-      change: stats.applicationGrowth || "+0%",
+      value: stats?.totalApplications || 0,
       icon: FileText,
-      color: "text-orange-600",
-      bg: "bg-orange-50",
+      color: "bg-[#4F46E5]",
     },
   ];
 
@@ -75,40 +62,37 @@ const AdminDashboardContent = ({ stats, error }: AdminDashboardContentProps) => 
         </p>
       </div>
 
-      {/* Top Stats Grid */}
+      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {systemStats.map((stat, index) => (
+        {systemStats?.map((stat, index) => (
           <div
             key={index}
-            className={`${stat.bg} p-6 rounded-lg border border-gray-100 `}
+            className={`${stat.color} p-6 text-white rounded-lg flex items-center justify-between group cursor-pointer transition-all`}
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
-                  {stat.value.toLocaleString()}
-                </p>
-                <div className="flex items-center gap-1 mt-2">
-                  <TrendingUp className={`w-4 h-4 ${stat.color}`} />
-                  <span className={`text-sm font-medium ${stat.color}`}>
-                    {stat.change}
-                  </span>
-                </div>
-              </div>
-              <div className={`p-3 rounded-lg ${stat.bg}`}>
-                <stat.icon className={`w-6 h-6 ${stat.color}`} />
-              </div>
+            <div>
+              <span className="text-5xl font-extrabold block mb-2">
+                {stat.value}
+              </span>
+              <p className="text-white/90 font-semibold leading-tight">
+                {stat.label}
+              </p>
+            </div>
+            <div className="transform group-hover:translate-x-1 transition-transform">
+              <stat.icon className="w-6 h-6" />
             </div>
           </div>
         ))}
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white border border-gray-100 rounded-lg p-6 ">
-        <h3 className="text-lg font-bold text-[#25324B] mb-4">Recent Activity</h3>
-        <div className="space-y-4">
+      <div className="bg-white border border-gray-100 p-6 rounded-lg ">
+        <h3 className="text-lg font-bold text-[#25324B] mb-4">
+          Recent Activity
+        </h3>
+        <h1 className="text-gray-500">No recent activity available</h1>
+        {/* <div className="space-y-4">
           {stats.recentActivity?.slice(0, 5).map((activity: any, index: number) => (
-            <div key={index} className="flex items-center justify-between p-3 border-b border-gray-50 last:border-0">
+            <div key={index} className="flex items-center justify-between p-4 border-b border-gray-50 last:border-0">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                   <Users className="w-4 h-4 text-gray-600" />
@@ -122,8 +106,8 @@ const AdminDashboardContent = ({ stats, error }: AdminDashboardContentProps) => 
                 {new Date(activity.createdAt).toLocaleDateString()}
               </span>
             </div>
-          ))}
-        </div>
+          )) || <p className="text-gray-500 text-sm">No recent activity</p>}
+        </div> */}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import { createJobAction, updateJobAction } from "@/app/dashboard/company/_actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import RichTextEditor from "@/components/ui/rich-text-editor";
 import { JobType } from "@/interface/job.interface";
 import {
   ArrowLeft,
@@ -194,11 +194,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             <label className="text-xs font-bold text-[#25324B] ">
               Description
             </label>
-            <Textarea
-              name="description"
-              defaultValue={initialData?.description}
+            <input type="hidden" name="description" id="description-hidden" />
+            <RichTextEditor
+              value={initialData?.description || ""}
+              onChange={(value) => {
+                const hiddenInput = document.getElementById('description-hidden') as HTMLInputElement;
+                if (hiddenInput) hiddenInput.value = value;
+              }}
               placeholder="We are looking for a talented senior software engineer to join our team..."
-              className="rounded-none min-h-[120px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
             />
           </div>
 
@@ -206,11 +209,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             <label className="text-xs font-bold text-[#25324B] ">
               Requirements
             </label>
-            <Textarea
-              name="requirements"
-              defaultValue={initialData?.requirements}
+            <input type="hidden" name="requirements" id="requirements-hidden" />
+            <RichTextEditor
+              value={initialData?.requirements || ""}
+              onChange={(value) => {
+                const hiddenInput = document.getElementById('requirements-hidden') as HTMLInputElement;
+                if (hiddenInput) hiddenInput.value = value;
+              }}
               placeholder="5+ years of experience in software development, Strong knowledge of JavaScript/TypeScript..."
-              className="rounded-none min-h-[120px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
             />
           </div>
 
@@ -218,11 +224,14 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             <label className="text-xs font-bold text-[#25324B] ">
               Responsibilities
             </label>
-            <Textarea
-              name="responsibilities"
-              defaultValue={initialData?.responsibilities}
+            <input type="hidden" name="responsibilities" id="responsibilities-hidden" />
+            <RichTextEditor
+              value={initialData?.responsibilities || ""}
+              onChange={(value) => {
+                const hiddenInput = document.getElementById('responsibilities-hidden') as HTMLInputElement;
+                if (hiddenInput) hiddenInput.value = value;
+              }}
               placeholder="Design and develop high-quality software solutions, Write clean and maintainable code..."
-              className="rounded-none min-h-[120px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
             />
           </div>
         </div>
