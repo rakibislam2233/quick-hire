@@ -2,14 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { loginAction } from "@/services/auth.service";
+import { loginUser } from "@/services/auth.service";
 import { Lock, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useActionState } from "react";
+import { AuthActionState } from "@/services/auth.service";
 
+const initialState: AuthActionState = {
+  success: false,
+  message: "",
+  errors: {},
+  inputs: {},
+  timestamp: 0,
+};
 export default function LoginForm() {
-  const [state, action, isPending] = useActionState(loginAction, {});
+  const [state, formAction, isPending] = useActionState(
+    loginUser,
+    initialState,
+  );
 
   return (
     <div className="w-full max-w-[450px] mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
@@ -36,19 +47,7 @@ export default function LoginForm() {
         </p>
       </div>
 
-      <form action={action} className="space-y-6">
-        {state?.message && (
-          <div
-            className={`p-4 text-xs font-bold  tracking-widest rounded-none border ${
-              state.success
-                ? "bg-green-50 text-green-600 border-green-100"
-                : "bg-red-50 text-red-600 border-red-100"
-            }`}
-          >
-            {state.message}
-          </div>
-        )}
-
+      <form action={formAction} className="space-y-6">
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700 block text-left">
             Email Address

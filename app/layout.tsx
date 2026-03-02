@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Epilogue } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ToastProvider } from "@/providers/toast-provider";
 
 const epilogue = Epilogue({
   subsets: ["latin"],
@@ -60,7 +61,7 @@ export default function RootLayout({
       <body
         className={`${clashDisplay.variable} ${epilogue.variable} font-sans antialiased`}
       >
-        {children}
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );

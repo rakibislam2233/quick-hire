@@ -5,11 +5,11 @@ import { api } from "@/services/api";
 import { getDefaultDashboardRoute } from "@/utils/auth-utils";
 import { deleteCookie, getCookie, setCookie } from "@/utils/tokenHandlers";
 import {
-    forgotPasswordValidationSchema,
-    loginValidationSchema,
-    registerFormValidationSchema,
-    resetPasswordValidationSchema,
-    verifyOtpValidationSchema
+  forgotPasswordValidationSchema,
+  loginValidationSchema,
+  registerFormValidationSchema,
+  resetPasswordValidationSchema,
+  verifyOtpValidationSchema
 } from "@/validation/auth.validation";
 import { cookies } from "next/headers";
 

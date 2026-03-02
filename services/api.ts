@@ -1,3 +1,5 @@
+import { getCookie } from "@/utils/tokenHandlers";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const BACKEND_API_URL =
   process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:5000/api/v1";
@@ -30,7 +32,7 @@ const serverFetchHelper = async (
   if (authHeader && authHeader.startsWith("Bearer ")) {
     accessToken = authHeader.split(" ")[1];
   } else {
-    // accessToken = (await getCookie("accessToken")) || "";
+    accessToken = (await getCookie("accessToken")) || "";
   }
 
   const requestHeaders: Record<string, string> = {

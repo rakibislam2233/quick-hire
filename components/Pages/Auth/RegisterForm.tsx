@@ -1,11 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/form-input";
+import { toast } from "@/lib/toast";
 import { AuthActionState, register } from "@/services/auth.service";
 import { Building2, Lock, Mail, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect, useState } from "react";
 const initialState: AuthActionState = {
   success: false,
   message: "",
@@ -16,10 +18,29 @@ const initialState: AuthActionState = {
 
 export default function RegisterForm() {
   const [state, formAction, isPending] = useActionState(register, initialState);
-  const [role, setRole] = useState<"USER" | "COMPANY">("USER");
+  const [role, setRole] = useState<"USER" | "COMPANY">(
+    state?.inputs?.role || "USER",
+  );
+  const router = useRouter();
+
+  // Show toast messages based on form state
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message || "Registration successful!");
+    } else if (state?.message && !state?.success) {
+      toast.error(state?.message);
+    }
+  }, [state]);
+
+  // Redirect to verify-email on successful registration
+  useEffect(() => {
+    if (state?.success && state?.data?.sessionId) {
+      router.push("/verify-email");
+    }
+  }, [state, router]);
 
   return (
-    <div className="w-full max-w-xl mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
+    <div className="w-full max-w-xl mx-auto px-8 py-8 md:px-10 md:py-9 border border-gray-100 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center">
         <Link href="/" className="flex items-center justify-center gap-1 mb-6">
           <div className="relative w-10 h-9">
@@ -56,7 +77,7 @@ export default function RegisterForm() {
                 name="role"
                 value="USER"
                 className="peer hidden"
-                defaultChecked
+                checked={role === "USER"}
                 onChange={() => setRole("USER")}
               />
               <div className="px-4 py-2 border border-gray-100 peer-checked:border-primary peer-checked:bg-blue-50/30 transition-all flex flex-col items-center gap-2 group-hover:border-primary/50">
@@ -72,6 +93,7 @@ export default function RegisterForm() {
                 name="role"
                 value="COMPANY"
                 className="peer hidden"
+                checked={role === "COMPANY"}
                 onChange={() => setRole("COMPANY")}
               />
               <div className="px-4 py-2 border border-gray-100 peer-checked:border-primary peer-checked:bg-blue-50/30 transition-all flex flex-col items-center gap-2 group-hover:border-primary/50">
@@ -89,27 +111,36 @@ export default function RegisterForm() {
           )}
         </div>
 
-        <FormInput
-          id="fullName"
-          name="fullName"
-          label="Full Name"
-          icon={User}
-          defaultValue={state?.inputs?.fullName ?? undefined}
-          placeholder="Enter your full name"
-          error={state?.errors?.fullName}
-          required
-        />
-        <FormInput
-          id="email"
-          name="email"
-          type="email"
-          label="Email Address"
-          icon={Mail}
-          defaultValue={state?.inputs?.email ?? undefined}
-          placeholder="rahim@example.com"
-          error={state?.errors?.email}
-          required
-        />
+        {/* Basic Information - Grid only for COMPANY */}
+        <div
+          className={
+            role === "COMPANY"
+              ? "grid grid-cols-1 md:grid-cols-2 gap-4"
+              : "space-y-6"
+          }
+        >
+          <FormInput
+            id="fullName"
+            name="fullName"
+            label="Full Name"
+            icon={User}
+            defaultValue={state?.inputs?.fullName ?? undefined}
+            placeholder="Enter your full name"
+            error={state?.errors?.fullName}
+            required
+          />
+          <FormInput
+            id="email"
+            name="email"
+            type="email"
+            label="Email Address"
+            icon={Mail}
+            defaultValue={state?.inputs?.email ?? undefined}
+            placeholder="rahim@example.com"
+            error={state?.errors?.email}
+            required
+          />
+        </div>
 
         <FormInput
           id="password"
@@ -123,37 +154,39 @@ export default function RegisterForm() {
           required
         />
 
-        {/* company-specific fields when role is COMPANY */}
+        {/* Company Information Grid */}
         {role === "COMPANY" && (
-          <>
-            <FormInput
-              id="companyName"
-              name="companyName"
-              label="Company Name"
-              defaultValue={state?.inputs?.companyName ?? undefined}
-              placeholder="Your company’s name"
-              error={state?.errors?.companyName}
-              required
-            />
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormInput
+                id="companyName"
+                name="companyName"
+                label="Company Name"
+                defaultValue={state?.inputs?.companyName ?? undefined}
+                placeholder="Your company's name"
+                error={state?.errors?.companyName}
+                required
+              />
+              <FormInput
+                id="companyIndustry"
+                name="companyIndustry"
+                label="Industry"
+                defaultValue={state?.inputs?.companyIndustry ?? undefined}
+                placeholder="e.g. Software, Finance"
+                error={state?.errors?.companyIndustry}
+                required
+              />
+            </div>
             <FormInput
               id="companyLocation"
               name="companyLocation"
-              label="Company Location"
+              label="Location"
               defaultValue={state?.inputs?.companyLocation ?? undefined}
               placeholder="e.g. New York, NY"
               error={state?.errors?.companyLocation}
               required
             />
-            <FormInput
-              id="companyIndustry"
-              name="companyIndustry"
-              label="Company Industry"
-              defaultValue={state?.inputs?.companyIndustry ?? undefined}
-              placeholder="e.g. Software, Finance"
-              error={state?.errors?.companyIndustry}
-              required
-            />
-          </>
+          </div>
         )}
 
         <Button
