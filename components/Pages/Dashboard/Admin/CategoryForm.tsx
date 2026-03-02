@@ -18,7 +18,7 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
 interface CategoryFormProps {
-  initialData?: any;
+  initialData?: Category;
   isEdit?: boolean;
   id?: string;
 }
