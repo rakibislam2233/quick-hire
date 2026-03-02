@@ -1,8 +1,6 @@
 import { mockCompanies, mockJobs } from "@/data/jobData";
 import { Company, Job } from "@/interface/job.interface";
 
-// This service will handle all job and company related API calls
-// In a real application, these would use fetch() or a library like axios/api instance
 
 export const getAllJobs = async (): Promise<Job[]> => {
   return mockJobs;
