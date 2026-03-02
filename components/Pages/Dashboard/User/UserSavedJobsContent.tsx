@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Bookmark, MapPin, MoreVertical, Loader2 } from "lucide-react";
-import Image from "next/image";
 import { getSavedJobs, toggleSaveJob } from "@/services/application.service";
+import { Bookmark, Loader2, MapPin } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface SavedJob {
@@ -144,22 +144,21 @@ const UserSavedJobsContent = () => {
                 </button>
               </div>
             </div>
-            </div>
           </div>
         ))}
 
         {savedJobs.length === 0 && (
-        <div className="text-center py-12">
-          <Bookmark className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-bold text-[#25324B] mb-2">No saved jobs yet</h3>
-          <p className="text-gray-500 text-sm mb-6">
-            Start saving jobs you're interested in and they'll appear here.
-          </p>
-          <Button className="bg-primary text-white rounded-none h-12 px-8 font-bold shadow-none">
-            Browse Jobs
-          </Button>
-        </div>
-      )}
+          <div className="text-center py-12">
+            <Bookmark className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-[#25324B] mb-2">No saved jobs yet</h3>
+            <p className="text-gray-500 text-sm mb-6">
+              Start saving jobs you're interested in and they'll appear here.
+            </p>
+            <Button className="bg-primary text-white rounded-none h-12 px-8 font-bold shadow-none">
+              Browse Jobs
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
