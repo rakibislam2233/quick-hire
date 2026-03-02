@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { getCompanyDashboardStats } from "@/services/dashboard.service";
 import { getMyProfile, updateMyProfile } from "@/services/user.service";
