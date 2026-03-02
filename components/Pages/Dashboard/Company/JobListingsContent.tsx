@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Job, JobStatus } from "@/interface/job.interface";
-import { Filter, MoreVertical, Plus, Search } from "lucide-react";
+import { Edit, Filter, MoreVertical, Plus, Search, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -82,7 +82,7 @@ const JobListingsContent = ({ jobListings }: { jobListings: Job[] }) => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {filteredJobs.map((job) => (
+              {filteredJobs?.map((job) => (
                 <tr
                   key={job.id}
                   className="hover:bg-gray-50/50 transition-colors group"
@@ -126,9 +126,20 @@ const JobListingsContent = ({ jobListings }: { jobListings: Job[] }) => {
                     </span>
                   </td>
                   <td className="px-6 py-5 text-right">
-                    <button className="text-gray-300 hover:text-primary transition-colors">
-                      <MoreVertical className="w-5 h-5" />
-                    </button>
+                    <div className="flex items-center justify-end gap-2">
+                      <Link
+                        href={`/dashboard/company/job-listing/edit/${job.id}`}
+                        className="text-gray-300 hover:text-primary transition-colors"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </Link>
+                      <button className="text-gray-300 hover:text-red-500 transition-colors">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                      <button className="text-gray-300 hover:text-primary transition-colors">
+                        <MoreVertical className="w-5 h-5" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

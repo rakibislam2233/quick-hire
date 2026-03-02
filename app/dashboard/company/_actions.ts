@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
-import { getCompanyDashboardStats } from "@/services/dashboard.service";
-import { getMyProfile, updateMyProfile } from "@/services/user.service";
-import { getAllJobs, createJob, updateJob, deleteJob } from "@/services/job.service";
 import { getApplicationsForJob, updateApplicationStatus } from "@/services/application.service";
+import { getCompanyDashboardStats } from "@/services/dashboard.service";
+import { createJob, deleteJob, getAllJobs, updateJob } from "@/services/job.service";
+import { getMyProfile, updateMyProfile } from "@/services/user.service";
 import { revalidatePath } from "next/cache";
 
 // Company Dashboard Stats Action
@@ -62,43 +62,47 @@ export async function getAllJobsAction(params?: {
   }
 }
 
-export async function createJobAction(formData: FormData) {
+export async function createJobAction(prevState: { success: boolean; message: string; error?: string }, formData: FormData) {
   try {
     const jobData = {
       title: formData.get("title") as string,
-      type: formData.get("type") as string,
-      location: formData.get("location") as string,
       description: formData.get("description") as string,
       requirements: formData.get("requirements") as string,
-      salary: formData.get("salary") as string,
+      responsibilities: formData.get("responsibilities") as string,
+      salaryRange: formData.get("salaryRange") as string,
+      location: formData.get("location") as string,
+      type: formData.get("type") as string,
       categoryId: formData.get("categoryId") as string,
+      companyId: formData.get("companyId") as string,
     };
     
     await createJob(jobData);
     revalidatePath("/dashboard/company/job-listing");
     return { success: true, message: "Job created successfully" };
   } catch (error: any) {
-    return { success: false, error: error.message };
+    return { success: false, message: "", error: error.message };
   }
 }
 
-export async function updateJobAction(jobId: string, formData: FormData) {
+export async function updateJobAction(prevState: { success: boolean; message: string; error?: string }, formData: FormData) {
   try {
+    const jobId = formData.get("jobId") as string;
     const jobData = {
       title: formData.get("title") as string,
-      type: formData.get("type") as string,
-      location: formData.get("location") as string,
       description: formData.get("description") as string,
       requirements: formData.get("requirements") as string,
-      salary: formData.get("salary") as string,
-      status: formData.get("status") as string,
+      responsibilities: formData.get("responsibilities") as string,
+      salaryRange: formData.get("salaryRange") as string,
+      location: formData.get("location") as string,
+      type: formData.get("type") as string,
+      categoryId: formData.get("categoryId") as string,
     };
     
     await updateJob(jobId, jobData);
     revalidatePath("/dashboard/company/job-listing");
     return { success: true, message: "Job updated successfully" };
   } catch (error: any) {
-    return { success: false, error: error.message };
+    return { success: false, message: "", error: error.message };
   }
 }
 

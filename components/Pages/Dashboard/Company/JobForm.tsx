@@ -1,9 +1,9 @@
 "use client";
+import { createJobAction, updateJobAction } from "@/app/dashboard/company/_actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { createJobAction, updateJobAction } from "@/services/adminJob.service";
-import { JobFormData } from "@/validation/job.validation";
+import { JobType } from "@/interface/job.interface";
 import {
   ArrowLeft,
   Briefcase,
@@ -16,9 +16,10 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
 interface JobFormProps {
-  initialData?: Partial<JobFormData>;
+  initialData?: any;
   isEdit?: boolean;
   id?: string;
 }
@@ -26,8 +27,7 @@ interface JobFormProps {
 const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
   const router = useRouter();
 
-  // Bind ID if editing
-  const action = isEdit ? updateJobAction.bind(null, id!) : createJobAction;
+  const action = isEdit ? updateJobAction : createJobAction;
 
   const [state, formAction, isPending] = useActionState(action, {
     success: false,
@@ -36,12 +36,12 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
 
   useEffect(() => {
     if (state.success) {
-      const timer = setTimeout(() => {
-        router.push("/dashboard/company/job-listing");
-      }, 2000);
-      return () => clearTimeout(timer);
+      toast.success(state.message);
+      router.push("/dashboard/company/job-listing");
+    } else if (state.error) {
+      toast.error(state.error);
     }
-  }, [state.success, router]);
+  }, [state, router]);
 
   if (state.success) {
     return (
@@ -65,6 +65,10 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
       action={formAction}
       className="space-y-8 font-epilogue max-w-4xl mx-auto"
     >
+      {/* Hidden fields */}
+      {isEdit && <input type="hidden" name="jobId" value={id} />}
+      <input type="hidden" name="companyId" value="your_company_id_here" />
+
       <div className="flex items-center justify-between mb-8">
         <div>
           <Link
@@ -105,15 +109,10 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                 <Input
                   name="title"
                   defaultValue={initialData?.title}
-                  placeholder="e.g. Senior Frontend Developer"
-                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.title ? "border-red-500" : ""}`}
+                  placeholder="e.g. Senior Software Engineer"
+                  className="pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
                 />
               </div>
-              {state.errors?.title && (
-                <p className="text-[10px] text-red-500 font-bold">
-                  {state.errors.title[0]}
-                </p>
-              )}
             </div>
 
             <div className="space-y-2">
@@ -121,21 +120,16 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                 Category
               </label>
               <select
-                name="category"
-                defaultValue={initialData?.category}
-                className={`w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer ${state.errors?.category ? "border-red-500" : ""}`}
+                name="categoryId"
+                defaultValue={initialData?.categoryId}
+                className="w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer"
               >
                 <option value="">Select Category</option>
-                <option value="Design">Design</option>
-                <option value="Development">Development</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Business">Business</option>
+                <option value="your_category_id_here">Technology</option>
+                <option value="your_category_id_here">Design</option>
+                <option value="your_category_id_here">Marketing</option>
+                <option value="your_category_id_here">Business</option>
               </select>
-              {state.errors?.category && (
-                <p className="text-[10px] text-red-500 font-bold">
-                  {state.errors.category[0]}
-                </p>
-              )}
             </div>
 
             <div className="space-y-2">
@@ -145,19 +139,15 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
               <select
                 name="type"
                 defaultValue={initialData?.type}
-                className={`w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer ${state.errors?.type ? "border-red-500" : ""}`}
+                className="w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer"
               >
                 <option value="">Select Type</option>
-                <option value="Full-Time">Full-Time</option>
-                <option value="Part-Time">Part-Time</option>
-                <option value="Remote">Remote</option>
-                <option value="Contract">Contract</option>
+                <option value={JobType.FULL_TIME}>Full-Time</option>
+                <option value={JobType.PART_TIME}>Part-Time</option>
+                <option value={JobType.CONTRACT}>Contract</option>
+                <option value={JobType.INTERNSHIP}>Internship</option>
+                <option value={JobType.FREELANCE}>Freelance</option>
               </select>
-              {state.errors?.type && (
-                <p className="text-[10px] text-red-500 font-bold">
-                  {state.errors.type[0]}
-                </p>
-              )}
             </div>
 
             <div className="space-y-2">
@@ -167,17 +157,12 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
               <div className="relative">
                 <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input
-                  name="salary"
-                  defaultValue={initialData?.salary}
-                  placeholder="e.g. $80k - $120k"
-                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.salary ? "border-red-500" : ""}`}
+                  name="salaryRange"
+                  defaultValue={initialData?.salaryRange}
+                  placeholder="e.g. $80,000 - $120,000"
+                  className="pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
                 />
               </div>
-              {state.errors?.salary && (
-                <p className="text-[10px] text-red-500 font-bold">
-                  {state.errors.salary[0]}
-                </p>
-              )}
             </div>
 
             <div className="space-y-2">
@@ -190,14 +175,9 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                   name="location"
                   defaultValue={initialData?.location}
                   placeholder="e.g. San Francisco, CA"
-                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.location ? "border-red-500" : ""}`}
+                  className="pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
                 />
               </div>
-              {state.errors?.location && (
-                <p className="text-[10px] text-red-500 font-bold">
-                  {state.errors.location[0]}
-                </p>
-              )}
             </div>
           </div>
         </div>
@@ -217,14 +197,33 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             <Textarea
               name="description"
               defaultValue={initialData?.description}
-              placeholder="Provide a detailed description of the role and responsibilities..."
-              className={`rounded-none min-h-[200px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.description ? "border-red-500" : ""}`}
+              placeholder="We are looking for a talented senior software engineer to join our team..."
+              className="rounded-none min-h-[120px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
             />
-            {state.errors?.description && (
-              <p className="text-[10px] text-red-500 font-bold">
-                {state.errors.description[0]}
-              </p>
-            )}
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-[#25324B] ">
+              Requirements
+            </label>
+            <Textarea
+              name="requirements"
+              defaultValue={initialData?.requirements}
+              placeholder="5+ years of experience in software development, Strong knowledge of JavaScript/TypeScript..."
+              className="rounded-none min-h-[120px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-[#25324B] ">
+              Responsibilities
+            </label>
+            <Textarea
+              name="responsibilities"
+              defaultValue={initialData?.responsibilities}
+              placeholder="Design and develop high-quality software solutions, Write clean and maintainable code..."
+              className="rounded-none min-h-[120px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
+            />
           </div>
         </div>
 

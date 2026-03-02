@@ -1,6 +1,5 @@
 import JobForm from "@/components/Pages/Dashboard/Company/JobForm";
 import { getJobById } from "@/services/job.service";
-import { JobFormData } from "@/validation/job.validation";
 import { notFound } from "next/navigation";
 
 interface EditJobPageProps {
@@ -15,13 +14,15 @@ export default async function CompanyEditJobPage({ params }: EditJobPageProps) {
     notFound();
   }
 
-  const initialData: Partial<JobFormData> = {
+  const initialData = {
     title: job.title,
-    category: job.category,
-    type: job.type as JobFormData["type"],
-    salary: job.salary,
+    categoryId: job.categoryId,
+    type: job.type,
+    salaryRange: job.salary,
     location: job.location,
     description: job.description,
+    requirements: job.requirements,
+    responsibilities: job.responsibilities,
   };
 
   return (
