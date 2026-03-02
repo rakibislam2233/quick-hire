@@ -1,5 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
-
+import { api } from "@/services/api";
+import { getDefaultDashboardRoute } from "@/utils/auth-utils";
+import { deleteCookie, getCookie, setCookie } from "@/utils/tokenHandlers";
+import { cookies } from "next/headers";
+import { ActionState } from "@/interface/action-state.interface";
 import {
   forgotPasswordValidationSchema,
   loginValidationSchema,
@@ -7,117 +12,428 @@ import {
   resetPasswordValidationSchema,
   verifyOtpValidationSchema,
 } from "@/validation/auth.validation";
-import { api } from "./api";
 
-export type ActionState = {
-  success?: boolean;
-  message?: string;
-  errors?: Record<string, string[]>;
-  data?: unknown;
-};
+export type AuthActionState = ActionState;
 
-export async function loginAction(
-  prevState: ActionState,
+export async function loginUser(
+  prevState: AuthActionState,
   formData: FormData,
-): Promise<ActionState> {
-  const data = Object.fromEntries(formData.entries());
+): Promise<AuthActionState> {
+  const values = Object.fromEntries(formData.entries());
 
-  const validated = loginValidationSchema.safeParse(data);
-  if (!validated.success) {
-    return { success: false, errors: validated.error.flatten().fieldErrors };
+  const parsed = loginValidationSchema.safeParse(values);
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: "Invalid fields",
+      errors: parsed.error.flatten().fieldErrors,
+      inputs: values,
+      timestamp: Date.now(),
+    };
   }
 
-  const response = await api.post("/auth/login", validated.data);
+  try {
+    const loginPayload = {
+      ...parsed.data,
+      webPushToken: formData.get("webPushToken"),
+    };
+    const res = await api.post("/auth/login", loginPayload);
+    if (!res.success) {
+      return {
+        success: false,
+        message: res.message || "Failed to login",
+        inputs: values,
+        timestamp: Date.now(),
+      };
+    }
 
-  if (!response.success) {
-    return { success: false, message: response.message };
+    const loginData = res.data;
+
+    // 1. Handle Email Verification - Set sessionId and return redirect
+    if (loginData?.isEmailVerified === false) {
+      if (loginData.sessionId) {
+        await setCookie("sessionId", loginData.sessionId, {
+          secure: process.env.NODE_ENV === "production",
+          httpOnly: true,
+          maxAge: 3600,
+          path: "/",
+        });
+      }
+      return {
+        success: true,
+        message: res.message || "Please verify your email.",
+        data: { redirect: "/verify-email" },
+        timestamp: Date.now(),
+      };
+    }
+    // 2. Save tokens if they exist
+    if (loginData?.tokens) {
+      const isProduction = process.env.NODE_ENV === "production";
+      await setCookie("accessToken", loginData.tokens.accessToken, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600,
+        path: "/",
+      });
+
+      await setCookie("refreshToken", loginData.tokens.refreshToken, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600 * 24 * 90,
+        path: "/",
+      });
+      // set userRole in cookie
+      await setCookie("userRole", loginData.user.role, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600,
+        path: "/",
+      });
+    }
+    // 3. Final Success Case (Successful Login)
+    await deleteCookie("sessionId");
+    const userRole = loginData?.user?.role;
+    return {
+      success: true,
+      message: res.message || "Logged in successfully",
+      data: {
+        ...loginData,
+        redirect: userRole ? getDefaultDashboardRoute(userRole) : "/dashboard",
+      },
+      timestamp: Date.now(),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Failed to login",
+      inputs: values,
+      timestamp: Date.now(),
+    };
   }
-
-  return { success: true, message: "Login successful", data: response.data };
 }
 
-export async function registerAction(
-  prevState: ActionState,
-  formData: FormData,
-): Promise<ActionState> {
-  const data = Object.fromEntries(formData.entries());
+// Register CR
+export async function register(
+  prevState: AuthActionState,
+  payload: any,
+): Promise<AuthActionState> {
+  const values = Object.fromEntries(payload.entries());
 
-  const validated = registerValidationSchema.safeParse(data);
-  if (!validated.success) {
-    return { success: false, errors: validated.error.flatten().fieldErrors };
-  }
-
-  // Assuming backend expects firstName and lastName or fullName
-  const response = await api.post("/auth/register", validated.data);
-
-  if (!response.success) {
-    return { success: false, message: response.message };
-  }
-
-  return {
-    success: true,
-    message: "Registration successful. Please verify your email.",
+  const registrationData = {
+    fullName: values.fullName,
+    email: values.email,
+    password: values.password,
+    role: values.role,
   };
+
+  const parsed = registerValidationSchema
+    .pick({
+      fullName: true,
+      email: true,
+      password: true,
+      role: true,
+    })
+    .safeParse(registrationData);
+
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: "Please fix the errors in the form",
+      errors: parsed.error.flatten().fieldErrors,
+      inputs: values,
+    };
+  }
+
+  try {
+    const res = await api.post("/auth/register", parsed.data);
+
+    if (!res.success) {
+      return {
+        success: false,
+        message: res.message || "Registration failed",
+        inputs: values,
+        timestamp: Date.now(),
+      };
+    }
+
+    // Set sessionId in cookies
+    const sessionId = res?.data?.sessionId;
+    if (sessionId) {
+      const cookieStore = await cookies();
+      cookieStore.set("sessionId", sessionId, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 3600, // 1 hour
+      });
+    }
+    return {
+      success: true,
+      message: res?.message,
+      data: res.data,
+      timestamp: Date.now(),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Registration failed",
+      inputs: values,
+      timestamp: Date.now(),
+    };
+  }
 }
 
-export async function forgotPasswordAction(
-  prevState: ActionState,
-  formData: FormData,
-): Promise<ActionState> {
-  const data = Object.fromEntries(formData.entries());
+export async function forgotPassword(
+  prevState: AuthActionState,
+  payload: any,
+): Promise<AuthActionState> {
+  const values = Object.fromEntries(payload.entries());
+  const parsed = forgotPasswordValidationSchema.safeParse(values);
 
-  const validated = forgotPasswordValidationSchema.safeParse(data);
-  if (!validated.success) {
-    return { success: false, errors: validated.error.flatten().fieldErrors };
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: "Invalid email",
+      errors: parsed.error.flatten().fieldErrors,
+      inputs: values,
+    };
   }
 
-  const response = await api.post("/auth/forgot-password", validated.data);
+  try {
+    const res = await api.post("/auth/forgot-password", parsed.data);
 
-  if (!response.success) {
-    return { success: false, message: response.message };
+    // Set sessionId in cookies for reset password flow
+    const sessionId = res?.data?.sessionId;
+    if (sessionId) {
+      const cookieStore = await cookies();
+      cookieStore.set("sessionId", sessionId, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 3600,
+      });
+    }
+
+    return {
+      success: true,
+      message: res.message || "Reset link sent!",
+      data: res.data,
+      timestamp: Date.now(),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Failed to send link",
+      inputs: values,
+      timestamp: Date.now(),
+    };
   }
-
-  return { success: true, message: "Password reset link sent to your email." };
 }
 
-export async function verifyOtpAction(
-  prevState: ActionState,
-  formData: FormData,
-): Promise<ActionState> {
-  const data = Object.fromEntries(formData.entries());
+export async function verifyOtp(
+  prevState: AuthActionState,
+  payload: any,
+): Promise<AuthActionState> {
+  const values = Object.fromEntries(payload.entries());
+  const cookieStore = await cookies();
+  const sessionId = cookieStore.get("sessionId")?.value;
 
-  const validated = verifyOtpValidationSchema.safeParse(data);
-  if (!validated.success) {
-    return { success: false, errors: validated.error.flatten().fieldErrors };
+  if (!sessionId) {
+    return { success: false, message: "Session expired", inputs: values };
   }
 
-  // usually needs email too, which can be passed via a hidden field
-  const response = await api.post("/auth/verify-otp", validated.data);
+  const data = {
+    sessionId: sessionId,
+    code: values.otp || values.code,
+  };
 
-  if (!response.success) {
-    return { success: false, message: response.message };
+  const parsed = verifyOtpValidationSchema.safeParse(values);
+
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: "Invalid OTP",
+      errors: parsed.error.flatten().fieldErrors,
+      inputs: values,
+    };
   }
 
-  return { success: true, message: "OTP verified successfully." };
+  try {
+    const res = await api.post("/auth/verify-otp", data);
+    if (!res.success) {
+      return {
+        success: false,
+        message: res.message || "Invalid OTP",
+        inputs: values,
+        timestamp: Date.now(),
+      };
+    }
+
+    const verifyData = res?.data;
+    // 2. Handle Forgot Password Flow (resetToken)
+    if (verifyData?.resetToken) {
+      const isProduction = process.env.NODE_ENV === "production";
+      await setCookie("resetPasswordToken", verifyData.resetToken, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600, // 1 hour
+        path: "/",
+      });
+
+      await deleteCookie("sessionId");
+
+      return {
+        success: true,
+        message:
+          res.message || "OTP verified. You can now reset your password.",
+        data: { redirect: "/reset-password" },
+        timestamp: Date.now(),
+      };
+    }
+    return {
+      success: true,
+      message: res.message,
+      data: {
+        ...verifyData,
+        redirect:
+          verifyData?.user?.isEmailVerified === false
+            ? "/verify-email"
+            : getDefaultDashboardRoute(verifyData?.user?.role),
+      },
+      timestamp: Date.now(),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Invalid OTP",
+      inputs: values,
+      timestamp: Date.now(),
+    };
+  }
 }
 
-export async function resetPasswordAction(
-  prevState: ActionState,
-  formData: FormData,
-): Promise<ActionState> {
-  const data = Object.fromEntries(formData.entries());
+export async function resetPassword(
+  prevState: AuthActionState,
+  payload: any,
+): Promise<AuthActionState> {
+  const values = Object.fromEntries(payload.entries());
 
-  const validated = resetPasswordValidationSchema.safeParse(data);
-  if (!validated.success) {
-    return { success: false, errors: validated.error.flatten().fieldErrors };
+  const parsed = resetPasswordValidationSchema.safeParse({
+    password: values.password,
+    confirmPassword: values.confirmPassword,
+  });
+
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: "Invalid password",
+      errors: parsed.error.flatten().fieldErrors,
+      inputs: values,
+      timestamp: Date.now(),
+    };
   }
 
-  // Assuming there's a token or email passed as hidden field
-  const response = await api.post("/auth/reset-password", validated.data);
+  try {
+    const resetToken = await getCookie("resetPasswordToken");
 
-  if (!response.success) {
-    return { success: false, message: response.message };
+    if (!resetToken) {
+      return {
+        success: false,
+        message: "Reset token expired or missing. Please try again.",
+        timestamp: Date.now(),
+      };
+    }
+
+    const res = await api.post("/auth/reset-password", {
+      ...parsed.data,
+      token: resetToken,
+    });
+
+    if (!res.success) {
+      return {
+        success: false,
+        message: res.message || "Password reset failed",
+        timestamp: Date.now(),
+      };
+    }
+
+    // Success - clear the token
+    await deleteCookie("resetPasswordToken");
+
+    return {
+      success: true,
+      message: "Password reset successful!",
+      data: res.data,
+      timestamp: Date.now(),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Failed to reset password",
+      inputs: values,
+      timestamp: Date.now(),
+    };
   }
+}
 
-  return { success: true, message: "Password reset successfully." };
+export async function getNewAccessToken() {
+  try {
+    const accessToken = await getCookie("accessToken");
+    const refreshToken = await getCookie("refreshToken");
+
+    //Case 1: Both tokens are missing - user is logged out
+    if (!accessToken && !refreshToken) {
+      return {
+        success: false,
+        message: "User is logged out",
+      };
+    }
+    const res = await api.post("/auth/refresh-token", {
+      refreshToken: refreshToken,
+    });
+    const isProduction = process.env.NODE_ENV === "production";
+    if (res.success) {
+      console.log(
+        "Access and Refresh Tokens Set",
+        res.data.accessToken,
+        res.data.refreshToken,
+      );
+      //set new tokens
+      await setCookie("accessToken", res.data.accessToken, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600,
+        path: "/",
+      });
+      await setCookie("refreshToken", res.data.refreshToken, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600 * 24 * 90,
+        path: "/",
+      });
+    }
+    return {
+      success: true,
+      message: "Token refreshed successfully!",
+      data: res,
+    };
+  } catch (error: any) {
+    console.error("Failed to refresh token", error);
+    throw error;
+  }
+}
+
+// Logout
+export async function logoutUser() {
+  try {
+    const refreshToken = await getCookie("refreshToken");
+    if (refreshToken) {
+      await api.post("/auth/logout", { refreshToken });
+    }
+  } catch (error) {
+    console.error("Backend logout failed", error);
+  } finally {
+    await deleteCookie("accessToken");
+    await deleteCookie("refreshToken");
+    await deleteCookie("userRole");
+  }
+  return { success: true };
 }
