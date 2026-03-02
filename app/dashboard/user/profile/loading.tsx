@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function UserProfileLoading() {
   return (
-    <div className="font-epilogue max-w-4xl mx-auto">
+    <div className="font-epilogue mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div className="space-y-2">
           <Skeleton className="h-8 w-48" />
