@@ -50,32 +50,6 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
 
   const isEmerald = theme === "emerald";
 
-  const getRoleLabel = () => {
-    switch (user?.role) {
-      case UserRole.ADMIN:
-        return "Admin";
-      case UserRole.COMPANY:
-        return "Company";
-      case UserRole.USER:
-        return "User";
-      default:
-        return "User";
-    }
-  };
-
-  const getRoleColor = () => {
-    switch (user?.role) {
-      case UserRole.ADMIN:
-        return "text-red-600 bg-red-50";
-      case UserRole.COMPANY:
-        return "text-blue-600 bg-blue-50";
-      case UserRole.USER:
-        return "text-green-600 bg-green-50";
-      default:
-        return "text-gray-600 bg-gray-50";
-    }
-  };
-
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>

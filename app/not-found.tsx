@@ -4,12 +4,11 @@ import Navbar from "@/components/Shared/Navbar/Navbar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const NotFound = () => {
   return (
     <main className="w-full min-h-screen flex flex-col bg-[#f8f9ff]">
-      <Navbar />
-
       <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden font-epilogue py-24">
         {/* Background Pattern */}
         <Image
@@ -52,8 +51,6 @@ const NotFound = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </main>
   );
 };
