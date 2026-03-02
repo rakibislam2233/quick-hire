@@ -41,7 +41,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
     try {
       await logoutUser();
       toast.success("Logged out successfully");
-      router.push("/auth/login");
+      router.push("/login");
       router.refresh();
     } catch {
       toast.error("Failed to logout");

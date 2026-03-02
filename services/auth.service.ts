@@ -33,11 +33,7 @@ export async function loginUser(
   }
 
   try {
-    const loginPayload = {
-      ...parsed.data,
-      webPushToken: formData.get("webPushToken"),
-    };
-    const res = await api.post("/auth/login", loginPayload);
+    const res = await api.post("/auth/login", parsed.data);
     if (!res.success) {
       return {
         success: false,

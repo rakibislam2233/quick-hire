@@ -6,11 +6,11 @@ export type RouteConfig = {
 };
 
 export const authRoutes = [
-  "/auth/login",
-  "/auth/register",
-  "/auth/verify-otp",
-  "/auth/forgot-password",
-  "/auth/reset-password",
+  "/login",
+  "/register",
+  "/verify-otp",
+  "/forgot-password",
+  "/reset-password",
 ];
 
 export const commonProtectedRoutes: RouteConfig = {
@@ -71,7 +71,7 @@ export const getDefaultDashboardRoute = (role: UserRole): string => {
   if (role === "ADMIN") {
     return "/dashboard/admin";
   }
-  return "/auth/login";
+  return "/login";
 };
 
 export const isValidRedirectForRole = (
