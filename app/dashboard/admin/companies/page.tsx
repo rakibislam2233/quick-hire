@@ -1,5 +1,9 @@
 import AdminCompaniesContent from "@/components/Pages/Dashboard/Admin/AdminCompaniesContent";
+import { getAllCompaniesForAdmin } from "@/services/company.service";
 
-export default function AdminCompaniesPage() {
-  return <AdminCompaniesContent />;
-}
+const AdminCompaniesPage = async () => {
+  const response = await getAllCompaniesForAdmin();
+  const companies = response?.data || [];
+  return <AdminCompaniesContent companies={companies} />;
+};
+export default AdminCompaniesPage;

@@ -1,61 +1,8 @@
-"use client";
-
-import { getAllCompaniesForAdmin } from "@/services/company.service";
-import { CheckCircle, Globe, Loader2, Mail, MoreVertical, XCircle } from "lucide-react";
+import { Company } from "@/interface/company.interface";
+import { CheckCircle, Globe, Mail, MoreVertical, XCircle } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-interface Company {
-  id: string;
-  name: string;
-  domain: string;
-  email: string;
-  status: string;
-  logo?: string;
-  website?: string;
-  industry?: string;
-  createdAt: string;
-}
-
-const AdminCompaniesContent = () => {
-  const [companies, setCompanies] = useState<Company[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCompanies = async () => {
-      try {
-        const data = await getAllCompaniesForAdmin();
-        setCompanies(data.companies || []);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCompanies();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <p className="text-red-500 font-medium">Error loading companies</p>
-          <p className="text-gray-500 text-sm">{error}</p>
-        </div>
-      </div>
-    );
-  }
-
+const AdminCompaniesContent = ({ companies }: { companies: Company[] }) => {
   return (
     <div className="font-epilogue">
       <div className="mb-8">
@@ -87,7 +34,7 @@ const AdminCompaniesContent = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {companies.map((company) => (
+              {companies?.map((company) => (
                 <tr
                   key={company.id}
                   className="hover:bg-gray-50/50 transition-colors group"
@@ -112,10 +59,6 @@ const AdminCompaniesContent = () => {
                         <span className="block font-bold text-[#25324B] text-sm">
                           {company.name}
                         </span>
-                        <div className="flex items-center gap-1 text-[10px] text-gray-400 font-medium lowercase">
-                          <Mail className="w-2.5 h-2.5" />
-                          {company.email}
-                        </div>
                       </div>
                     </div>
                   </td>

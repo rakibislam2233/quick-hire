@@ -29,12 +29,7 @@ const AdminSidebar = ({
     { name: "Users", icon: Users, href: "/dashboard/admin/users" },
     { name: "Companies", icon: Building2, href: "/dashboard/admin/companies" },
     { name: "Categories", icon: Folder, href: "/dashboard/admin/categories" },
-    {
-      name: "Approvals",
-      icon: CheckCircle2,
-      href: "/dashboard/admin/approvals",
-    },
-    { name: "Security", icon: ShieldCheck, href: "/dashboard/admin/security" },
+    { name: "All Jobs", icon: CheckCircle2, href: "/dashboard/admin/jobs" },
   ];
 
   const settingsItems = [

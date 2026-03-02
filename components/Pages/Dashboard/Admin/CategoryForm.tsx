@@ -1,17 +1,15 @@
 "use client";
-import { createCategoryAction, updateCategoryAction } from "@/app/dashboard/admin/_actions";
+import {
+  createCategoryAction,
+  updateCategoryAction,
+} from "@/app/dashboard/admin/_actions";
 import { Button } from "@/components/ui/button";
 import IconPicker from "@/components/ui/icon-picker";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Category } from "@/interface/category.interface";
 import { resolveIcon, type IconValue } from "@/lib/icon-config";
-import {
-  ArrowLeft,
-  FolderOpen,
-  Loader2,
-  Tag,
-  X
-} from "lucide-react";
+import { ArrowLeft, FolderOpen, Loader2, Tag, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -46,10 +44,10 @@ const CategoryForm = ({
     startTransition(async () => {
       try {
         const prevState = { success: false, message: "", error: "" };
-        const result = isEdit 
+        const result = isEdit
           ? await updateCategoryAction(prevState, formData)
           : await createCategoryAction(prevState, formData);
-        
+
         if (result.success) {
           toast.success(result.message);
           router.push("/dashboard/admin/categories");
@@ -63,7 +61,6 @@ const CategoryForm = ({
   };
 
   const SelectedIconComponent = resolveIcon(selectedIcon);
-
 
   // ── Main form ───────────────────────────────────────────────────────────────
   return (

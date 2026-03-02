@@ -2,8 +2,8 @@ import AdminDashboardContent from "@/components/Pages/Dashboard/Admin/AdminDashb
 import { getAdminDashboardStatsAction } from "./_actions";
 
 const AdminDashboardPage = async () => {
-  const state = await getAdminDashboardStatsAction();
-  return <AdminDashboardContent stats={state?.data} />;
+  const response = await getAdminDashboardStatsAction();
+  return <AdminDashboardContent stats={response?.data?.stats} />;
 };
 
 export default AdminDashboardPage;
