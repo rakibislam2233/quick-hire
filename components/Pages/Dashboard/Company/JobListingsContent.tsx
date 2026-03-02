@@ -1,19 +1,43 @@
 "use client";
+import { deleteJobAction } from "@/app/dashboard/company/_actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Job, JobStatus } from "@/interface/job.interface";
 import { Edit, Filter, MoreVertical, Plus, Search, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 const JobListingsContent = ({ jobListings }: { jobListings: Job[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [localJobs, setLocalJobs] = useState(jobListings || []);
 
-  const filteredJobs = jobListings?.filter(
+  const filteredJobs = localJobs?.filter(
     (job) =>
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.location.toLowerCase().includes(searchTerm.toLowerCase()),
   );
+
+  const handleDelete = async (jobId: string) => {
+    startTransition(async () => {
+      try {
+        const result = await deleteJobAction(jobId);
+        if (result.success) {
+          toast.success(result.message);
+          // Instantly update UI without reload
+          setLocalJobs(prev => prev.filter(job => job.id !== jobId));
+        } else {
+          toast.error("Failed to delete job");
+        }
+      } catch (error) {
+        toast.error("An error occurred while deleting the job");
+      } finally {
+        setDeleteConfirm(null);
+      }
+    });
+  };
 
   return (
     <div className="font-epilogue">
@@ -133,7 +157,10 @@ const JobListingsContent = ({ jobListings }: { jobListings: Job[] }) => {
                       >
                         <Edit className="w-4 h-4" />
                       </Link>
-                      <button className="text-gray-300 hover:text-red-500 transition-colors">
+                      <button 
+                        className="text-gray-300 hover:text-red-500 transition-colors"
+                        onClick={() => setDeleteConfirm(job.id)}
+                      >
                         <Trash2 className="w-4 h-4" />
                       </button>
                       <button className="text-gray-300 hover:text-primary transition-colors">
@@ -147,6 +174,37 @@ const JobListingsContent = ({ jobListings }: { jobListings: Job[] }) => {
           </table>
         </div>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      {deleteConfirm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-sm mx-4 shadow-xl">
+            <h3 className="text-lg font-bold text-[#25324B] mb-2">
+              Confirm Delete
+            </h3>
+            <p className="text-gray-600 text-sm mb-6">
+              Are you sure you want to delete this job post? This action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setDeleteConfirm(null)}
+                disabled={isPending}
+                className="rounded-none border-gray-200 text-[#25324B] font-bold h-10 px-6"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => handleDelete(deleteConfirm)}
+                disabled={isPending}
+                className="bg-red-500 text-white rounded-none h-10 px-6 font-bold hover:bg-red-600"
+              >
+                {isPending ? "Deleting..." : "Delete"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

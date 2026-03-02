@@ -1,31 +1,14 @@
 "use client";
+import { deleteCategoryAction } from "@/app/dashboard/admin/_actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Category } from "@/interface/category.interface";
-import * as LucideIcons from "lucide-react";
+import { getIconDisplayName, renderIcon } from "@/lib/icon-utils";
 import { Edit, Filter, Plus, Search, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-
-// React Icons sets
-import * as AiIcons from "react-icons/ai";
-import * as BiIcons from "react-icons/bi";
-import * as BsIcons from "react-icons/bs";
-import * as FaIcons from "react-icons/fa";
-import * as FiIcons from "react-icons/fi";
-import * as HiIcons from "react-icons/hi";
-import * as IoIcons from "react-icons/io";
-import * as MdIcons from "react-icons/md";
-import * as RiIcons from "react-icons/ri";
-import * as TbIcons from "react-icons/tb";
-
-// Icon value interface (same as IconPicker)
-interface IconValue {
-  name: string;
-  library: "lucide" | "react-icons";
-  set?: string;
-}
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 interface CategoriesContentProps {
   categories?: Category[];
@@ -33,108 +16,43 @@ interface CategoriesContentProps {
 
 const CategoriesContent = ({ categories }: CategoriesContentProps) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [localCategories, setLocalCategories] = useState(categories || []);
 
-  const filteredCategories = categories?.filter(
-    (category) =>
-      category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCategories = localCategories?.filter((category) =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  // React Icons sets mapping
-  const REACT_ICON_SETS: Record<string, Record<string, React.ComponentType<any>>> = {
-    fa: FaIcons as any,
-    md: MdIcons as any,
-    ai: AiIcons as any,
-    bi: BiIcons as any,
-    bs: BsIcons as any,
-    fi: FiIcons as any,
-    hi: HiIcons as any,
-    io: IoIcons as any,
-    ri: RiIcons as any,
-    tb: TbIcons as any,
-  };
-
-  // Resolve icon component (same logic as IconPicker)
-  const resolveIcon = (icon: IconValue | null | undefined): React.ComponentType<any> | null => {
-    if (!icon) return null;
-    
-    if (icon.library === "lucide") {
-      const comp = (LucideIcons as any)[icon.name];
-      return typeof comp === "function" ? comp : null;
-    }
-    
-    if (icon.library === "react-icons" && icon.set) {
-      const set = REACT_ICON_SETS[icon.set];
-      if (!set) return null;
-      const comp = set[icon.name];
-      return typeof comp === "function" ? comp : null;
-    }
-    
-    return null;
-  };
-
-  // Parse icon value from database
-  const parseIconValue = (iconData?: string): IconValue | null => {
-    if (!iconData) return null;
-    
-    try {
-      // Try to parse as JSON (new format)
-      const parsed = JSON.parse(iconData);
-      if (parsed.name && parsed.library) {
-        return parsed as IconValue;
+  const handleDelete = async (categoryId: string) => {
+    startTransition(async () => {
+      try {
+        const result = await deleteCategoryAction(categoryId);
+        if (result.success) {
+          toast.success(result.message);
+          // Instantly update UI without reload
+          setLocalCategories(prev => prev.filter(cat => cat.id !== categoryId));
+        } else {
+          toast.error("Failed to delete category");
+        }
+      } catch (error) {
+        toast.error("An error occurred while deleting the category");
+      } finally {
+        setDeleteConfirm(null);
       }
-    } catch {
-      // If parsing fails, treat as old Lucide format
-      if (typeof iconData === 'string') {
-        return { name: iconData, library: "lucide" };
-      }
-    }
-    
-    return null;
-  };
-
-  // Function to render icon by name
-  const renderIcon = (iconData?: string) => {
-    const iconValue = parseIconValue(iconData);
-    const IconComponent = resolveIcon(iconValue);
-    
-    if (IconComponent) {
-      return <IconComponent className="w-5 h-5" />;
-    }
-    
-    return <div className="w-5 h-5 bg-gray-200 rounded" />;
-  };
-
-  // Get icon display name
-  const getIconDisplayName = (iconData?: string): string => {
-    const iconValue = parseIconValue(iconData);
-    if (!iconValue) return "None";
-    
-    if (iconValue.library === "lucide") {
-      return iconValue.name;
-    }
-    
-    if (iconValue.library === "react-icons" && iconValue.set) {
-      return `${iconValue.set}:${iconValue.name}`;
-    }
-    
-    return iconValue.name;
+    });
   };
 
   return (
     <div className="font-epilogue">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>
-          <h2 className="text-2xl font-extrabold text-[#25324B]">
-            Categories
-          </h2>
+          <h2 className="text-2xl font-extrabold text-[#25324B]">Categories</h2>
           <p className="text-gray-500 font-medium text-sm">
             Manage job categories for better organization.
           </p>
         </div>
-        <Link
-          href="/dashboard/admin/categories/add"
-          className="no-underline"
-        >
+        <Link href="/dashboard/admin/categories/add" className="no-underline">
           <Button className="bg-primary text-white rounded-none h-12 px-6 font-bold flex items-center gap-2 shadow-none">
             <Plus className="w-5 h-5" />
             Add Category
@@ -195,7 +113,7 @@ const CategoriesContent = ({ categories }: CategoriesContentProps) => {
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center">
-                        {renderIcon(category.icon)}
+                        {renderIcon(category?.icon)}
                       </div>
                       <div>
                         <span className="block font-bold text-[#25324B] text-sm">
@@ -241,7 +159,10 @@ const CategoriesContent = ({ categories }: CategoriesContentProps) => {
                       >
                         <Edit className="w-4 h-4" />
                       </Link>
-                      <button className="text-gray-300 hover:text-red-500 transition-colors">
+                      <button
+                        className="text-gray-300 hover:text-red-500 transition-colors cursor-pointer"
+                        onClick={() => setDeleteConfirm(category.id)}
+                      >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -278,6 +199,37 @@ const CategoriesContent = ({ categories }: CategoriesContentProps) => {
           </table>
         </div>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      {deleteConfirm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-sm mx-4 shadow-xl">
+            <h3 className="text-lg font-bold text-[#25324B] mb-2">
+              Confirm Delete
+            </h3>
+            <p className="text-gray-600 text-sm mb-6">
+              Are you sure you want to delete this category? This action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setDeleteConfirm(null)}
+                disabled={isPending}
+                className="rounded-none border-gray-200 text-[#25324B] font-bold h-10 px-6"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => handleDelete(deleteConfirm)}
+                disabled={isPending}
+                className="bg-red-500 text-white rounded-none h-10 px-6 font-bold hover:bg-red-600"
+              >
+                {isPending ? "Deleting..." : "Delete"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,88 +1,66 @@
 "use client";
-import { createJobAction, getAllCategoriesAction, updateJobAction } from "@/app/dashboard/company/_actions";
+import {
+  createJobAction,
+  updateJobAction
+} from "@/app/dashboard/company/_actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import RichTextEditor from "@/components/ui/rich-text-editor";
+import { Category } from "@/interface/category.interface";
 import { JobType } from "@/interface/job.interface";
 import {
   ArrowLeft,
   Briefcase,
-  CheckCircle2,
   DollarSign,
   Layers,
   Loader2,
-  MapPin,
+  MapPin
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useState } from "react";
+import { useTransition } from "react";
 import { toast } from "sonner";
 
 interface JobFormProps {
   initialData?: any;
+  categories: Category[];
   isEdit?: boolean;
   id?: string;
 }
 
-const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
+const JobForm = ({
+  initialData,
+  categories,
+  isEdit = false,
+  id,
+}: JobFormProps) => {
   const router = useRouter();
-  const [categories, setCategories] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isPending, startTransition] = useTransition();
 
-  const action = isEdit ? updateJobAction : createJobAction;
-
-  const [state, formAction, isPending] = useActionState(action, {
-    success: false,
-    message: "",
-  });
-
-  // Fetch categories on component mount
-  useEffect(() => {
-    const fetchCategories = async () => {
+  const handleSubmit = async (formData: FormData) => {
+    startTransition(async () => {
       try {
-        const result = await getAllCategoriesAction();
+        const prevState = { success: false, message: "", error: "" };
+        const result = isEdit 
+          ? await updateJobAction(prevState, formData)
+          : await createJobAction(prevState, formData);
+        
         if (result.success) {
-          setCategories(result.data || []);
+          toast.success(result.message);
+          router.push("/dashboard/company/job-listing");
+        } else {
+          toast.error(result.error || "Failed to save job");
         }
       } catch (error) {
-        console.error("Failed to fetch categories:", error);
-      } finally {
-        setLoading(false);
+        toast.error("An error occurred while saving the job");
       }
-    };
+    });
+  };
 
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    if (state.success) {
-      toast.success(state.message);
-      router.push("/dashboard/company/job-listing");
-    } else if (state.error) {
-      toast.error(state.error);
-    }
-  }, [state, router]);
-
-  if (state.success) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 bg-white border border-gray-100 shadow-none font-epilogue">
-        <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
-          <CheckCircle2 className="w-10 h-10" />
-        </div>
-        <h2 className="text-2xl font-extrabold text-[#25324B] mb-2 tracking-tighter">
-          {state.message}
-        </h2>
-        <p className="text-gray-500 font-medium mb-8">
-          Redirecting you back to the job listings...
-        </p>
-        <Loader2 className="w-6 h-6 text-primary animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <form
-      action={formAction}
+      action={handleSubmit}
       className="space-y-8 font-epilogue max-w-4xl mx-auto"
     >
       {/* Hidden fields */}
@@ -104,9 +82,9 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
       </div>
 
       <div className="bg-white border border-gray-100 p-8 shadow-none space-y-8">
-        {state.message && !state.success && (
-          <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-sm font-bold">
-            {state.message}
+        {isPending && (
+          <div className="p-4 bg-blue-50 border border-blue-100 text-blue-600 text-sm font-bold">
+            Processing...
           </div>
         )}
 
@@ -142,13 +120,11 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
               <select
                 name="categoryId"
                 defaultValue={initialData?.categoryId}
-                disabled={loading}
                 className="w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <option value="">{loading ? "Loading categories..." : "Select Category"}</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
+                {categories?.map((category) => (
+                  <option key={category?.id} value={category?.id}>
+                    {category?.name || "Unknown Category"}
                   </option>
                 ))}
               </select>
@@ -220,7 +196,9 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             <RichTextEditor
               value={initialData?.description || ""}
               onChange={(value) => {
-                const hiddenInput = document.getElementById('description-hidden') as HTMLInputElement;
+                const hiddenInput = document.getElementById(
+                  "description-hidden",
+                ) as HTMLInputElement;
                 if (hiddenInput) hiddenInput.value = value;
               }}
               placeholder="We are looking for a talented senior software engineer to join our team..."
@@ -235,7 +213,9 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             <RichTextEditor
               value={initialData?.requirements || ""}
               onChange={(value) => {
-                const hiddenInput = document.getElementById('requirements-hidden') as HTMLInputElement;
+                const hiddenInput = document.getElementById(
+                  "requirements-hidden",
+                ) as HTMLInputElement;
                 if (hiddenInput) hiddenInput.value = value;
               }}
               placeholder="5+ years of experience in software development, Strong knowledge of JavaScript/TypeScript..."
@@ -246,11 +226,17 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             <label className="text-xs font-bold text-[#25324B] ">
               Responsibilities
             </label>
-            <input type="hidden" name="responsibilities" id="responsibilities-hidden" />
+            <input
+              type="hidden"
+              name="responsibilities"
+              id="responsibilities-hidden"
+            />
             <RichTextEditor
               value={initialData?.responsibilities || ""}
               onChange={(value) => {
-                const hiddenInput = document.getElementById('responsibilities-hidden') as HTMLInputElement;
+                const hiddenInput = document.getElementById(
+                  "responsibilities-hidden",
+                ) as HTMLInputElement;
                 if (hiddenInput) hiddenInput.value = value;
               }}
               placeholder="Design and develop high-quality software solutions, Write clean and maintainable code..."

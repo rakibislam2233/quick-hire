@@ -1,26 +1,20 @@
 "use client";
-import {
-  createCategoryAction,
-  updateCategoryAction,
-} from "@/app/dashboard/admin/_actions";
+import { createCategoryAction, updateCategoryAction } from "@/app/dashboard/admin/_actions";
 import { Button } from "@/components/ui/button";
-import IconPicker, {
-  IconValue,
-  resolveIcon,
-} from "@/components/ui/icon-picker";
+import IconPicker from "@/components/ui/icon-picker";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { resolveIcon, type IconValue } from "@/lib/icon-config";
 import {
   ArrowLeft,
-  CheckCircle2,
   FolderOpen,
   Loader2,
   Tag,
-  X,
+  X
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useState } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
 interface CategoryFormProps {
@@ -35,6 +29,7 @@ const CategoryForm = ({
   id,
 }: CategoryFormProps) => {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   // Icon state
   const [selectedIcon, setSelectedIcon] = useState<IconValue | null>(() => {
     if (!initialData?.icon) return null;
@@ -47,45 +42,33 @@ const CategoryForm = ({
     }
   });
 
-  const action = isEdit ? updateCategoryAction : createCategoryAction;
-  const [state, formAction, isPending] = useActionState(action, {
-    success: false,
-    message: "",
-  });
-
-  useEffect(() => {
-    if (state.success) {
-      toast.success(state.message);
-      router.push("/dashboard/admin/categories");
-    } else if ((state as any).error) {
-      toast.error((state as any).error);
-    }
-  }, [state, router]);
+  const handleSubmit = async (formData: FormData) => {
+    startTransition(async () => {
+      try {
+        const prevState = { success: false, message: "", error: "" };
+        const result = isEdit 
+          ? await updateCategoryAction(prevState, formData)
+          : await createCategoryAction(prevState, formData);
+        
+        if (result.success) {
+          toast.success(result.message);
+          router.push("/dashboard/admin/categories");
+        } else {
+          toast.error(result.error || "Failed to save category");
+        }
+      } catch (error) {
+        toast.error("An error occurred while saving the category");
+      }
+    });
+  };
 
   const SelectedIconComponent = resolveIcon(selectedIcon);
 
-  // ── Success screen ──────────────────────────────────────────────────────────
-  if (state.success) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 bg-white border border-gray-100 shadow-none font-epilogue">
-        <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
-          <CheckCircle2 className="w-10 h-10" />
-        </div>
-        <h2 className="text-2xl font-extrabold text-[#25324B] mb-2 tracking-tighter">
-          {state.message}
-        </h2>
-        <p className="text-gray-500 font-medium mb-8">
-          Redirecting you back to the categories list...
-        </p>
-        <Loader2 className="w-6 h-6 text-primary animate-spin" />
-      </div>
-    );
-  }
 
   // ── Main form ───────────────────────────────────────────────────────────────
   return (
     <form
-      action={formAction}
+      action={handleSubmit}
       className="space-y-8 font-epilogue max-w-4xl mx-auto"
     >
       {/* Hidden fields */}
