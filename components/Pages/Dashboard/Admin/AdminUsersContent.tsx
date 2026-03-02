@@ -1,42 +1,57 @@
 "use client";
 
-import { Mail, MoreVertical, Shield, User } from "lucide-react";
+import { UserRole } from "@/interface/user.interface";
+import { getAllUsers } from "@/services/user.service";
+import { Loader2, Mail, MoreVertical, Shield, User } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  role: UserRole;
+  status: string;
+  createdAt: string;
+}
 
 const AdminUsersContent = () => {
-  const users = [
-    {
-      id: 1,
-      name: "Jake Richards",
-      email: "jake.richards@example.com",
-      role: "Job Seeker",
-      status: "Active",
-      joinedDate: "Jan 10, 2024",
-    },
-    {
-      id: 2,
-      name: "Maria Garcia",
-      email: "maria.g@nomad.com",
-      role: "Company Admin",
-      status: "Active",
-      joinedDate: "Feb 12, 2024",
-    },
-    {
-      id: 3,
-      name: "James Wilson",
-      email: "james.w@tech.io",
-      role: "Job Seeker",
-      status: "Pending",
-      joinedDate: "Feb 28, 2024",
-    },
-    {
-      id: 4,
-      name: "Sarah Connor",
-      email: "s.connor@sky.net",
-      role: "Job Seeker",
-      status: "Suspended",
-      joinedDate: "Dec 15, 2023",
-    },
-  ];
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await getAllUsers();
+        setUsers(data.users || []);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <p className="text-red-500 font-medium">Error loading users</p>
+          <p className="text-gray-500 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="font-epilogue">
@@ -80,11 +95,11 @@ const AdminUsersContent = () => {
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-[#25324B] font-bold text-xs ring-4 ring-white">
-                        {user.name[0]}
+                        {user.fullName[0]}
                       </div>
                       <div>
                         <span className="block font-bold text-[#25324B] text-sm">
-                          {user.name}
+                          {user.fullName}
                         </span>
                         <div className="flex items-center gap-1 text-[10px] text-gray-400 font-medium lowercase">
                           <Mail className="w-2.5 h-2.5" />
@@ -95,22 +110,25 @@ const AdminUsersContent = () => {
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-2">
-                      {user.role === "Company Admin" ? (
+                      {user.role === UserRole.COMPANY ? (
                         <Shield className="w-3.5 h-3.5 text-primary" />
+                      ) : user.role === UserRole.ADMIN ? (
+                        <Shield className="w-3.5 h-3.5 text-red-600" />
                       ) : (
                         <User className="w-3.5 h-3.5 text-gray-400" />
                       )}
                       <span className="text-xs font-bold text-[#25324B]">
-                        {user.role}
+                        {user.role === UserRole.COMPANY ? "Company Admin" : 
+                         user.role === UserRole.ADMIN ? "Admin" : "User"}
                       </span>
                     </div>
                   </td>
                   <td className="px-6 py-5 text-center">
                     <span
                       className={`px-2.5 py-0.5 rounded text-[10px] font-black  ${
-                        user.status === "Active"
+                        user.status === "ACTIVE"
                           ? "bg-green-50 text-green-600"
-                          : user.status === "Pending"
+                          : user.status === "PENDING"
                             ? "bg-orange-50 text-orange-600"
                             : "bg-red-50 text-red-600"
                       }`}
@@ -119,7 +137,7 @@ const AdminUsersContent = () => {
                     </span>
                   </td>
                   <td className="px-6 py-5 text-center text-xs font-medium text-gray-500">
-                    {user.joinedDate}
+                    {new Date(user.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-5 text-right">
                     <button className="text-gray-300 hover:text-primary transition-colors">

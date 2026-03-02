@@ -3,11 +3,13 @@
 import { getCompanyDashboardStats } from "@/services/dashboard.service";
 import { getMyProfile } from "@/services/user.service";
 import {
-    ArrowRight,
-    Calendar as CalendarIcon,
-    ChevronDown,
-    Loader2,
-    Printer
+  Briefcase,
+  Calendar,
+  ChevronDown,
+  Eye,
+  Loader2,
+  Printer,
+  Users
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -170,23 +172,6 @@ const CompanyDashboardContent = () => {
           <p className="text-xs text-gray-400 font-bold tracking-wider">APPLICATIONS</p>
         </div>
       </div>
-            <p className="text-white/90 font-semibold leading-tight">
-              Schedule for today
-            </p>
-          </div>
-          <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
-        </div>
-
-        <div className="bg-[#26A4FF] p-6 text-white flex items-center justify-between group cursor-pointer transition-all">
-          <div>
-            <span className="text-5xl font-extrabold block mb-2">24</span>
-            <p className="text-white/90 font-semibold leading-tight">
-              Messages received
-            </p>
-          </div>
-          <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
-        </div>
-      </div>
 
       {/* Middle Section: Stats & Job Open */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
@@ -198,7 +183,7 @@ const CompanyDashboardContent = () => {
                 Job statistics
               </h3>
               <p className="text-gray-500 text-sm font-medium">
-                Showing Job Statistic Jul 19-25
+                Showing Job Statistic This Week
               </p>
             </div>
             <div className="bg-[#F8F9FF] p-1 flex items-center">
@@ -226,188 +211,45 @@ const CompanyDashboardContent = () => {
             </button>
           </div>
 
-          {/* Simulated Chart Bars */}
-          <div className="h-64 flex items-end justify-between gap-4 px-4 pt-4">
-            {[
-              { label: "Mon", v: 40, a: 25 },
-              { label: "Tue", v: 30, a: 20 },
-              { label: "Wed", v: 60, a: 15 },
-              { label: "Thu", v: 45, a: 40 },
-              { label: "Fri", v: 50, a: 30 },
-              { label: "Sat", v: 15, a: 10 },
-              { label: "Sun", v: 10, a: 5 },
-            ].map((data) => (
-              <div
-                key={data.label}
-                className="flex-1 flex flex-col items-center gap-3 group relative"
-              >
-                <div className="w-full h-full flex items-end justify-center gap-1 group">
-                  <div
-                    className="w-4 bg-[#FFB836] transition-all hover:bg-[#FFB836]/80"
-                    style={{ height: `${data.v}%` }}
-                  ></div>
-                  <div
-                    className="w-4 bg-primary transition-all hover:bg-primary/80"
-                    style={{ height: `${data.a}%` }}
-                  ></div>
-                  {/* Tooltip on Wed specifically as per image */}
-                  {data.label === "Wed" && (
-                    <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#25324B] text-white p-2 text-[10px] rounded pointer-events-none z-10 w-16">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="w-2 h-2 rounded-full bg-primary"></span>
-                        <span>122</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="w-2 h-2 rounded-full bg-[#FFB836]"></span>
-                        <span>36</span>
-                      </div>
-                      <div className="absolute bottom-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-[#25324B] rotate-45"></div>
-                    </div>
-                  )}
+          {/* Recent Applications Table */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-bold text-[#25324B]">Recent Applications</h4>
+            {stats?.recentApplications?.slice(0, 5).map((app) => (
+              <div key={app.id} className="flex items-center justify-between p-4 bg-gray-50 rounded">
+                <div>
+                  <p className="font-medium text-[#25324B]">{app.candidate}</p>
+                  <p className="text-sm text-gray-500">{app.role}</p>
                 </div>
-                <span className="text-xs font-bold text-gray-400">
-                  {data.label}
-                </span>
+                <div className="text-right">
+                  <span className={`px-2 py-1 text-xs rounded-full ${
+                    app.status === 'PENDING' ? 'bg-yellow-100 text-yellow-600' :
+                    app.status === 'ACCEPTED' ? 'bg-green-100 text-green-600' :
+                    app.status === 'REJECTED' ? 'bg-red-100 text-red-600' :
+                    'bg-blue-100 text-blue-600'
+                  }`}>
+                    {app.status}
+                  </span>
+                  <p className="text-xs text-gray-400 mt-1">{app.date}</p>
+                </div>
               </div>
             ))}
           </div>
-
-          <div className="flex items-center gap-6 mt-6">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-[#FFB836]"></div>
-              <span className="text-xs font-bold text-gray-500  tracking-wider">
-                Job View
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-primary"></div>
-              <span className="text-xs font-bold text-gray-500  tracking-wider">
-                Job Applied
-              </span>
-            </div>
-          </div>
         </div>
 
-        {/* Sidebar Cards within Content */}
+        {/* Sidebar Cards */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white border border-gray-100 p-6 flex flex-col justify-center h-48 group cursor-pointer transition-all">
-            <h3 className="text-lg font-bold text-[#25324B] mb-4">Job Open</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-5xl font-extrabold text-[#25324B]">12</span>
-              <span className="text-gray-400 font-bold  text-xs">
-                Jobs Opened
-              </span>
-            </div>
-          </div>
-
           <div className="bg-white border border-gray-100 p-6">
-            <h3 className="text-lg font-bold text-[#25324B] mb-6">
-              Applicants Summary
-            </h3>
-            <div className="flex items-baseline gap-2 mb-8">
-              <span className="text-5xl font-extrabold text-[#25324B]">67</span>
-              <span className="text-gray-400 font-bold  text-xs">
-                Applicants
-              </span>
-            </div>
-
-            {/* Visual indicator bar */}
-            <div className="flex w-full h-3 mb-8 overflow-hidden">
-              <div className="w-[40%] bg-primary"></div>
-              <div className="w-[20%] bg-[#56CDAD]"></div>
-              <div className="w-[15%] bg-[#26A4FF]"></div>
-              <div className="w-[15%] bg-[#FFB836]"></div>
-              <div className="w-[10%] bg-[#FF6550]"></div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-primary rounded-sm"></div>
-                  <span className="text-xs font-bold text-gray-500">
-                    Full Time : <span className="text-[#25324B]">45</span>
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-[#FFB836] rounded-sm"></div>
-                  <span className="text-xs font-bold text-gray-500">
-                    Internship : <span className="text-[#25324B]">32</span>
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-[#56CDAD] rounded-sm"></div>
-                  <span className="text-xs font-bold text-gray-500">
-                    Part-Time : <span className="text-[#25324B]">24</span>
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-[#FF6550] rounded-sm"></div>
-                  <span className="text-xs font-bold text-gray-500">
-                    Contract : <span className="text-[#25324B]">30</span>
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-[#26A4FF] rounded-sm"></div>
-                  <span className="text-xs font-bold text-gray-500">
-                    Remote : <span className="text-[#25324B]">22</span>
-                  </span>
-                </div>
-              </div>
+            <h3 className="text-lg font-bold text-[#25324B] mb-4">Quick Actions</h3>
+            <div className="space-y-3">
+              <button className="w-full bg-primary text-white py-2 text-sm font-bold hover:bg-primary/90">
+                Post New Job
+              </button>
+              <button className="w-full border border-gray-200 py-2 text-sm font-bold hover:bg-gray-50">
+                View All Applications
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Footer / Secondary Stats Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white border border-gray-100 p-6 flex items-center justify-between">
-              <div>
-                <p className="text-xs font-bold text-gray-400  tracking-wider mb-1">
-                  Job Views
-                </p>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-extrabold text-[#25324B]">
-                    2,342
-                  </span>
-                  <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded flex items-center gap-0.5">
-                    6.4% <ChevronDown className="w-2.5 h-2.5 rotate-180" />
-                  </span>
-                </div>
-                <p className="text-[10px] font-bold text-gray-400 mt-1 ">
-                  This Week
-                </p>
-              </div>
-              <div className="w-10 h-10 bg-[#FFB836] rounded-full flex items-center justify-center">
-                <ArrowRight className="w-5 h-5 text-white" />
-              </div>
-            </div>
-
-            <div className="bg-white border border-gray-100 p-6 flex items-center justify-between">
-              <div>
-                <p className="text-xs font-bold text-gray-400  tracking-wider mb-1">
-                  Job Applied
-                </p>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-extrabold text-[#25324B]">
-                    654
-                  </span>
-                  <span className="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded flex items-center gap-0.5">
-                    0.5% <ChevronDown className="w-2.5 h-2.5" />
-                  </span>
-                </div>
-                <p className="text-[10px] font-bold text-gray-400 mt-1 ">
-                  This Week
-                </p>
-              </div>
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white">
-                <CalendarIcon className="w-5 h-5 border rounded" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="lg:col-span-1"></div>
       </div>
     </div>
   );
