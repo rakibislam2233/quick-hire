@@ -1,15 +1,43 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { forgotPasswordAction } from "@/services/auth.service";
+import { toast } from "@/lib/toast";
+import { AuthActionState, forgotPassword } from "@/services/auth.service";
 import { Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
+
+const initialState: AuthActionState = {
+  success: false,
+  message: "",
+  errors: {},
+  inputs: {},
+  timestamp: 0,
+};
 
 export default function ForgotPasswordForm() {
-  const [state, action, isPending] = useActionState(forgotPasswordAction, {});
+  const [state, action, isPending] = useActionState(forgotPassword, initialState);
+  const router = useRouter();
+
+  // Show toast messages based on form state
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message || "Reset password otp sent to your email!");
+    } else if (state?.message && !state?.success) {
+      toast.error(state?.message);
+    }
+  }, [state]);
+
+  // Redirect to verify-otp on successful forgot password
+  useEffect(() => {
+    if (state?.success) {
+      setTimeout(() => {
+        router.push("/verify-otp");
+      }, 2000); // Wait 2 seconds before redirecting
+    }
+  }, [state, router]);
 
   return (
     <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none font-epilogue">
@@ -29,10 +57,10 @@ export default function ForgotPasswordForm() {
           </span>
         </Link>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
-          Reset Password
+          Forgot Password
         </h1>
         <p className="text-sm text-gray-500 text-center">
-          Enter your email and we&apos;ll send you a link to reset your
+          Enter your email and we&apos;ll send you an OTP to reset your
           password.
         </p>
       </div>
@@ -69,7 +97,7 @@ export default function ForgotPasswordForm() {
           disabled={isPending}
           className="w-full bg-primary text-white rounded-none h-12 text-base font-semibold shadow-none hover:bg-primary"
         >
-          {isPending ? "Sending link..." : "Send Reset Link"}
+          {isPending ? "Sending OTP..." : "Send OTP"}
         </Button>
       </form>
 

@@ -6,6 +6,7 @@ import { toast } from "@/lib/toast";
 import { AuthActionState, verifyOtp } from "@/services/auth.service";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 
 const initialState: AuthActionState = {
@@ -18,6 +19,7 @@ const initialState: AuthActionState = {
 
 export default function VerifyEmailForm() {
   const [state, action, isPending] = useActionState(verifyOtp, initialState);
+  const router = useRouter();
 
   // Show toast messages based on form state
   useEffect(() => {
@@ -27,6 +29,13 @@ export default function VerifyEmailForm() {
       toast.error(state?.message);
     }
   }, [state]);
+
+  // Redirect on successful verification
+  useEffect(() => {
+    if (state?.success && state?.data?.redirect) {
+      router.push(state.data.redirect);
+    }
+  }, [state, router]);
 
   return (
     <div className="w-full max-w-lg mx-auto p-8 border border-gray-200 bg-white shadow-none font-epilogue">

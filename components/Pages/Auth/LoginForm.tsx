@@ -1,13 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { loginUser } from "@/services/auth.service";
+import { FormInput } from "@/components/ui/form-input";
+import { toast } from "@/lib/toast";
+import { AuthActionState, loginUser } from "@/services/auth.service";
 import { Lock, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState } from "react";
-import { AuthActionState } from "@/services/auth.service";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
 
 const initialState: AuthActionState = {
   success: false,
@@ -16,14 +17,32 @@ const initialState: AuthActionState = {
   inputs: {},
   timestamp: 0,
 };
+
 export default function LoginForm() {
   const [state, formAction, isPending] = useActionState(
     loginUser,
     initialState,
   );
+  const router = useRouter();
+
+  // Show toast messages based on form state
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message || "Login successful!");
+    } else if (state?.message && !state?.success) {
+      toast.error(state?.message);
+    }
+  }, [state]);
+
+  // Redirect on successful login
+  useEffect(() => {
+    if (state?.success && state?.data?.redirect) {
+      router.push(state.data.redirect);
+    }
+  }, [state, router]);
 
   return (
-    <div className="w-full max-w-[450px] mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
+    <div className="w-full max-w-lg mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center mb-10">
         <Link href="/" className="flex items-center justify-center gap-1 mb-6">
           <div className="relative w-10 h-9">
@@ -48,53 +67,29 @@ export default function LoginForm() {
       </div>
 
       <form action={formAction} className="space-y-6">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 block text-left">
-            Email Address
-          </label>
-          <div className="relative group">
-            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 w-5 h-5 group-focus-within:text-primary transition-colors" />
-            <Input
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
-            />
-          </div>
-          {state?.errors?.email && (
-            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
-              {state.errors.email[0]}
-            </p>
-          )}
-        </div>
+        <FormInput
+          id="email"
+          name="email"
+          type="email"
+          label="Email Address"
+          icon={Mail}
+          defaultValue={state?.inputs?.email ?? undefined}
+          placeholder="Enter your email"
+          error={state?.errors?.email}
+          required
+        />
 
-        <div className="space-y-2">
-          <div className="flex justify-between items-center mb-1">
-            <label className="text-sm font-medium text-gray-700 block text-left">
-              Password
-            </label>
-            <Link
-              href="/forgot-password"
-              className="text-[10px] font-bold text-primary  tracking-widest hover:underline"
-            >
-              Forgot?
-            </Link>
-          </div>
-          <div className="relative group">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 w-5 h-5 group-focus-within:text-primary transition-colors" />
-            <Input
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
-            />
-          </div>
-          {state?.errors?.password && (
-            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
-              {state.errors.password[0]}
-            </p>
-          )}
-        </div>
+        <FormInput
+          id="password"
+          name="password"
+          type="password"
+          label="Password"
+          icon={Lock}
+          defaultValue={state?.inputs?.password ?? undefined}
+          placeholder="Enter your password"
+          error={state?.errors?.password}
+          required
+        />
 
         <Button
           type="submit"

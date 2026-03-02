@@ -2,14 +2,43 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { resetPasswordAction } from "@/services/auth.service";
+import { toast } from "@/lib/toast";
+import { AuthActionState, resetPassword } from "@/services/auth.service";
 import { Lock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
+
+const initialState: AuthActionState = {
+  success: false,
+  message: "",
+  errors: {},
+  inputs: {},
+  timestamp: 0,
+};
 
 export default function ResetPasswordForm() {
-  const [state, action, isPending] = useActionState(resetPasswordAction, {});
+  const [state, action, isPending] = useActionState(resetPassword, initialState);
+  const router = useRouter();
+
+  // Show toast messages based on form state
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message || "Password reset successfully!");
+    } else if (state?.message && !state?.success) {
+      toast.error(state?.message);
+    }
+  }, [state]);
+
+  // Redirect to login on successful password reset
+  useEffect(() => {
+    if (state?.success) {
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000); // Wait 2 seconds before redirecting
+    }
+  }, [state, router]);
 
   return (
     <div className="w-full max-w-md mx-auto p-8 border border-gray-200 bg-white shadow-none font-epilogue">

@@ -37,9 +37,6 @@ export async function createJobAction(
         .fieldErrors as AdminJobActionState["errors"],
     };
   }
-
-  // Simulate API call or DB operation
-  console.log("Creating job:", validatedFields.data);
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
   revalidatePath("/admin/job-listing");
@@ -76,8 +73,6 @@ export async function updateJobAction(
     };
   }
 
-  // Simulate API call or DB operation
-  console.log(`Updating job ${id}:`, validatedFields.data);
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
   revalidatePath("/admin/job-listing");

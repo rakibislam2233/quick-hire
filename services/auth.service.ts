@@ -112,7 +112,6 @@ export async function loginUser(
   }
 }
 
-// Register CR
 export async function register(
   prevState: AuthActionState,
   payload: any,
@@ -390,11 +389,6 @@ export async function getNewAccessToken() {
     });
     const isProduction = process.env.NODE_ENV === "production";
     if (res.success) {
-      console.log(
-        "Access and Refresh Tokens Set",
-        res.data.accessToken,
-        res.data.refreshToken,
-      );
       //set new tokens
       await setCookie("accessToken", res.data.accessToken, {
         secure: isProduction,
