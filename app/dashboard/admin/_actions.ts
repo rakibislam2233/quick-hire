@@ -12,6 +12,11 @@ import {
 } from "@/services/company.service";
 import { getAdminDashboardStats } from "@/services/dashboard.service";
 import {
+  deleteJobByAdmin,
+  getAllJobsForAdmin,
+  updateJobStatus,
+} from "@/services/job.service";
+import {
   deleteUserById,
   getAllUsers,
   updateUserById,
@@ -150,6 +155,36 @@ export async function deleteCategoryAction(categoryId: string) {
     await deleteCategory(categoryId);
     revalidatePath("/dashboard/admin/categories");
     return { success: true, message: "Category deleted successfully" };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// Job Management Actions
+export async function getAllJobsAction() {
+  try {
+    const jobs = await getAllJobsForAdmin();
+    return { success: true, data: jobs };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function updateJobStatusAction(jobId: string, status: string) {
+  try {
+    await updateJobStatus(jobId, status);
+    revalidatePath("/dashboard/admin/jobs");
+    return { success: true, message: "Job status updated successfully" };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function deleteJobAction(jobId: string) {
+  try {
+    await deleteJobByAdmin(jobId);
+    revalidatePath("/dashboard/admin/jobs");
+    return { success: true, message: "Job deleted successfully" };
   } catch (error: any) {
     return { success: false, error: error.message };
   }

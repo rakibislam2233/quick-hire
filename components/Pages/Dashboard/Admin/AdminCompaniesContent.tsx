@@ -1,8 +1,58 @@
+import { Filter } from "@/components/ui/filter";
+import { Pagination } from "@/components/ui/pagination";
+import { useFilter } from "@/hooks/useFilter";
 import { Company } from "@/interface/company.interface";
-import { CheckCircle, Globe, Mail, MoreVertical, XCircle } from "lucide-react";
+import { Globe, MoreVertical } from "lucide-react";
 import Image from "next/image";
 
-const AdminCompaniesContent = ({ companies }: { companies: Company[] }) => {
+interface AdminCompaniesContentProps {
+  companies?: Company[];
+  meta?: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
+  onPageChange?: (page: number) => void;
+  onLimitChange?: (limit: number) => void;
+  onSearchChange?: (search: string) => void;
+}
+
+const AdminCompaniesContent = ({ 
+  companies = [], 
+  meta,
+  onPageChange,
+  onLimitChange,
+  onSearchChange 
+}: AdminCompaniesContentProps) => {
+  const {
+    searchTerm,
+    page,
+    limit,
+    setSearchTerm,
+    setPage,
+    setLimit,
+  } = useFilter({
+    initialPage: meta?.page || 1,
+    initialLimit: meta?.limit || 10,
+  });
+
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term);
+    onSearchChange?.(term);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    onPageChange?.(newPage);
+  };
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    onLimitChange?.(newLimit);
+  };
   return (
     <div className="font-epilogue">
       <div className="mb-8">
@@ -14,7 +64,15 @@ const AdminCompaniesContent = ({ companies }: { companies: Company[] }) => {
         </p>
       </div>
 
-      <div className="bg-white border border-gray-100 overflow-hidden shadow-none">
+      <div className="bg-white border border-gray-100 shadow-none">
+        <div className="p-6 border-b border-gray-100">
+          <Filter
+            searchTerm={searchTerm}
+            onSearchChange={handleSearchChange}
+            placeholder="Search companies by name or location..."
+          />
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -23,10 +81,25 @@ const AdminCompaniesContent = ({ companies }: { companies: Company[] }) => {
                   Company
                 </th>
                 <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest">
+                  Description
+                </th>
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest">
                   Website
                 </th>
                 <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
-                  Status
+                  Industry
+                </th>
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
+                  Size
+                </th>
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
+                  Location
+                </th>
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
+                  Founded
+                </th>
+                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
+                  Jobs
                 </th>
                 <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-right">
                   Actions
@@ -63,28 +136,49 @@ const AdminCompaniesContent = ({ companies }: { companies: Company[] }) => {
                     </div>
                   </td>
                   <td className="px-6 py-5">
+                    <div className="text-gray-600 text-xs max-w-xs truncate">
+                      {company.description || "No description"}
+                    </div>
+                  </td>
+                  <td className="px-6 py-5">
                     <div className="flex items-center gap-2 text-primary font-bold text-xs cursor-pointer hover:underline underline-offset-4 decoration-2">
                       <Globe className="w-3.5 h-3.5" />
-                      {company.domain}
+                      {company.website || "N/A"}
                     </div>
                   </td>
                   <td className="px-6 py-5 text-center">
                     <div className="flex items-center justify-center gap-2">
-                      {company.status === "Verified" ? (
-                        <span className="flex items-center gap-1 bg-green-50 text-green-600 px-2 py-0.5 rounded text-[10px] font-black ">
-                          <CheckCircle className="w-3 h-3" />
-                          {company.status}
-                        </span>
-                      ) : company.status === "Pending" ? (
-                        <span className="bg-orange-50 text-orange-600 px-2 py-0.5 rounded text-[10px] font-black ">
-                          {company.status}
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-1 bg-red-50 text-red-600 px-2 py-0.5 rounded text-[10px] font-black ">
-                          <XCircle className="w-3 h-3" />
-                          {company.status}
-                        </span>
-                      )}
+                      <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-[10px] font-black">
+                        {company.industry || "N/A"}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-5 text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="bg-purple-50 text-purple-600 px-2 py-0.5 rounded text-[10px] font-black">
+                        {company.size || "N/A"}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-5 text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="bg-orange-50 text-orange-600 px-2 py-0.5 rounded text-[10px] font-black">
+                        {company.location || "N/A"}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-5 text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="bg-gray-50 text-gray-600 px-2 py-0.5 rounded text-[10px] font-black">
+                        {company.foundedYear || "N/A"}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-5 text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="bg-green-50 text-green-600 px-2 py-0.5 rounded text-[10px] font-black">
+                        {company._count?.jobs || 0} Jobs
+                      </span>
                     </div>
                   </td>
                   <td className="px-6 py-5 text-right">
@@ -94,9 +188,36 @@ const AdminCompaniesContent = ({ companies }: { companies: Company[] }) => {
                   </td>
                 </tr>
               ))}
+              {(!companies || companies.length === 0) && (
+                <tr>
+                  <td colSpan={9} className="px-6 py-12 text-center">
+                    <div className="flex flex-col items-center justify-center">
+                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                        <Globe className="w-8 h-8 text-gray-400" />
+                      </div>
+                      <h3 className="text-lg font-bold text-[#25324B] mb-2">
+                        No Companies Found
+                      </h3>
+                      <p className="text-gray-500 text-sm">
+                        No companies match your current search criteria.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
+
+        {meta && (
+          <div className="p-6 border-t border-gray-100">
+            <Pagination
+              meta={meta}
+              onPageChange={handlePageChange}
+              onLimitChange={handleLimitChange}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
