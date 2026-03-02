@@ -70,7 +70,7 @@ const PricingContent = () => {
                 plan.isPremium
                   ? "border-primary ring-1 ring-primary"
                   : "border-gray-100"
-              } shadow-sm group hover:shadow-xl transition-all duration-300 flex flex-col`}
+              }  group hover:shadow-xl transition-all duration-300 flex flex-col`}
             >
               {plan.isPremium && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black  tracking-widest px-4 py-1.5 rounded-full">

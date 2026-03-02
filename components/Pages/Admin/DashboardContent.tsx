@@ -1,10 +1,10 @@
 "use client";
 
 import {
-  ArrowRight,
-  Calendar as CalendarIcon,
-  ChevronDown,
-  Printer,
+    ArrowRight,
+    Calendar as CalendarIcon,
+    ChevronDown,
+    Printer,
 } from "lucide-react";
 
 const DashboardContent = () => {
@@ -80,7 +80,7 @@ const DashboardContent = () => {
               </p>
             </div>
             <div className="bg-[#F8F9FF] p-1 flex items-center">
-              <button className="px-4 py-1 text-xs font-bold bg-white text-primary shadow-sm">
+              <button className="px-4 py-1 text-xs font-bold bg-white text-primary ">
                 Week
               </button>
               <button className="px-4 py-1 text-xs font-bold text-gray-400">

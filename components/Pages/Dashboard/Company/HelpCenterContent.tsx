@@ -3,12 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  BookOpen,
-  ChevronRight,
-  FileText,
-  LifeBuoy,
-  MessageCircle,
-  Search,
+    BookOpen,
+    ChevronRight,
+    FileText,
+    LifeBuoy,
+    MessageCircle,
+    Search,
 } from "lucide-react";
 
 const HelpCenterContent = () => {
@@ -73,7 +73,7 @@ const HelpCenterContent = () => {
 
         <div className="bg-[#F8F9FF] p-12 border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-start gap-6">
-            <div className="w-16 h-16 bg-white flex items-center justify-center text-primary shadow-sm shrink-0">
+            <div className="w-16 h-16 bg-white flex items-center justify-center text-primary  shrink-0">
               <MessageCircle className="w-8 h-8" />
             </div>
             <div>

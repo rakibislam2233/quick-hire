@@ -80,7 +80,7 @@ const AdminDashboardContent = ({ stats, error }: AdminDashboardContentProps) => 
         {systemStats.map((stat, index) => (
           <div
             key={index}
-            className={`${stat.bg} p-6 rounded-lg border border-gray-100 shadow-sm`}
+            className={`${stat.bg} p-6 rounded-lg border border-gray-100 `}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -104,7 +104,7 @@ const AdminDashboardContent = ({ stats, error }: AdminDashboardContentProps) => 
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white border border-gray-100 rounded-lg p-6 shadow-sm">
+      <div className="bg-white border border-gray-100 rounded-lg p-6 ">
         <h3 className="text-lg font-bold text-[#25324B] mb-4">Recent Activity</h3>
         <div className="space-y-4">
           {stats.recentActivity?.slice(0, 5).map((activity: any, index: number) => (

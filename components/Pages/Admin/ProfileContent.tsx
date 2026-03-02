@@ -2,13 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Building2,
-  Edit3,
-  Globe,
-  Mail,
-  MapPin,
-  Phone,
-  Users,
+    Building2,
+    Edit3,
+    Globe,
+    Mail,
+    MapPin,
+    Phone,
+    Users,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -36,7 +36,7 @@ const ProfileContent = () => {
           <div className="h-32 bg-gray-100 relative">
             {/* Banner image or solid color */}
             <div className="absolute -bottom-8 left-8">
-              <div className="relative w-24 h-24 bg-white border-4 border-white shadow-sm flex items-center justify-center overflow-hidden">
+              <div className="relative w-24 h-24 bg-white border-4 border-white  flex items-center justify-center overflow-hidden">
                 <div className="relative w-16 h-16">
                   <Image
                     src="/asset/logo/logo.png"

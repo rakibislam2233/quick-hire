@@ -90,7 +90,7 @@ const CompanyDashboardContent = ({ stats, error }: CompanyDashboardContentProps)
       </div>
 
       {/* Company Profile Section */}
-      <div className="bg-white border border-gray-100 p-6 rounded-lg shadow-sm mb-8">
+      <div className="bg-white border border-gray-100 p-6 rounded-lg  mb-8">
         <h3 className="text-lg font-bold text-[#25324B] mb-4">Company Profile</h3>
         <div className="space-y-4">
           <div className="flex items-center gap-4">
@@ -110,7 +110,7 @@ const CompanyDashboardContent = ({ stats, error }: CompanyDashboardContentProps)
       </div>
 
       {/* Recent Job Postings */}
-      <div className="bg-white border border-gray-100 p-6 rounded-lg shadow-sm">
+      <div className="bg-white border border-gray-100 p-6 rounded-lg ">
         <h3 className="text-lg font-bold text-[#25324B] mb-4">Recent Job Postings</h3>
         <div className="space-y-4">
           {stats.recentJobs?.slice(0, 5).map((job: any, index: number) => (

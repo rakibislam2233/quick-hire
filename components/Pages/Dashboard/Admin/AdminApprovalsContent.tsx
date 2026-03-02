@@ -47,7 +47,7 @@ const AdminApprovalsContent = () => {
         {pendingJobs.map((job) => (
           <div
             key={job.id}
-            className="bg-white border border-gray-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-sm transition-all"
+            className="bg-white border border-gray-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover: transition-all"
           >
             <div className="flex gap-4">
               <div className="w-14 h-14 border border-gray-50 p-3 relative shrink-0 bg-white">

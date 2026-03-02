@@ -56,7 +56,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
         <div className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-md border border-transparent cursor-pointer transition-all group">
           <Avatar
             className={cn(
-              "size-10 rounded-full border shadow-sm transition-transform group-hover:scale-105",
+              "size-10 rounded-full border  transition-transform group-hover:scale-105",
               isEmerald ? "border-emerald-200" : "border-gray-200",
             )}
           >
