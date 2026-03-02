@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Epilogue } from "next/font/google";
 import localFont from "next/font/local";
-import "./globals.css";
 import { Toaster } from "sonner";
+import "./globals.css";
 
 const epilogue = Epilogue({
   subsets: ["latin"],
@@ -60,6 +60,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${clashDisplay.variable} ${epilogue.variable} font-sans antialiased`}
+        suppressHydrationWarning={true}
       >
         {children}
         <Toaster position="top-right" richColors />

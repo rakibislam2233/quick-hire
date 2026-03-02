@@ -414,6 +414,86 @@ export async function getNewAccessToken() {
   }
 }
 
+export async function resendOtp(
+  prevState: AuthActionState,
+  formData: FormData,
+): Promise<AuthActionState> {
+  const values = Object.fromEntries(formData.entries());
+
+  if (!values.email) {
+    return {
+      success: false,
+      message: "Email is required",
+      timestamp: Date.now(),
+    };
+  }
+
+  try {
+    const res = await api.post("/auth/resend-otp", { email: values.email });
+    if (!res.success) {
+      return {
+        success: false,
+        message: res.message || "Failed to resend OTP",
+        timestamp: Date.now(),
+      };
+    }
+
+    return {
+      success: true,
+      message: res.message || "OTP sent successfully!",
+      data: res.data,
+      timestamp: Date.now(),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Failed to resend OTP",
+      timestamp: Date.now(),
+    };
+  }
+}
+
+export async function changePassword(
+  prevState: AuthActionState,
+  formData: FormData,
+): Promise<AuthActionState> {
+  const values = Object.fromEntries(formData.entries());
+
+  if (!values.currentPassword || !values.newPassword) {
+    return {
+      success: false,
+      message: "Current password and new password are required",
+      timestamp: Date.now(),
+    };
+  }
+
+  try {
+    const res = await api.post("/auth/change-password", {
+      currentPassword: values.currentPassword,
+      newPassword: values.newPassword,
+    });
+    if (!res.success) {
+      return {
+        success: false,
+        message: res.message || "Failed to change password",
+        timestamp: Date.now(),
+      };
+    }
+
+    return {
+      success: true,
+      message: res.message || "Password changed successfully!",
+      timestamp: Date.now(),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Failed to change password",
+      timestamp: Date.now(),
+    };
+  }
+}
+
 // Logout
 export async function logoutUser() {
   try {
