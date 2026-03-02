@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Calendar, MoreVertical, Loader2 } from "lucide-react";
-import Image from "next/image";
 import { getMyApplications } from "@/services/application.service";
+import { Calendar, Loader2 } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface Application {
   id: string;
@@ -58,20 +58,6 @@ const UserApplicationsContent = () => {
       </div>
     );
   }
-      appliedDate: "Dec 28, 2023",
-      status: "Accepted",
-      statusColor: "bg-green-50 text-green-600 border-green-100",
-    },
-    {
-      id: 4,
-      role: "Visual Designer",
-      company: "InVision",
-      logo: "/asset/logo/logo.png",
-      appliedDate: "Dec 20, 2023",
-      status: "Declined",
-      statusColor: "bg-red-50 text-red-600 border-red-100",
-    },
-  ];
 
   return (
     <div className="font-epilogue">
@@ -80,79 +66,61 @@ const UserApplicationsContent = () => {
           My Applications
         </h2>
         <p className="text-gray-500 font-medium text-sm">
-          Track and manage your sent applications.
+          Track your job applications and their status.
         </p>
       </div>
 
-      <div className="bg-white border border-gray-100 overflow-hidden shadow-none">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b border-gray-50 bg-[#F8F9FF]">
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest">
-                  Company
-                </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest">
-                  Role
-                </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
-                  Applied Date
-                </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-center">
-                  Status
-                </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-400  tracking-widest text-right">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {applications.map((app) => (
-                <tr
-                  key={app.id}
-                  className="hover:bg-gray-50/50 transition-colors group"
+      <div className="space-y-4">
+        {applications.map((app) => (
+          <div
+            key={app.id}
+            className="bg-white border border-gray-100 p-6 rounded-lg hover:border-primary transition-colors"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center overflow-hidden">
+                  {app.job.company.logo ? (
+                    <Image
+                      src={app.job.company.logo}
+                      alt={app.job.company.name}
+                      fill
+                      className="object-contain p-2"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 bg-gray-200 rounded flex items-center justify-center">
+                      <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#25324B] text-lg">
+                    {app.job.title}
+                  </h3>
+                  <p className="text-sm text-gray-500">{app.job.company.name}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <span
+                  className={`px-3 py-1 text-xs font-bold rounded-full ${
+                    app.status === "INTERVIEWING"
+                      ? "bg-blue-50 text-blue-600 border border-blue-100"
+                      : app.status === "ACCEPTED"
+                        ? "bg-green-50 text-green-600 border border-green-100"
+                        : app.status === "REJECTED"
+                          ? "bg-red-50 text-red-600 border border-red-100"
+                          : "bg-orange-50 text-orange-600 border border-orange-100"
+                  }`}
                 >
-                  <td className="px-6 py-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 p-2 relative shrink-0">
-                        <Image
-                          src={app.logo}
-                          alt={app.company}
-                          fill
-                          className="object-contain p-1"
-                        />
-                      </div>
-                      <span className="font-bold text-[#25324B] text-sm">
-                        {app.company}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-5 underline decoration-primary/30 font-bold text-[#25324B] text-sm hover:text-primary cursor-pointer decoration-2 underline-offset-4 transition-all">
-                    {app.role}
-                  </td>
-                  <td className="px-6 py-5 text-center">
-                    <div className="flex items-center justify-center gap-2 text-gray-500 text-xs font-medium">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {app.appliedDate}
-                    </div>
-                  </td>
-                  <td className="px-6 py-5 text-center">
-                    <span
-                      className={`px-3 py-1 rounded-full text-[10px] font-extrabold  border ${app.statusColor}`}
-                    >
-                      {app.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-5 text-right">
-                    <button className="text-gray-300 hover:text-primary transition-colors">
-                      <MoreVertical className="w-5 h-5" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  {app.status}
+                </span>
+                <div className="flex items-center gap-2 text-xs text-gray-400">
+                  <Calendar className="w-4 h-4" />
+                  {new Date(app.appliedDate).toLocaleDateString()}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
