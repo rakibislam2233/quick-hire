@@ -1,33 +1,63 @@
 "use client";
 
-import { Calendar, MoreVertical } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Calendar, MoreVertical, Loader2 } from "lucide-react";
 import Image from "next/image";
+import { getMyApplications } from "@/services/application.service";
+
+interface Application {
+  id: string;
+  job: {
+    id: string;
+    title: string;
+    company: {
+      name: string;
+      logo?: string;
+    };
+  };
+  appliedDate: string;
+  status: string;
+  statusColor: string;
+}
 
 const UserApplicationsContent = () => {
-  const applications = [
-    {
-      id: 1,
-      role: "Senior UX Designer",
-      company: "Dropbox",
-      logo: "/asset/logo/logo.png",
-      appliedDate: "Jan 12, 2024",
-      status: "Interview",
-      statusColor: "bg-blue-50 text-blue-600 border-blue-100",
-    },
-    {
-      id: 2,
-      role: "Frontend Engineer",
-      company: "Nomad",
-      logo: "/asset/logo/logo.png",
-      appliedDate: "Jan 15, 2024",
-      status: "Review",
-      statusColor: "bg-orange-50 text-orange-600 border-orange-100",
-    },
-    {
-      id: 3,
-      role: "Product Manager",
-      company: "Spotify",
-      logo: "/asset/logo/logo.png",
+  const [applications, setApplications] = useState<Application[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const data = await getMyApplications();
+        setApplications(data.applications || []);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApplications();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <p className="text-red-500 font-medium">Error loading applications</p>
+          <p className="text-gray-500 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
       appliedDate: "Dec 28, 2023",
       status: "Accepted",
       statusColor: "bg-green-50 text-green-600 border-green-100",

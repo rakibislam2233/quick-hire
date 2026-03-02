@@ -1,43 +1,60 @@
 "use client";
 
-import { CheckCircle, Globe, Mail, MoreVertical, XCircle } from "lucide-react";
+import { getAllCompaniesForAdmin } from "@/services/company.service";
+import { CheckCircle, Globe, Loader2, Mail, MoreVertical, XCircle } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+interface Company {
+  id: string;
+  name: string;
+  domain: string;
+  email: string;
+  status: string;
+  logo?: string;
+  website?: string;
+  industry?: string;
+  createdAt: string;
+}
 
 const AdminCompaniesContent = () => {
-  const companies = [
-    {
-      id: 1,
-      name: "Nomad",
-      domain: "nomad.com",
-      email: "contact@nomad.com",
-      status: "Verified",
-      logo: "/asset/logo/logo.png",
-    },
-    {
-      id: 2,
-      name: "Dropbox",
-      domain: "dropbox.com",
-      email: "hr@dropbox.com",
-      status: "Pending",
-      logo: "/asset/logo/logo.png",
-    },
-    {
-      id: 3,
-      name: "Spotify",
-      domain: "spotify.com",
-      email: "jobs@spotify.com",
-      status: "Verified",
-      logo: "/asset/logo/logo.png",
-    },
-    {
-      id: 4,
-      name: "Skynet",
-      domain: "skynet.net",
-      email: "admin@skynet.net",
-      status: "Rejected",
-      logo: "/asset/logo/logo.png",
-    },
-  ];
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      try {
+        const data = await getAllCompaniesForAdmin();
+        setCompanies(data.companies || []);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCompanies();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <p className="text-red-500 font-medium">Error loading companies</p>
+          <p className="text-gray-500 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="font-epilogue">
@@ -77,13 +94,19 @@ const AdminCompaniesContent = () => {
                 >
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 border border-gray-100 p-2 relative shrink-0">
-                        <Image
-                          src={company.logo}
-                          alt={company.name}
-                          fill
-                          className="object-contain p-1"
-                        />
+                      <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center overflow-hidden">
+                        {company.logo ? (
+                          <Image
+                            src={company.logo}
+                            alt={company.name}
+                            fill
+                            className="object-contain p-2"
+                          />
+                        ) : (
+                          <div className="w-8 h-8 bg-gray-200 rounded flex items-center justify-center">
+                            <Globe className="w-4 h-4 text-gray-400" />
+                          </div>
+                        )}
                       </div>
                       <div>
                         <span className="block font-bold text-[#25324B] text-sm">

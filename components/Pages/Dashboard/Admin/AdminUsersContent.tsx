@@ -1,5 +1,4 @@
 "use client";
-
 import { UserRole } from "@/interface/user.interface";
 import { getAllUsers } from "@/services/user.service";
 import { Loader2, Mail, MoreVertical, Shield, User } from "lucide-react";
