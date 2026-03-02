@@ -1,6 +1,6 @@
 "use client";
 import Footer from "@/components/Shared/Footer";
-import Navbar from "@/components/Shared/Navbar";
+import Navbar from "@/components/Shared/Navbar/Navbar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";

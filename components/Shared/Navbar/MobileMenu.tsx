@@ -1,14 +1,20 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
+import { IUser, UserRole } from "@/interface/user.interface";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { HiMenuAlt2 } from "react-icons/hi";
+import UserDropdown from "./UserDropdown";
 
-const MobileMenu = () => {
+interface MobileMenuProps {
+  user?: IUser | null;
+  dashboardHref?: string;
+}
+
+const MobileMenu = ({ user, dashboardHref }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -88,19 +94,25 @@ const MobileMenu = () => {
         </nav>
 
         <div className="p-6 space-y-3 mt-auto border-t border-gray-50 bg-white/50">
-          <Link href="/login" onClick={() => setIsOpen(false)}>
-            <Button
-              variant="outline"
-              className="w-full h-12 border-primary text-primary hover:bg-primary/5 font-bold rounded-none"
-            >
-              Login
-            </Button>
-          </Link>
-          <Link href="/register" onClick={() => setIsOpen(false)}>
-            <Button className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-none shadow-lg shadow-primary/20">
-              Sign Up
-            </Button>
-          </Link>
+          {user ? (
+            <UserDropdown user={user} dashboardHref={dashboardHref || ""} />
+          ) : (
+            <>
+              <Link href="/login" onClick={() => setIsOpen(false)}>
+                <Button
+                  variant="outline"
+                  className="w-full h-12 border-primary text-primary hover:bg-primary/5 font-bold rounded-none"
+                >
+                  Login
+                </Button>
+              </Link>
+              <Link href="/register" onClick={() => setIsOpen(false)}>
+                <Button className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-none shadow-lg shadow-primary/20">
+                  Sign Up
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </aside>
     </div>
