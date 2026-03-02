@@ -2,13 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import {
-  Building2,
-  CheckCircle2,
-  HelpCircle,
-  LayoutDashboard,
-  Settings,
-  ShieldCheck,
-  Users,
+    Building2,
+    CheckCircle2,
+    Folder,
+    HelpCircle,
+    LayoutDashboard,
+    Settings,
+    ShieldCheck,
+    Users
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,6 +28,7 @@ const AdminSidebar = ({
     { name: "Overview", icon: LayoutDashboard, href: "/dashboard/admin" },
     { name: "Users", icon: Users, href: "/dashboard/admin/users" },
     { name: "Companies", icon: Building2, href: "/dashboard/admin/companies" },
+    { name: "Categories", icon: Folder, href: "/dashboard/admin/categories" },
     {
       name: "Approvals",
       icon: CheckCircle2,

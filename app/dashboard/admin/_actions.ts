@@ -1,8 +1,21 @@
 "use server";
-
-import { deleteCompanyByAdmin, getAllCompaniesForAdmin, updateCompanyByAdmin } from "@/services/company.service";
+import {
+  createCategory,
+  deleteCategory,
+  getAllCategories,
+  updateCategory,
+} from "@/services/category.service";
+import {
+  deleteCompanyByAdmin,
+  getAllCompaniesForAdmin,
+  updateCompanyByAdmin,
+} from "@/services/company.service";
 import { getAdminDashboardStats } from "@/services/dashboard.service";
-import { deleteUserById, getAllUsers, updateUserById } from "@/services/user.service";
+import {
+  deleteUserById,
+  getAllUsers,
+  updateUserById,
+} from "@/services/user.service";
 import { revalidatePath } from "next/cache";
 
 // Admin Dashboard Stats Action
@@ -21,7 +34,7 @@ export async function getAllUsersAction(prevState: any, formData: FormData) {
     const search = formData.get("search") as string;
     const page = parseInt(formData.get("page") as string) || 1;
     const limit = parseInt(formData.get("limit") as string) || 10;
-    
+
     const users = await getAllUsers(search, page, limit);
     return { success: true, data: users };
   } catch (error: any) {
@@ -59,7 +72,10 @@ export async function getAllCompaniesAction() {
   }
 }
 
-export async function updateCompanyStatusAction(companyId: string, status: string) {
+export async function updateCompanyStatusAction(
+  companyId: string,
+  status: string,
+) {
   try {
     await updateCompanyByAdmin(companyId, new FormData());
     revalidatePath("/dashboard/admin/companies");
@@ -89,14 +105,17 @@ export async function getAllCategoriesAction() {
   }
 }
 
-export async function createCategoryAction(prevState: { success: boolean; message: string; error?: string }, formData: FormData) {
+export async function createCategoryAction(
+  prevState: { success: boolean; message: string; error?: string },
+  formData: FormData,
+) {
   try {
     const categoryData = {
       name: formData.get("name") as string,
       description: formData.get("description") as string,
       icon: formData.get("icon") as string,
     };
-    
+
     await createCategory(categoryData);
     revalidatePath("/dashboard/admin/categories");
     return { success: true, message: "Category created successfully" };
@@ -105,7 +124,10 @@ export async function createCategoryAction(prevState: { success: boolean; messag
   }
 }
 
-export async function updateCategoryAction(prevState: { success: boolean; message: string; error?: string }, formData: FormData) {
+export async function updateCategoryAction(
+  prevState: { success: boolean; message: string; error?: string },
+  formData: FormData,
+) {
   try {
     const categoryId = formData.get("categoryId") as string;
     const categoryData = {
@@ -113,7 +135,7 @@ export async function updateCategoryAction(prevState: { success: boolean; messag
       description: formData.get("description") as string,
       icon: formData.get("icon") as string,
     };
-    
+
     await updateCategory(categoryId, categoryData);
     revalidatePath("/dashboard/admin/categories");
     return { success: true, message: "Category updated successfully" };
