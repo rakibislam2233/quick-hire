@@ -1,4 +1,5 @@
 'use client';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
 interface PaginationMeta {
@@ -23,6 +24,7 @@ interface UseFilterOptions {
   initialSearch?: string;
   initialFilters?: Record<string, any>;
   resetPageOnFilterChange?: boolean;
+  syncWithUrl?: boolean; // New option to sync with URL
 }
 
 interface UseFilterReturn {
@@ -50,79 +52,168 @@ export function useFilter(options: UseFilterOptions = {}): UseFilterReturn {
     initialSearch = '',
     initialFilters = {},
     resetPageOnFilterChange = true,
+    syncWithUrl = true, // Default to true for URL sync
   } = options;
 
-  const [filterState, setFilterState] = useState<FilterState>({
-    searchTerm: initialSearch,
-    page: initialPage,
-    limit: initialLimit,
-    filters: initialFilters,
-  });
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Initialize state from URL params if syncWithUrl is true
+  const getInitialState = useCallback(() => {
+    if (syncWithUrl && searchParams) {
+      const urlPage = Number(searchParams.get('page')) || initialPage;
+      const urlLimit = Number(searchParams.get('limit')) || initialLimit;
+      const urlSearch = searchParams.get('search') || initialSearch;
+      
+      const urlFilters: Record<string, any> = {};
+      searchParams.forEach((value: string, key: string) => {
+        if (key !== 'page' && key !== 'limit' && key !== 'search') {
+          urlFilters[key] = value;
+        }
+      });
+
+      return {
+        searchTerm: urlSearch,
+        page: urlPage,
+        limit: urlLimit,
+        filters: { ...initialFilters, ...urlFilters },
+      };
+    }
+
+    return {
+      searchTerm: initialSearch,
+      page: initialPage,
+      limit: initialLimit,
+      filters: initialFilters,
+    };
+  }, [syncWithUrl, searchParams, initialPage, initialLimit, initialSearch, initialFilters]);
+
+  const [filterState, setFilterState] = useState<FilterState>(getInitialState);
+
+  // Update URL when filters change
+  const updateUrl = useCallback((state: FilterState) => {
+    if (!syncWithUrl) return;
+
+    const params = new URLSearchParams();
+    
+    // Add page and limit
+    params.set('page', state.page.toString());
+    params.set('limit', state.limit.toString());
+    
+    // Add search term if exists
+    if (state.searchTerm.trim()) {
+      params.set('search', state.searchTerm.trim());
+    }
+    
+    // Add all filters
+    Object.entries(state.filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        if (Array.isArray(value)) {
+          params.set(key, value.join(','));
+        } else {
+          params.set(key, value.toString());
+        }
+      }
+    });
+
+    // Update URL without page reload
+    const newUrl = `${pathname}?${params.toString()}`;
+    router.push(newUrl, { scroll: false });
+  }, [syncWithUrl, pathname, router]);
 
   const setSearchTerm = useCallback((term: string) => {
-    setFilterState(prev => ({
-      ...prev,
-      searchTerm: term,
-      page: resetPageOnFilterChange ? 1 : prev.page,
-    }));
-  }, [resetPageOnFilterChange]);
+    setFilterState(prev => {
+      const newState = {
+        ...prev,
+        searchTerm: term,
+        page: resetPageOnFilterChange ? 1 : prev.page,
+      };
+      updateUrl(newState);
+      return newState;
+    });
+  }, [resetPageOnFilterChange, updateUrl]);
 
   const setPage = useCallback((page: number) => {
-    setFilterState(prev => ({ ...prev, page }));
-  }, []);
+    setFilterState(prev => {
+      const newState = { ...prev, page };
+      updateUrl(newState);
+      return newState;
+    });
+  }, [updateUrl]);
 
   const setLimit = useCallback((limit: number) => {
-    setFilterState(prev => ({ 
-      ...prev, 
-      limit, 
-      page: 1 // Reset to first page when changing limit
-    }));
-  }, []);
+    setFilterState(prev => {
+      const newState = { 
+        ...prev, 
+        limit, 
+        page: 1 // Reset to first page when changing limit
+      };
+      updateUrl(newState);
+      return newState;
+    });
+  }, [updateUrl]);
 
   const setFilter = useCallback((key: string, value: any) => {
-    setFilterState(prev => ({
-      ...prev,
-      filters: { ...prev.filters, [key]: value },
-      page: resetPageOnFilterChange ? 1 : prev.page,
-    }));
-  }, [resetPageOnFilterChange]);
+    setFilterState(prev => {
+      const newState = {
+        ...prev,
+        filters: { ...prev.filters, [key]: value },
+        page: resetPageOnFilterChange ? 1 : prev.page,
+      };
+      updateUrl(newState);
+      return newState;
+    });
+  }, [resetPageOnFilterChange, updateUrl]);
 
   const removeFilter = useCallback((key: string) => {
     setFilterState(prev => {
       const newFilters = { ...prev.filters };
       delete newFilters[key];
-      return {
+      const newState = {
         ...prev,
         filters: newFilters,
         page: resetPageOnFilterChange ? 1 : prev.page,
       };
+      updateUrl(newState);
+      return newState;
     });
-  }, [resetPageOnFilterChange]);
+  }, [resetPageOnFilterChange, updateUrl]);
 
   const setMultipleFilters = useCallback((filters: Record<string, any>) => {
-    setFilterState(prev => ({
-      ...prev,
-      filters: { ...prev.filters, ...filters },
-      page: resetPageOnFilterChange ? 1 : prev.page,
-    }));
-  }, [resetPageOnFilterChange]);
+    setFilterState(prev => {
+      const newState = {
+        ...prev,
+        filters: { ...prev.filters, ...filters },
+        page: resetPageOnFilterChange ? 1 : prev.page,
+      };
+      updateUrl(newState);
+      return newState;
+    });
+  }, [resetPageOnFilterChange, updateUrl]);
 
   const clearAllFilters = useCallback(() => {
-    setFilterState(prev => ({
-      ...prev,
-      filters: {},
-      page: resetPageOnFilterChange ? 1 : prev.page,
-    }));
-  }, [resetPageOnFilterChange]);
+    setFilterState(prev => {
+      const newState = {
+        ...prev,
+        filters: {},
+        page: resetPageOnFilterChange ? 1 : prev.page,
+      };
+      updateUrl(newState);
+      return newState;
+    });
+  }, [resetPageOnFilterChange, updateUrl]);
 
   const resetFilters = useCallback(() => {
-    setFilterState({
+    const newState = {
       searchTerm: initialSearch,
       page: initialPage,
       limit: initialLimit,
       filters: initialFilters,
-    });
-  }, [initialPage, initialLimit, initialSearch, initialFilters]);
+    };
+    setFilterState(newState);
+    updateUrl(newState);
+  }, [initialPage, initialLimit, initialSearch, initialFilters, updateUrl]);
 
   const getQueryParams = useCallback(() => {
     const params: Record<string, any> = {
