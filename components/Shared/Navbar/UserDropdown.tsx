@@ -80,16 +80,6 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <div className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-md border border-transparent cursor-pointer transition-all group">
-          <div className="hidden sm:flex flex-col text-right">
-            <span className="text-xs  text-gray-900 leading-tight">
-              {user?.fullName || "User"}
-            </span>
-            <div
-              className={`text-[10px] font-bold px-2 py-1 rounded-full ${getRoleColor()} tracking-tighter`}
-            >
-              {getRoleLabel()}
-            </div>
-          </div>
           <Avatar
             className={cn(
               "size-10 rounded-full border shadow-sm transition-transform group-hover:scale-105",
@@ -123,7 +113,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-56 mt-2 p-0 border-none shadow-none bg-transparent overflow-visible"
+        className="w-56 mt-2 p-0 border-none shadow-none bg-transparent overflow-visible font-epilogue"
       >
         <motion.div
           initial={{ opacity: 0, y: 10, scale: 0.95 }}
