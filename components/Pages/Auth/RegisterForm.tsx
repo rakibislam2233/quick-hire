@@ -1,18 +1,26 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { FormInput } from "@/components/ui/form-input";
 import { Input } from "@/components/ui/input";
-import { registerAction } from "@/services/auth.service";
+import { AuthActionState, register } from "@/services/auth.service";
 import { Building2, Lock, Mail, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useActionState } from "react";
+const initialState: AuthActionState = {
+  success: false,
+  message: "",
+  errors: {},
+  inputs: {},
+  timestamp: 0,
+};
 
 export default function RegisterForm() {
-  const [state, action, isPending] = useActionState(registerAction, {});
+  const [state, formAction, isPending] = useActionState(register, initialState);
 
   return (
-    <div className="w-full max-w-[500px] mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
+    <div className="w-full max-w-125 mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center">
         <Link href="/" className="flex items-center justify-center gap-1 mb-6">
           <div className="relative w-10 h-9">
@@ -36,19 +44,7 @@ export default function RegisterForm() {
         </p>
       </div>
 
-      <form action={action} className="space-y-6">
-        {state?.message && (
-          <div
-            className={`p-4 text-xs font-bold  tracking-widest rounded-none border ${
-              state.success
-                ? "bg-green-50 text-green-600 border-green-100"
-                : "bg-red-50 text-red-600 border-red-100"
-            }`}
-          >
-            {state.message}
-          </div>
-        )}
-
+      <form action={formAction} className="space-y-6">
         {/* Role Selection */}
         <div className="space-y-3">
           <label className="text-sm font-medium text-gray-700 block text-left">
@@ -92,65 +88,39 @@ export default function RegisterForm() {
           )}
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 block text-left">
-            Full Name
-          </label>
-          <div className="relative group">
-            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 w-5 h-5 group-focus-within:text-primary transition-colors" />
-            <Input
-              name="fullName"
-              type="text"
-              placeholder="Enter your name"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
-            />
-          </div>
-          {state?.errors?.fullName && (
-            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
-              {state.errors.fullName[0]}
-            </p>
-          )}
-        </div>
+        <FormInput
+          id="fullName"
+          name="fullName"
+          label="Full Name"
+          icon={User}
+          defaultValue={state?.inputs?.fullName ?? undefined}
+          placeholder="Enter your full name"
+          error={state?.errors?.fullName}
+          required
+        />
+        <FormInput
+          id="email"
+          name="email"
+          type="email"
+          label="Email Address"
+          icon={Mail}
+          defaultValue={state?.inputs?.email ?? undefined}
+          placeholder="rahim@example.com"
+          error={state?.errors?.email}
+          required
+        />
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 block text-left">
-            Email Address
-          </label>
-          <div className="relative group">
-            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 w-5 h-5 group-focus-within:text-primary transition-colors" />
-            <Input
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
-            />
-          </div>
-          {state?.errors?.email && (
-            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
-              {state.errors.email[0]}
-            </p>
-          )}
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 block text-left">
-            Password
-          </label>
-          <div className="relative group">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 w-5 h-5 group-focus-within:text-primary transition-colors" />
-            <Input
-              name="password"
-              type="password"
-              placeholder="Create a strong password"
-              className="w-full h-12 pl-12 bg-gray-50 border-gray-100 rounded-none outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary focus-visible:bg-white transition-all text-sm"
-            />
-          </div>
-          {state?.errors?.password && (
-            <p className="text-[10px] font-bold text-red-500  tracking-tight mt-1">
-              {state.errors.password[0]}
-            </p>
-          )}
-        </div>
+        <FormInput
+          id="password"
+          name="password"
+          type="password"
+          label="Password"
+          icon={Lock}
+          defaultValue={state?.inputs?.password ?? undefined}
+          placeholder="Create a password"
+          error={state?.errors?.password}
+          required
+        />
 
         <Button
           type="submit"
