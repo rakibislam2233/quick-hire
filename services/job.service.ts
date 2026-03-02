@@ -1,6 +1,6 @@
 import { mockCompanies, mockJobs } from "@/data/jobData";
-import { Company, Job } from "@/interface/job.interface";
-
+import { Company } from "@/interface/company.interface";
+import { Job } from "@/interface/job.interface";
 
 export const getAllJobs = async (): Promise<Job[]> => {
   return mockJobs;
