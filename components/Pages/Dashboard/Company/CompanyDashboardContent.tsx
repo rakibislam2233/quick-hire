@@ -1,6 +1,6 @@
 "use client";
 
-import { Briefcase, Users, FileText, TrendingUp } from "lucide-react";
+import { Briefcase, FileText, TrendingUp, Users } from "lucide-react";
 
 interface CompanyDashboardContentProps {
   stats?: any;
@@ -74,102 +74,71 @@ const CompanyDashboardContent = ({ stats, error }: CompanyDashboardContentProps)
             key={index}
             className={`${stat.color} p-6 text-white rounded-lg flex items-center justify-between group cursor-pointer transition-all`}
           >
-          <div className="flex items-center justify-between mb-4">
-            <Users className="w-5 h-5 text-blue-500" />
-            <span className="text-xs font-bold text-gray-400">TOTAL</span>
-          </div>
-          <h3 className="text-2xl font-extrabold text-[#25324B] mb-1">{stats?.totalApplications || 0}</h3>
-          <p className="text-xs text-gray-400 font-bold tracking-wider">APPLICATIONS</p>
-        </div>
-
-        <div className="bg-white border border-gray-100 p-6 shadow-none">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-5 h-5 bg-orange-100 rounded flex items-center justify-center">
-              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+            <div>
+              <span className="text-5xl font-extrabold block mb-2">
+                {stat.value}
+              </span>
+              <p className="text-white/90 font-semibold leading-tight">
+                {stat.label}
+              </p>
             </div>
-            <span className="text-xs font-bold text-gray-400">PENDING</span>
+            <div className="transform group-hover:translate-x-1 transition-transform">
+              <stat.icon className="w-6 h-6" />
+            </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-[#25324B] mb-1">{stats?.pendingApplications || 0}</h3>
-          <p className="text-xs text-gray-400 font-bold tracking-wider">APPLICATIONS</p>
+        ))}
+      </div>
+
+      {/* Company Profile Section */}
+      <div className="bg-white border border-gray-100 p-6 rounded-lg shadow-sm mb-8">
+        <h3 className="text-lg font-bold text-[#25324B] mb-4">Company Profile</h3>
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+              <Users className="w-6 h-6 text-gray-600" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-900">
+                {stats.company?.name || "Company Name"}
+              </p>
+              <p className="text-xs text-gray-500">
+                {stats.company?.email || "company@example.com"}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Middle Section: Stats & Job Open */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
-        {/* Job Statistics Chart (Simulated) */}
-        <div className="lg:col-span-3 bg-white border border-gray-100 p-8">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h3 className="text-xl font-bold text-[#25324B]">
-                Job statistics
-              </h3>
-              <p className="text-gray-500 text-sm font-medium">
-                Showing Job Statistic This Week
-              </p>
-            </div>
-            <div className="bg-[#F8F9FF] p-1 flex items-center">
-              <button className="px-4 py-1 text-xs font-bold bg-white text-primary shadow-sm">
-                Week
-              </button>
-              <button className="px-4 py-1 text-xs font-bold text-gray-400">
-                Month
-              </button>
-              <button className="px-4 py-1 text-xs font-bold text-gray-400">
-                Year
-              </button>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-8 mb-8 border-b border-gray-100 pb-2">
-            <button className="text-sm font-bold text-primary border-b-2 border-primary pb-2 px-1">
-              Overview
-            </button>
-            <button className="text-sm font-bold text-gray-400 pb-2 px-1">
-              Jobs View
-            </button>
-            <button className="text-sm font-bold text-gray-400 pb-2 px-1">
-              Jobs Applied
-            </button>
-          </div>
-
-          {/* Recent Applications Table */}
-          <div className="space-y-4">
-            <h4 className="text-sm font-bold text-[#25324B]">Recent Applications</h4>
-            {stats?.recentApplications?.slice(0, 5).map((app) => (
-              <div key={app.id} className="flex items-center justify-between p-4 bg-gray-50 rounded">
-                <div>
-                  <p className="font-medium text-[#25324B]">{app.candidate}</p>
-                  <p className="text-sm text-gray-500">{app.role}</p>
+      {/* Recent Job Postings */}
+      <div className="bg-white border border-gray-100 p-6 rounded-lg shadow-sm">
+        <h3 className="text-lg font-bold text-[#25324B] mb-4">Recent Job Postings</h3>
+        <div className="space-y-4">
+          {stats.recentJobs?.slice(0, 5).map((job: any, index: number) => (
+            <div key={index} className="flex items-center justify-between p-4 border-b border-gray-50 last:border-0">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                  <Briefcase className="w-4 h-4 text-gray-600" />
                 </div>
-                <div className="text-right">
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    app.status === 'PENDING' ? 'bg-yellow-100 text-yellow-600' :
-                    app.status === 'ACCEPTED' ? 'bg-green-100 text-green-600' :
-                    app.status === 'REJECTED' ? 'bg-red-100 text-red-600' :
-                    'bg-blue-100 text-blue-600'
-                  }`}>
-                    {app.status}
-                  </span>
-                  <p className="text-xs text-gray-400 mt-1">{app.date}</p>
+                <div>
+                  <p className="text-sm font-medium text-gray-900">{job.title}</p>
+                  <p className="text-xs text-gray-500">{job.applicants} applicants</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Sidebar Cards */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white border border-gray-100 p-6">
-            <h3 className="text-lg font-bold text-[#25324B] mb-4">Quick Actions</h3>
-            <div className="space-y-3">
-              <button className="w-full bg-primary text-white py-2 text-sm font-bold hover:bg-primary/90">
-                Post New Job
-              </button>
-              <button className="w-full border border-gray-200 py-2 text-sm font-bold hover:bg-gray-50">
-                View All Applications
-              </button>
+              <span
+                className={`px-2 py-1 text-xs rounded-full ${
+                  job.status === "ACTIVE"
+                    ? "bg-green-50 text-green-600"
+                    : job.status === "CLOSED"
+                      ? "bg-red-50 text-red-600"
+                      : "bg-gray-50 text-gray-600"
+                }`}
+              >
+                {job.status}
+              </span>
             </div>
-          </div>
+          )) || (
+            <p className="text-gray-500 text-sm">No recent job postings</p>
+          )}
         </div>
       </div>
     </div>
