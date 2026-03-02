@@ -1,5 +1,9 @@
 import UserSavedJobsContent from "@/components/Pages/Dashboard/User/UserSavedJobsContent";
+import { getSavedJobsAction } from "../_actions";
 
-export default function UserSavedJobsPage() {
-  return <UserSavedJobsContent />;
-}
+const UserSavedJobsPage = async () => {
+  const savedJobs = await getSavedJobsAction();
+  return <UserSavedJobsContent savedJobs={savedJobs?.data} />;
+};
+
+export default UserSavedJobsPage;

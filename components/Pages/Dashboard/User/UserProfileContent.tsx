@@ -22,44 +22,50 @@ interface UserProfile {
   education?: string;
 }
 
-const UserProfileContent = () => {
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+interface UserProfileContentProps {
+  profile?: UserProfile;
+}
+
+const UserProfileContent = ({ profile: initialProfile }: UserProfileContentProps) => {
+  const [profile, setProfile] = useState<UserProfile | null>(initialProfile || null);
+  const [loading, setLoading] = useState(!initialProfile);
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
-    fullName: "",
-    phone: "",
-    location: "",
-    bio: "",
-    skills: "",
-    experience: "",
-    education: "",
+    fullName: initialProfile?.fullName || "",
+    phone: initialProfile?.phone || "",
+    location: initialProfile?.location || "",
+    bio: initialProfile?.bio || "",
+    skills: initialProfile?.skills?.join(", ") || "",
+    experience: initialProfile?.experience || "",
+    education: initialProfile?.education || "",
   });
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data = await getMyProfile();
-        setProfile(data);
-        setFormData({
-          fullName: data.fullName || "",
-          phone: data.phone || "",
-          location: data.location || "",
-          bio: data.bio || "",
-          skills: data.skills?.join(", ") || "",
-          experience: data.experience || "",
-          education: data.education || "",
-        });
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!initialProfile) {
+      const fetchProfile = async () => {
+        try {
+          const data = await getMyProfile();
+          setProfile(data);
+          setFormData({
+            fullName: data.fullName || "",
+            phone: data.phone || "",
+            location: data.location || "",
+            bio: data.bio || "",
+            skills: data.skills?.join(", ") || "",
+            experience: data.experience || "",
+            education: data.education || "",
+          });
+        } catch (err: any) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchProfile();
-  }, []);
+      fetchProfile();
+    }
+  }, [initialProfile]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,7 +74,7 @@ const UserProfileContent = () => {
     try {
       const updateData = {
         ...formData,
-        skills: formData.skills.split(",").map(s => s.trim()).filter(s => s),
+        skills: formData.skills.split(",").map((s: string) => s.trim()).filter((s: string) => s),
       };
       
       await updateMyProfile(updateData);
