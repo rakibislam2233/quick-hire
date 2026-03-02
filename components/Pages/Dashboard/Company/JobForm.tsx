@@ -1,5 +1,5 @@
 "use client";
-import { createJobAction, updateJobAction } from "@/app/dashboard/company/_actions";
+import { createJobAction, getAllCategoriesAction, updateJobAction } from "@/app/dashboard/company/_actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import RichTextEditor from "@/components/ui/rich-text-editor";
@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface JobFormProps {
@@ -26,6 +26,8 @@ interface JobFormProps {
 
 const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
   const router = useRouter();
+  const [categories, setCategories] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const action = isEdit ? updateJobAction : createJobAction;
 
@@ -33,6 +35,24 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
     success: false,
     message: "",
   });
+
+  // Fetch categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const result = await getAllCategoriesAction();
+        if (result.success) {
+          setCategories(result.data || []);
+        }
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     if (state.success) {
@@ -122,13 +142,15 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
               <select
                 name="categoryId"
                 defaultValue={initialData?.categoryId}
-                className="w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer"
+                disabled={loading}
+                className="w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <option value="">Select Category</option>
-                <option value="your_category_id_here">Technology</option>
-                <option value="your_category_id_here">Design</option>
-                <option value="your_category_id_here">Marketing</option>
-                <option value="your_category_id_here">Business</option>
+                <option value="">{loading ? "Loading categories..." : "Select Category"}</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
               </select>
             </div>
 

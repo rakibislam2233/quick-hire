@@ -1,11 +1,31 @@
 "use client";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { Category } from "@/interface/category.interface";
-import { Edit, Trash2, Plus, Search, Filter } from "lucide-react";
+import * as LucideIcons from "lucide-react";
+import { Edit, Filter, Plus, Search, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+
+// React Icons sets
+import * as AiIcons from "react-icons/ai";
+import * as BiIcons from "react-icons/bi";
+import * as BsIcons from "react-icons/bs";
+import * as FaIcons from "react-icons/fa";
+import * as FiIcons from "react-icons/fi";
+import * as HiIcons from "react-icons/hi";
+import * as IoIcons from "react-icons/io";
+import * as MdIcons from "react-icons/md";
+import * as RiIcons from "react-icons/ri";
+import * as TbIcons from "react-icons/tb";
+
+// Icon value interface (same as IconPicker)
+interface IconValue {
+  name: string;
+  library: "lucide" | "react-icons";
+  set?: string;
+}
 
 interface CategoriesContentProps {
   categories?: Category[];
@@ -18,6 +38,87 @@ const CategoriesContent = ({ categories }: CategoriesContentProps) => {
     (category) =>
       category.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // React Icons sets mapping
+  const REACT_ICON_SETS: Record<string, Record<string, React.ComponentType<any>>> = {
+    fa: FaIcons as any,
+    md: MdIcons as any,
+    ai: AiIcons as any,
+    bi: BiIcons as any,
+    bs: BsIcons as any,
+    fi: FiIcons as any,
+    hi: HiIcons as any,
+    io: IoIcons as any,
+    ri: RiIcons as any,
+    tb: TbIcons as any,
+  };
+
+  // Resolve icon component (same logic as IconPicker)
+  const resolveIcon = (icon: IconValue | null | undefined): React.ComponentType<any> | null => {
+    if (!icon) return null;
+    
+    if (icon.library === "lucide") {
+      const comp = (LucideIcons as any)[icon.name];
+      return typeof comp === "function" ? comp : null;
+    }
+    
+    if (icon.library === "react-icons" && icon.set) {
+      const set = REACT_ICON_SETS[icon.set];
+      if (!set) return null;
+      const comp = set[icon.name];
+      return typeof comp === "function" ? comp : null;
+    }
+    
+    return null;
+  };
+
+  // Parse icon value from database
+  const parseIconValue = (iconData?: string): IconValue | null => {
+    if (!iconData) return null;
+    
+    try {
+      // Try to parse as JSON (new format)
+      const parsed = JSON.parse(iconData);
+      if (parsed.name && parsed.library) {
+        return parsed as IconValue;
+      }
+    } catch {
+      // If parsing fails, treat as old Lucide format
+      if (typeof iconData === 'string') {
+        return { name: iconData, library: "lucide" };
+      }
+    }
+    
+    return null;
+  };
+
+  // Function to render icon by name
+  const renderIcon = (iconData?: string) => {
+    const iconValue = parseIconValue(iconData);
+    const IconComponent = resolveIcon(iconValue);
+    
+    if (IconComponent) {
+      return <IconComponent className="w-5 h-5" />;
+    }
+    
+    return <div className="w-5 h-5 bg-gray-200 rounded" />;
+  };
+
+  // Get icon display name
+  const getIconDisplayName = (iconData?: string): string => {
+    const iconValue = parseIconValue(iconData);
+    if (!iconValue) return "None";
+    
+    if (iconValue.library === "lucide") {
+      return iconValue.name;
+    }
+    
+    if (iconValue.library === "react-icons" && iconValue.set) {
+      return `${iconValue.set}:${iconValue.name}`;
+    }
+    
+    return iconValue.name;
+  };
 
   return (
     <div className="font-epilogue">
@@ -94,11 +195,7 @@ const CategoriesContent = ({ categories }: CategoriesContentProps) => {
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center">
-                        {category.icon ? (
-                          <span className="text-lg">{category.icon}</span>
-                        ) : (
-                          <div className="w-5 h-5 bg-gray-200 rounded"></div>
-                        )}
+                        {renderIcon(category.icon)}
                       </div>
                       <div>
                         <span className="block font-bold text-[#25324B] text-sm">
@@ -116,9 +213,12 @@ const CategoriesContent = ({ categories }: CategoriesContentProps) => {
                     </span>
                   </td>
                   <td className="px-6 py-5">
-                    <span className="text-sm text-gray-500">
-                      {category.icon || "None"}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      {renderIcon(category.icon)}
+                      <span className="text-sm text-gray-500">
+                        {getIconDisplayName(category.icon)}
+                      </span>
+                    </div>
                   </td>
                   <td className="px-6 py-5 text-center">
                     <span className="text-sm font-bold text-[#25324B]">

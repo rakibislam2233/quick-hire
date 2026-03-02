@@ -115,6 +115,7 @@ export async function createCategoryAction(
       description: formData.get("description") as string,
       icon: formData.get("icon") as string,
     };
+    console.log("CategoryData",categoryData)
 
     await createCategory(categoryData);
     revalidatePath("/dashboard/admin/categories");

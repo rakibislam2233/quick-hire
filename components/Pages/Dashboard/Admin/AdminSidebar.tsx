@@ -54,7 +54,7 @@ const AdminSidebar = ({
 
       <aside
         className={cn(
-          "fixed md:sticky top-0 left-0 z-50 w-64 bg-[#F8F9FF] border-r border-gray-100 flex flex-col h-screen transition-transform duration-300 md:translate-x-0",
+          "fixed md:sticky top-0 left-0 z-50 w-64 bg-[#F8F9FF] border-r border-gray-100 flex flex-col h-screen  transition-transform duration-300 md:translate-x-0 font-epilogue",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >

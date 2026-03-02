@@ -135,3 +135,13 @@ export async function updateApplicationStatusAction(applicationId: string, statu
     return { success: false, error: error.message };
   }
 }
+
+// Categories Management Actions
+export async function getAllCategoriesAction() {
+  try {
+    const categories = await getAllCategories();
+    return { success: true, data: categories };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
