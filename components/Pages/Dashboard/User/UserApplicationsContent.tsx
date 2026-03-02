@@ -1,64 +1,15 @@
-"use client";
-
-import { getMyApplications } from "@/services/application.service";
-import { Calendar, Loader2 } from "lucide-react";
+import {
+  Application,
+  ApplicationStatus,
+} from "@/interface/application.interface";
+import { Calendar } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-
-interface Application {
-  id: string;
-  job: {
-    id: string;
-    title: string;
-    company: {
-      name: string;
-      logo?: string;
-    };
-  };
-  appliedDate: string;
-  status: string;
-  statusColor: string;
+interface UserApplicationsContentProps {
+  applications?: Application[];
 }
-
-const UserApplicationsContent = () => {
-  const [applications, setApplications] = useState<Application[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchApplications = async () => {
-      try {
-        const data = await getMyApplications();
-        setApplications(data.applications || []);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchApplications();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <p className="text-red-500 font-medium">Error loading applications</p>
-          <p className="text-gray-500 text-sm">{error}</p>
-        </div>
-      </div>
-    );
-  }
-
+const UserApplicationsContent = ({
+  applications,
+}: UserApplicationsContentProps) => {
   return (
     <div className="font-epilogue">
       <div className="mb-8">
@@ -71,18 +22,18 @@ const UserApplicationsContent = () => {
       </div>
 
       <div className="space-y-4">
-        {applications.map((app) => (
+        {applications?.map((app) => (
           <div
-            key={app.id}
+            key={app?.id}
             className="bg-white border border-gray-100 p-6 rounded-lg hover:border-primary transition-colors"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center overflow-hidden">
-                  {app.job.company.logo ? (
+                  {app?.job?.company?.logo ? (
                     <Image
-                      src={app.job.company.logo}
-                      alt={app.job.company.name}
+                      src={app?.job?.company?.logo}
+                      alt={app?.job?.company?.name}
                       fill
                       className="object-contain p-2"
                     />
@@ -94,28 +45,32 @@ const UserApplicationsContent = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-[#25324B] text-lg">
-                    {app.job.title}
+                    {app?.job?.title}
                   </h3>
-                  <p className="text-sm text-gray-500">{app.job.company.name}</p>
+                  <p className="text-sm text-gray-500">
+                    {app?.job?.company?.name}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <span
                   className={`px-3 py-1 text-xs font-bold rounded-full ${
-                    app.status === "INTERVIEWING"
-                      ? "bg-blue-50 text-blue-600 border border-blue-100"
-                      : app.status === "ACCEPTED"
-                        ? "bg-green-50 text-green-600 border border-green-100"
-                        : app.status === "REJECTED"
-                          ? "bg-red-50 text-red-600 border border-red-100"
-                          : "bg-orange-50 text-orange-600 border border-orange-100"
+                    app.status === ApplicationStatus.ACCEPTED
+                      ? "bg-green-50 text-green-600 border border-green-100"
+                      : app.status === ApplicationStatus.REJECTED
+                        ? "bg-red-50 text-red-600 border border-red-100"
+                        : app.status === ApplicationStatus.REVIEWING
+                          ? "bg-blue-50 text-blue-600 border border-blue-100"
+                          : app.status === ApplicationStatus.PENDING
+                            ? "bg-orange-50 text-orange-600 border border-orange-100"
+                            : "bg-gray-50 text-gray-600 border border-gray-100"
                   }`}
                 >
                   {app.status}
                 </span>
                 <div className="flex items-center gap-2 text-xs text-gray-400">
                   <Calendar className="w-4 h-4" />
-                  {new Date(app.appliedDate).toLocaleDateString()}
+                  {new Date(app.createdAt).toLocaleDateString()}
                 </div>
               </div>
             </div>

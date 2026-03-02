@@ -1,4 +1,3 @@
-"use client";
 import { Briefcase, Calendar, FileText } from "lucide-react";
 
 interface UserDashboardStats {
@@ -15,19 +14,19 @@ const UserDashboardContent = ({ stats }: UserDashboardContentProps) => {
   const userStats = [
     {
       label: "Total Applied Jobs",
-      value: stats.totalApplications || 0,
+      value: stats?.totalApplications || 0,
       icon: Briefcase,
       color: "bg-primary",
     },
     {
       label: "Interviews Scheduled",
-      value: stats.interviewsScheduled || 0,
+      value: stats?.interviewsScheduled || 0,
       icon: Calendar,
       color: "bg-[#56CDAD]",
     },
     {
       label: "Saved Jobs",
-      value: stats.savedJobs || 0,
+      value: stats?.savedJobs || 0,
       icon: FileText,
       color: "bg-[#FFB836]",
     },

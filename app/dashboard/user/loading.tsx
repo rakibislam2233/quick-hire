@@ -20,23 +20,6 @@ export default function UserDashboardLoading() {
           </div>
         ))}
       </div>
-
-      {/* Profile Section Skeleton */}
-      <div className="bg-white border border-gray-100 p-6">
-        <div className="space-y-4">
-          <Skeleton className="h-6 w-32" />
-          <div className="space-y-3">
-            <div className="flex items-center gap-4">
-              <Skeleton className="h-12 w-12 rounded-full" />
-              <div className="space-y-2">
-                <Skeleton className="h-4 w-32" />
-                <Skeleton className="h-3 w-48" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Recent Applications Skeleton */}
       <div className="bg-white border border-gray-100 p-6">
         <div className="space-y-4">
