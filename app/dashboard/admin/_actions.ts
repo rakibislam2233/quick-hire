@@ -1,8 +1,8 @@
 "use server";
 
+import { deleteCompanyByAdmin, getAllCompaniesForAdmin, updateCompanyByAdmin } from "@/services/company.service";
 import { getAdminDashboardStats } from "@/services/dashboard.service";
-import { getAllUsers, deleteUserById, updateUserById } from "@/services/user.service";
-import { getAllCompaniesForAdmin, deleteCompanyByAdmin, updateCompanyByAdmin } from "@/services/company.service";
+import { deleteUserById, getAllUsers, updateUserById } from "@/services/user.service";
 import { revalidatePath } from "next/cache";
 
 // Admin Dashboard Stats Action
@@ -16,8 +16,12 @@ export async function getAdminDashboardStatsAction() {
 }
 
 // User Management Actions
-export async function getAllUsersAction(search?: string, page = 1, limit = 10) {
+export async function getAllUsersAction(prevState: any, formData: FormData) {
   try {
+    const search = formData.get("search") as string;
+    const page = parseInt(formData.get("page") as string) || 1;
+    const limit = parseInt(formData.get("limit") as string) || 10;
+    
     const users = await getAllUsers(search, page, limit);
     return { success: true, data: users };
   } catch (error: any) {
