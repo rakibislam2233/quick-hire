@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
+import { ActionState } from "@/interface/action-state.interface";
 import { api } from "@/services/api";
 import { getDefaultDashboardRoute } from "@/utils/auth-utils";
 import { deleteCookie, getCookie, setCookie } from "@/utils/tokenHandlers";
-import { cookies } from "next/headers";
-import { ActionState } from "@/interface/action-state.interface";
 import {
-  forgotPasswordValidationSchema,
-  loginValidationSchema,
-  registerValidationSchema,
-  resetPasswordValidationSchema,
-  verifyOtpValidationSchema,
+    forgotPasswordValidationSchema,
+    loginValidationSchema,
+    registerFormValidationSchema,
+    resetPasswordValidationSchema,
+    verifyOtpValidationSchema
 } from "@/validation/auth.validation";
+import { cookies } from "next/headers";
 
 export type AuthActionState = ActionState;
 
@@ -119,21 +119,19 @@ export async function register(
 ): Promise<AuthActionState> {
   const values = Object.fromEntries(payload.entries());
 
-  const registrationData = {
+  const registrationData: any = {
     fullName: values.fullName,
     email: values.email,
     password: values.password,
     role: values.role,
   };
 
-  const parsed = registerValidationSchema
-    .pick({
-      fullName: true,
-      email: true,
-      password: true,
-      role: true,
-    })
-    .safeParse(registrationData);
+  // include company details if present (the form may add these when role=COMPANY)
+  if (values.companyName) registrationData.companyName = values.companyName;
+  if (values.companyLocation) registrationData.companyLocation = values.companyLocation;
+  if (values.companyIndustry) registrationData.companyIndustry = values.companyIndustry;
+
+  const parsed = registerFormValidationSchema.safeParse(registrationData);
 
   if (!parsed.success) {
     return {

@@ -1,13 +1,11 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/form-input";
-import { Input } from "@/components/ui/input";
 import { AuthActionState, register } from "@/services/auth.service";
 import { Building2, Lock, Mail, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 const initialState: AuthActionState = {
   success: false,
   message: "",
@@ -18,9 +16,10 @@ const initialState: AuthActionState = {
 
 export default function RegisterForm() {
   const [state, formAction, isPending] = useActionState(register, initialState);
+  const [role, setRole] = useState<"USER" | "COMPANY">("USER");
 
   return (
-    <div className="w-full max-w-125 mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
+    <div className="w-full max-w-xl mx-auto p-10 md:p-12 border border-gray-100 bg-white shadow-none font-epilogue">
       <div className="flex flex-col items-center">
         <Link href="/" className="flex items-center justify-center gap-1 mb-6">
           <div className="relative w-10 h-9">
@@ -55,9 +54,10 @@ export default function RegisterForm() {
               <input
                 type="radio"
                 name="role"
-                value="candidate"
+                value="USER"
                 className="peer hidden"
                 defaultChecked
+                onChange={() => setRole("USER")}
               />
               <div className="px-4 py-2 border border-gray-100 peer-checked:border-primary peer-checked:bg-blue-50/30 transition-all flex flex-col items-center gap-2 group-hover:border-primary/50">
                 <User className="w-5 h-5 text-gray-300 peer-checked:text-primary group-hover:text-primary transition-colors" />
@@ -70,8 +70,9 @@ export default function RegisterForm() {
               <input
                 type="radio"
                 name="role"
-                value="employer"
+                value="COMPANY"
                 className="peer hidden"
+                onChange={() => setRole("COMPANY")}
               />
               <div className="px-4 py-2 border border-gray-100 peer-checked:border-primary peer-checked:bg-blue-50/30 transition-all flex flex-col items-center gap-2 group-hover:border-primary/50">
                 <Building2 className="w-5 h-5 text-gray-300 peer-checked:text-primary group-hover:text-primary transition-colors" />
@@ -121,6 +122,39 @@ export default function RegisterForm() {
           error={state?.errors?.password}
           required
         />
+
+        {/* company-specific fields when role is COMPANY */}
+        {role === "COMPANY" && (
+          <>
+            <FormInput
+              id="companyName"
+              name="companyName"
+              label="Company Name"
+              defaultValue={state?.inputs?.companyName ?? undefined}
+              placeholder="Your company’s name"
+              error={state?.errors?.companyName}
+              required
+            />
+            <FormInput
+              id="companyLocation"
+              name="companyLocation"
+              label="Company Location"
+              defaultValue={state?.inputs?.companyLocation ?? undefined}
+              placeholder="e.g. New York, NY"
+              error={state?.errors?.companyLocation}
+              required
+            />
+            <FormInput
+              id="companyIndustry"
+              name="companyIndustry"
+              label="Company Industry"
+              defaultValue={state?.inputs?.companyIndustry ?? undefined}
+              placeholder="e.g. Software, Finance"
+              error={state?.errors?.companyIndustry}
+              required
+            />
+          </>
+        )}
 
         <Button
           type="submit"
