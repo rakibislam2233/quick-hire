@@ -1,67 +1,13 @@
 "use client";
 
-import { getCompanyDashboardStats } from "@/services/dashboard.service";
-import { getMyProfile } from "@/services/user.service";
-import {
-  Briefcase,
-  Calendar,
-  ChevronDown,
-  Eye,
-  Loader2,
-  Printer,
-  Users
-} from "lucide-react";
-import { useEffect, useState } from "react";
+import { Briefcase, Users, FileText, TrendingUp } from "lucide-react";
 
-interface CompanyDashboardStats {
-  totalJobs: number;
-  activeJobs: number;
-  totalApplications: number;
-  pendingApplications: number;
-  interviewsScheduled: number;
-  recentApplications: Array<{
-    id: string;
-    candidate: string;
-    role: string;
-    status: string;
-    date: string;
-  }>;
-  viewsThisWeek: number;
+interface CompanyDashboardContentProps {
+  stats?: any;
+  error?: string;
 }
 
-const CompanyDashboardContent = () => {
-  const [stats, setStats] = useState<CompanyDashboardStats | null>(null);
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [dashboardData, userData] = await Promise.all([
-          getCompanyDashboardStats(),
-          getMyProfile(),
-        ]);
-        setStats(dashboardData);
-        setUser(userData);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
+const CompanyDashboardContent = ({ stats, error }: CompanyDashboardContentProps) => {
   if (error) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -72,87 +18,62 @@ const CompanyDashboardContent = () => {
       </div>
     );
   }
+
+  if (!stats) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <p className="text-gray-500 font-medium">No data available</p>
+        </div>
+      </div>
+    );
+  }
+
+  const companyStats = [
+    {
+      label: "Active Jobs",
+      value: stats.activeJobs || 0,
+      icon: Briefcase,
+      color: "bg-primary",
+    },
+    {
+      label: "Total Applicants",
+      value: stats.totalApplicants || 0,
+      icon: Users,
+      color: "bg-[#56CDAD]",
+    },
+    {
+      label: "Interviews Scheduled",
+      value: stats.interviewsScheduled || 0,
+      icon: FileText,
+      color: "bg-[#FFB836]",
+    },
+    {
+      label: "Hired Candidates",
+      value: stats.hiredCandidates || 0,
+      icon: TrendingUp,
+      color: "bg-[#26A4FF]",
+    },
+  ];
+
   return (
-    <div className="font-epilogue">
-      {/* Greeting & Date Select */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl font-extrabold text-[#25324B]">
-            Good morning, {user?.fullName || "Company User"}
-          </h1>
-          <p className="text-gray-500 font-medium">
-            Here is your job listings statistic report for this week.
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="bg-white border border-gray-100 flex items-center gap-2 px-4 py-2 hover:bg-gray-50 transition-colors cursor-pointer">
-            <span className="text-sm font-bold text-[#25324B]">
-              Jul 19 - Jul 25
-            </span>
-            <ChevronDown className="w-4 h-4 text-gray-500" />
-          </div>
-          <div className="bg-white border border-gray-100 p-2 hover:bg-gray-50 transition-colors cursor-pointer">
-            <Printer className="w-5 h-5 text-[#25324B]" />
-          </div>
-        </div>
+    <div className="font-epilogue p-6 space-y-8">
+      <div className="mb-8">
+        <h2 className="text-2xl font-extrabold text-[#25324B]">
+          Company Dashboard
+        </h2>
+        <p className="text-gray-500 font-medium text-sm">
+          Manage your job postings and track recruitment progress.
+        </p>
       </div>
 
-      {/* Top Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-primary p-6 text-white flex items-center justify-between group cursor-pointer transition-all">
-          <div>
-            <span className="text-5xl font-extrabold block mb-2">{stats?.pendingApplications || 0}</span>
-            <p className="text-white/90 font-semibold leading-tight">
-              New candidates to <br /> review
-            </p>
-          </div>
-          <Users className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
-        </div>
-
-        <div className="bg-[#56CDAD] p-6 text-white flex items-center justify-between group cursor-pointer transition-all">
-          <div>
-            <span className="text-5xl font-extrabold block mb-2">{stats?.interviewsScheduled || 0}</span>
-            <p className="text-white/90 font-semibold leading-tight">
-              Interviews <br /> scheduled
-            </p>
-          </div>
-          <Calendar className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
-        </div>
-
-        <div className="bg-[#FFB836] p-6 text-white flex items-center justify-between group cursor-pointer transition-all">
-          <div>
-            <span className="text-5xl font-extrabold block mb-2">{stats?.viewsThisWeek || 0}</span>
-            <p className="text-white/90 font-semibold leading-tight">
-              Profile views <br /> this week
-            </p>
-          </div>
-          <Eye className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
-        </div>
-      </div>
-
-      {/* Job Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white border border-gray-100 p-6 shadow-none">
-          <div className="flex items-center justify-between mb-4">
-            <Briefcase className="w-5 h-5 text-primary" />
-            <span className="text-xs font-bold text-gray-400">TOTAL</span>
-          </div>
-          <h3 className="text-2xl font-extrabold text-[#25324B] mb-1">{stats?.totalJobs || 0}</h3>
-          <p className="text-xs text-gray-400 font-bold tracking-wider">JOB POSTINGS</p>
-        </div>
-
-        <div className="bg-white border border-gray-100 p-6 shadow-none">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-5 h-5 bg-green-100 rounded flex items-center justify-center">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            </div>
-            <span className="text-xs font-bold text-gray-400">ACTIVE</span>
-          </div>
-          <h3 className="text-2xl font-extrabold text-[#25324B] mb-1">{stats?.activeJobs || 0}</h3>
-          <p className="text-xs text-gray-400 font-bold tracking-wider">JOB POSTINGS</p>
-        </div>
-
-        <div className="bg-white border border-gray-100 p-6 shadow-none">
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {companyStats.map((stat, index) => (
+          <div
+            key={index}
+            className={`${stat.color} p-6 text-white rounded-lg flex items-center justify-between group cursor-pointer transition-all`}
+          >
           <div className="flex items-center justify-between mb-4">
             <Users className="w-5 h-5 text-blue-500" />
             <span className="text-xs font-bold text-gray-400">TOTAL</span>
