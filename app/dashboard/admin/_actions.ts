@@ -78,3 +78,56 @@ export async function deleteCompanyAction(companyId: string) {
     return { success: false, error: error.message };
   }
 }
+
+// Category Management Actions
+export async function getAllCategoriesAction() {
+  try {
+    const categories = await getAllCategories();
+    return { success: true, data: categories };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function createCategoryAction(prevState: { success: boolean; message: string; error?: string }, formData: FormData) {
+  try {
+    const categoryData = {
+      name: formData.get("name") as string,
+      description: formData.get("description") as string,
+      icon: formData.get("icon") as string,
+    };
+    
+    await createCategory(categoryData);
+    revalidatePath("/dashboard/admin/categories");
+    return { success: true, message: "Category created successfully" };
+  } catch (error: any) {
+    return { success: false, message: "", error: error.message };
+  }
+}
+
+export async function updateCategoryAction(prevState: { success: boolean; message: string; error?: string }, formData: FormData) {
+  try {
+    const categoryId = formData.get("categoryId") as string;
+    const categoryData = {
+      name: formData.get("name") as string,
+      description: formData.get("description") as string,
+      icon: formData.get("icon") as string,
+    };
+    
+    await updateCategory(categoryId, categoryData);
+    revalidatePath("/dashboard/admin/categories");
+    return { success: true, message: "Category updated successfully" };
+  } catch (error: any) {
+    return { success: false, message: "", error: error.message };
+  }
+}
+
+export async function deleteCategoryAction(categoryId: string) {
+  try {
+    await deleteCategory(categoryId);
+    revalidatePath("/dashboard/admin/categories");
+    return { success: true, message: "Category deleted successfully" };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}

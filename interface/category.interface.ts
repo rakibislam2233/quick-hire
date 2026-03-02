@@ -7,6 +7,9 @@ export interface Category {
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
+  _count?: {
+    jobs: number;
+  };
 }
 
 export interface CategoryWithJobCount extends Category {
