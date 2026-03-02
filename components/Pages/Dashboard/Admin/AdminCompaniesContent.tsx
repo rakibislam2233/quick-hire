@@ -1,3 +1,4 @@
+"use client";
 import { Filter } from "@/components/ui/filter";
 import { Pagination } from "@/components/ui/pagination";
 import { useFilter } from "@/hooks/useFilter";
@@ -20,24 +21,18 @@ interface AdminCompaniesContentProps {
   onSearchChange?: (search: string) => void;
 }
 
-const AdminCompaniesContent = ({ 
-  companies = [], 
+const AdminCompaniesContent = ({
+  companies = [],
   meta,
   onPageChange,
   onLimitChange,
-  onSearchChange 
+  onSearchChange,
 }: AdminCompaniesContentProps) => {
-  const {
-    searchTerm,
-    page,
-    limit,
-    setSearchTerm,
-    setPage,
-    setLimit,
-  } = useFilter({
-    initialPage: meta?.page || 1,
-    initialLimit: meta?.limit || 10,
-  });
+  const { searchTerm, page, limit, setSearchTerm, setPage, setLimit } =
+    useFilter({
+      initialPage: meta?.page || 1,
+      initialLimit: meta?.limit || 10,
+    });
 
   const handleSearchChange = (term: string) => {
     setSearchTerm(term);

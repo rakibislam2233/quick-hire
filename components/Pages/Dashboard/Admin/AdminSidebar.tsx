@@ -33,8 +33,8 @@ const AdminSidebar = ({
   ];
 
   const settingsItems = [
-    { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },
-    { name: "Help Center", icon: HelpCircle, href: "/dashboard/admin/help" },
+    { name: "Settings", icon: Settings, href: "/dashboard/admin" },
+    { name: "Help Center", icon: HelpCircle, href: "/dashboard/admin" },
   ];
 
   return (
