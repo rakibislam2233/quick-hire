@@ -1,39 +1,76 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Bookmark, MapPin, MoreVertical } from "lucide-react";
+import { Bookmark, MapPin, MoreVertical, Loader2 } from "lucide-react";
 import Image from "next/image";
+import { getSavedJobs, toggleSaveJob } from "@/services/application.service";
+import { toast } from "sonner";
+
+interface SavedJob {
+  id: string;
+  job: {
+    id: string;
+    title: string;
+    type: string;
+    location: string;
+    salary?: string;
+    company: {
+      name: string;
+      logo?: string;
+    };
+  };
+  savedAt: string;
+}
 
 const UserSavedJobsContent = () => {
-  const savedJobs = [
-    {
-      id: 1,
-      role: "Product Designer",
-      company: "Nomad",
-      location: "San Francisco, USA",
-      type: "Full-Time",
-      logo: "/asset/logo/logo.png",
-      salary: "$120k - $140k",
-    },
-    {
-      id: 2,
-      role: "Frontend Engineer",
-      company: "Dropbox",
-      location: "Remote",
-      type: "Contract",
-      logo: "/asset/logo/logo.png",
-      salary: "$80 - $100 / hr",
-    },
-    {
-      id: 3,
-      role: "Brand Designer",
-      company: "Spotify",
-      location: "Stockholm, Sweden",
-      type: "Full-Time",
-      logo: "/asset/logo/logo.png",
-      salary: "$90k - $110k",
-    },
-  ];
+  const [savedJobs, setSavedJobs] = useState<SavedJob[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchSavedJobs = async () => {
+      try {
+        const data = await getSavedJobs();
+        setSavedJobs(data.savedJobs || []);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSavedJobs();
+  }, []);
+
+  const handleUnsaveJob = async (jobId: string) => {
+    try {
+      await toggleSaveJob(jobId);
+      setSavedJobs(savedJobs.filter(job => job.job.id !== jobId));
+      toast.success("Job removed from saved jobs");
+    } catch (err: any) {
+      toast.error(err.message || "Failed to unsave job");
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <p className="text-red-500 font-medium">Error loading saved jobs</p>
+          <p className="text-gray-500 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="font-epilogue">
@@ -41,70 +78,88 @@ const UserSavedJobsContent = () => {
         <div>
           <h2 className="text-2xl font-extrabold text-[#25324B]">Saved Jobs</h2>
           <p className="text-gray-500 font-medium text-sm">
-            Review the jobs you&apos;ve saved for later.
+            Jobs you've bookmarked for later.
           </p>
         </div>
-        <span className="text-xs font-bold text-gray-400  tracking-widest bg-gray-50 px-3 py-1.5 border border-gray-100">
-          {savedJobs.length} Jobs Total
-        </span>
+        <div className="text-sm text-gray-400">
+          {savedJobs.length} jobs saved
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {savedJobs.map((job) => (
+      <div className="space-y-4">
+        {savedJobs.map((savedJob) => (
           <div
-            key={job.id}
-            className="bg-white border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 group relative"
+            key={savedJob.id}
+            className="bg-white border border-gray-100 p-6 rounded-lg hover:border-primary transition-colors"
           >
-            <div className="flex items-start justify-between mb-6">
-              <div className="w-12 h-12 border border-gray-50 p-2.5 relative bg-white">
-                <Image
-                  src={job.logo}
-                  alt={job.company}
-                  fill
-                  className="object-contain p-1 opacity-60"
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-4 w-4 rounded-full bg-orange-100 flex items-center justify-center shrink-0">
-                  <Bookmark className="w-2 h-2 text-orange-600 fill-orange-600" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center overflow-hidden">
+                  {savedJob.job.company.logo ? (
+                    <Image
+                      src={savedJob.job.company.logo}
+                      alt={savedJob.job.company.name}
+                      fill
+                      className="object-contain p-2"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 bg-gray-200 rounded flex items-center justify-center">
+                      <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
+                    </div>
+                  )}
                 </div>
-                <button className="text-gray-300 hover:text-primary transition-colors">
-                  <MoreVertical className="w-5 h-5" />
+                <div>
+                  <h3 className="font-bold text-[#25324B] text-lg">
+                    {savedJob.job.title}
+                  </h3>
+                  <p className="text-sm text-gray-500">{savedJob.job.company.name}</p>
+                  <div className="flex items-center gap-4 text-xs text-gray-400 mt-2">
+                    <div className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5" />
+                      {savedJob.job.location}
+                    </div>
+                    <span>•</span>
+                    <span>{savedJob.job.type}</span>
+                    {savedJob.job.salary && (
+                      <>
+                        <span>•</span>
+                        <span>{savedJob.job.salary}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  className="rounded-none border-gray-200 text-[#25324B] font-bold h-10 px-6 text-xs"
+                >
+                  Apply Now
+                </Button>
+                <button
+                  onClick={() => handleUnsaveJob(savedJob.job.id)}
+                  className="text-gray-300 hover:text-red-500 transition-colors"
+                >
+                  <Bookmark className="w-5 h-5 fill-current" />
                 </button>
               </div>
             </div>
-
-            <div className="mb-6">
-              <h3 className="text-lg font-extrabold text-[#25324B] mb-1 group-hover:text-primary transition-colors cursor-pointer">
-                {job.role}
-              </h3>
-              <p className="text-xs font-bold text-gray-400  tracking-widest mb-4">
-                {job.company} • {job.type}
-              </p>
-              <div className="flex items-center gap-2 text-gray-400 text-xs font-medium">
-                <MapPin className="w-3.5 h-3.5" />
-                {job.location}
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-gray-50 flex items-center justify-between">
-              <span className="text-sm font-black text-[#25324B]">
-                {job.salary}
-              </span>
-              <Button className="bg-primary/5 hover:bg-primary hover:text-white text-primary rounded-none h-8 px-4 text-[10px] font-black  transition-all shadow-none border-none">
-                Apply Now
-              </Button>
             </div>
           </div>
         ))}
 
         {savedJobs.length === 0 && (
-          <div className="col-span-full py-20 bg-gray-50/50 border border-dashed border-gray-100 text-center">
-            <p className="text-gray-400 text-sm font-bold  tracking-widest">
-              You haven&apos;t saved any jobs yet.
-            </p>
-          </div>
-        )}
+        <div className="text-center py-12">
+          <Bookmark className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-lg font-bold text-[#25324B] mb-2">No saved jobs yet</h3>
+          <p className="text-gray-500 text-sm mb-6">
+            Start saving jobs you're interested in and they'll appear here.
+          </p>
+          <Button className="bg-primary text-white rounded-none h-12 px-8 font-bold shadow-none">
+            Browse Jobs
+          </Button>
+        </div>
+      )}
       </div>
     </div>
   );
