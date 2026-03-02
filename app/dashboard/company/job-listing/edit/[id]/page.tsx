@@ -1,4 +1,4 @@
-import JobForm from "@/components/Pages/Dashboard/Company/Jobs/JobForm";
+import JobForm from "@/components/Pages/Dashboard/Company/JobForm";
 import { getJobById } from "@/services/job.service";
 import { JobFormData } from "@/validation/job.validation";
 import { notFound } from "next/navigation";
