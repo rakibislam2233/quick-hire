@@ -1,7 +1,7 @@
 "use client";
 import {
   createJobAction,
-  updateJobAction
+  updateJobAction,
 } from "@/app/dashboard/company/_actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,10 +11,11 @@ import { Job, JobType } from "@/interface/job.interface";
 import {
   ArrowLeft,
   Briefcase,
+  Calendar,
   DollarSign,
   Layers,
   Loader2,
-  MapPin
+  MapPin,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,14 +23,14 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 
 interface JobFormProps {
-  initialData?: Job;
+  job?: Job;
   categories: Category[];
   isEdit?: boolean;
   id?: string;
 }
 
 const JobForm = ({
-  initialData,
+  job: initialData,
   categories,
   isEdit = false,
   id,
@@ -41,10 +42,10 @@ const JobForm = ({
     startTransition(async () => {
       try {
         const prevState = { success: false, message: "", error: "" };
-        const result = isEdit 
+        const result = isEdit
           ? await updateJobAction(prevState, formData)
           : await createJobAction(prevState, formData);
-        
+
         if (result.success) {
           toast.success(result.message);
           router.push("/dashboard/company/job-listing");
@@ -56,7 +57,6 @@ const JobForm = ({
       }
     });
   };
-
 
   return (
     <form
@@ -156,7 +156,7 @@ const JobForm = ({
                 <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input
                   name="salaryRange"
-                  defaultValue={initialData?.salary}
+                  defaultValue={initialData?.salaryRange}
                   placeholder="e.g. $80,000 - $120,000"
                   className="pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
                 />
@@ -173,6 +173,27 @@ const JobForm = ({
                   name="location"
                   defaultValue={initialData?.location}
                   placeholder="e.g. San Francisco, CA"
+                  className="pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-[#25324B] ">
+                Application Deadline
+              </label>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  name="deadline"
+                  type="date"
+                  defaultValue={
+                    initialData?.deadline
+                      ? new Date(initialData.deadline)
+                          .toISOString()
+                          .split("T")[0]
+                      : ""
+                  }
                   className="pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
                 />
               </div>

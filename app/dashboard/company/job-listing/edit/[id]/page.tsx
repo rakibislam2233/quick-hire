@@ -15,20 +15,9 @@ export default async function CompanyEditJobPage({ params }: EditJobPageProps) {
     notFound();
   }
 
-  const initialData = {
-    title: job.title,
-    categoryId: job.categoryId,
-    type: job.type,
-    salaryRange: job.salary,
-    location: job.location,
-    description: job.description,
-    requirements: job.requirements,
-    responsibilities: job.responsibilities,
-  };
-
   return (
     <div className="bg-white p-8">
-      <JobForm initialData={initialData} isEdit={true} id={id} categories={categories?.data || []} />
+      <JobForm job={job} isEdit={true} id={id} categories={categories || []} />
     </div>
   );
 }

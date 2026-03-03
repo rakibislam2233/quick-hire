@@ -6,13 +6,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { createJobAction, updateJobAction } from "@/services/adminJob.service";
 import { JobFormData } from "@/validation/job.validation";
 import {
-    ArrowLeft,
-    Briefcase,
-    CheckCircle2,
-    DollarSign,
-    Layers,
-    Loader2,
-    MapPin,
+  ArrowLeft,
+  Briefcase,
+  Calendar,
+  CheckCircle2,
+  DollarSign,
+  Layers,
+  Loader2,
+  MapPin
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -116,22 +117,26 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
 
             <div className="space-y-2">
               <label className="text-xs font-bold text-[#25324B]  ">
-                Category
+                Category ID
               </label>
               <select
-                name="category"
-                defaultValue={initialData?.category}
-                className={`w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer ${state.errors?.category ? "border-red-500" : ""}`}
+                name="categoryId"
+                defaultValue={initialData?.categoryId}
+                className={`w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer ${state.errors?.categoryId ? "border-red-500" : ""}`}
               >
                 <option value="">Select Category</option>
-                <option value="Design">Design</option>
-                <option value="Development">Development</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Business">Business</option>
+                <option value="cmm8xyd310000q4eqgx6fh2ln">Design</option>
+                <option value="cmm8ylrm80001q4eq5u6a1boy">Sales</option>
+                <option value="cmm8yne030002q4eqr65ukcee">Marketing</option>
+                <option value="cmm8ypnbk0003q4eq7wqu0htc">Finance</option>
+                <option value="cmm8yqfln0004q4eqts2yq4qr">Technology</option>
+                <option value="cmm8yr8fu0005q4eqvg3dyg3l">Engineering</option>
+                <option value="cmm8ysl760006q4eqd3qnrkvt">Business</option>
+                <option value="cmm8ythf30007q4eq2fu7cwcd">Human Resource</option>
               </select>
-              {state.errors?.category && (
+              {state.errors?.categoryId && (
                 <p className="text-[10px] text-red-500 font-bold ">
-                  {state.errors.category[0]}
+                  {state.errors.categoryId[0]}
                 </p>
               )}
             </div>
@@ -146,10 +151,11 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
                 className={`w-full h-12 px-3 bg-white border border-gray-100 text-sm font-medium focus:outline-none focus:border-primary appearance-none cursor-pointer ${state.errors?.type ? "border-red-500" : ""}`}
               >
                 <option value="">Select Type</option>
-                <option value="Full-Time">Full-Time</option>
-                <option value="Part-Time">Part-Time</option>
-                <option value="Remote">Remote</option>
-                <option value="Contract">Contract</option>
+                <option value="FULL_TIME">Full-Time</option>
+                <option value="PART_TIME">Part-Time</option>
+                <option value="CONTRACT">Contract</option>
+                <option value="INTERNSHIP">Internship</option>
+                <option value="FREELANCE">Freelance</option>
               </select>
               {state.errors?.type && (
                 <p className="text-[10px] text-red-500 font-bold ">
@@ -165,15 +171,15 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
               <div className="relative">
                 <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input
-                  name="salary"
-                  defaultValue={initialData?.salary}
+                  name="salaryRange"
+                  defaultValue={initialData?.salaryRange}
                   placeholder="e.g. $80k - $120k"
-                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.salary ? "border-red-500" : ""}`}
+                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.salaryRange ? "border-red-500" : ""}`}
                 />
               </div>
-              {state.errors?.salary && (
+              {state.errors?.salaryRange && (
                 <p className="text-[10px] text-red-500 font-bold ">
-                  {state.errors.salary[0]}
+                  {state.errors.salaryRange[0]}
                 </p>
               )}
             </div>
@@ -194,6 +200,26 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
               {state.errors?.location && (
                 <p className="text-[10px] text-red-500 font-bold ">
                   {state.errors.location[0]}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-[#25324B]  ">
+                Application Deadline
+              </label>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  name="deadline"
+                  type="date"
+                  defaultValue={initialData?.deadline}
+                  className={`pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.deadline ? "border-red-500" : ""}`}
+                />
+              </div>
+              {state.errors?.deadline && (
+                <p className="text-[10px] text-red-500 font-bold ">
+                  {state.errors.deadline[0]}
                 </p>
               )}
             </div>

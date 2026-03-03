@@ -2,8 +2,8 @@ import CompanyDashboardContent from "@/components/Pages/Dashboard/Company/Compan
 import { getCompanyDashboardStatsAction } from "./_actions";
 
 const CompanyDashboardPage = async () => {
-  const state = await getCompanyDashboardStatsAction();
-  console.log("State", state);
-  return <CompanyDashboardContent stats={state?.data} />;
+  const responseData = await getCompanyDashboardStatsAction();
+  const dashboardData = responseData?.data;
+  return <CompanyDashboardContent stats={dashboardData?.stats} />;
 };
 export default CompanyDashboardPage;

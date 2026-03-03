@@ -39,6 +39,7 @@ export interface Job {
   requirements?: string;
   responsibilities?: string;
   salary?: string;
+  salaryRange?: string;
   location: string;
   type: JobType;
   status: JobStatus;
