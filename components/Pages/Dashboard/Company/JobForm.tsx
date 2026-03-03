@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import RichTextEditor from "@/components/ui/rich-text-editor";
 import { Category } from "@/interface/category.interface";
-import { JobType } from "@/interface/job.interface";
+import { Job, JobType } from "@/interface/job.interface";
 import {
   ArrowLeft,
   Briefcase,
@@ -22,7 +22,7 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 
 interface JobFormProps {
-  initialData?: any;
+  initialData?: Job;
   categories: Category[];
   isEdit?: boolean;
   id?: string;
@@ -156,7 +156,7 @@ const JobForm = ({
                 <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input
                   name="salaryRange"
-                  defaultValue={initialData?.salaryRange}
+                  defaultValue={initialData?.salary}
                   placeholder="e.g. $80,000 - $120,000"
                   className="pl-10 rounded-none h-12 border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none"
                 />

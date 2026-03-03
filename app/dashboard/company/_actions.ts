@@ -1,8 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
-import { getApplicationsForJob, updateApplicationStatus } from "@/services/application.service";
+import {
+  getApplicationsForJob,
+  updateApplicationStatus,
+} from "@/services/application.service";
+import { getAllCategories } from "@/services/category.service";
 import { getCompanyDashboardStats } from "@/services/dashboard.service";
-import { createJob, deleteJob, getAllJobs, updateJob } from "@/services/job.service";
+import {
+  createJob,
+  deleteJob,
+  getAllJobs,
+  updateJob,
+} from "@/services/job.service";
 import { getMyProfile, updateMyProfile } from "@/services/user.service";
 import { revalidatePath } from "next/cache";
 
@@ -37,7 +46,7 @@ export async function updateCompanyProfileAction(formData: FormData) {
       founded: formData.get("founded") as string,
       description: formData.get("description") as string,
     };
-    
+
     await updateMyProfile(data);
     revalidatePath("/dashboard/company/profile");
     return { success: true, message: "Company profile updated successfully" };
@@ -62,7 +71,10 @@ export async function getAllJobsAction(params?: {
   }
 }
 
-export async function createJobAction(prevState: { success: boolean; message: string; error?: string }, formData: FormData) {
+export async function createJobAction(
+  prevState: { success: boolean; message: string; error?: string },
+  formData: FormData,
+) {
   try {
     const jobData = {
       title: formData.get("title") as string,
@@ -73,9 +85,9 @@ export async function createJobAction(prevState: { success: boolean; message: st
       location: formData.get("location") as string,
       type: formData.get("type") as string,
       categoryId: formData.get("categoryId") as string,
-      companyId: formData.get("companyId") as string,
     };
-    
+
+    console.log("Creating job with data:", jobData);
     await createJob(jobData);
     revalidatePath("/dashboard/company/job-listing");
     return { success: true, message: "Job created successfully" };
@@ -84,7 +96,10 @@ export async function createJobAction(prevState: { success: boolean; message: st
   }
 }
 
-export async function updateJobAction(prevState: { success: boolean; message: string; error?: string }, formData: FormData) {
+export async function updateJobAction(
+  prevState: { success: boolean; message: string; error?: string },
+  formData: FormData,
+) {
   try {
     const jobId = formData.get("jobId") as string;
     const jobData = {
@@ -97,7 +112,7 @@ export async function updateJobAction(prevState: { success: boolean; message: st
       type: formData.get("type") as string,
       categoryId: formData.get("categoryId") as string,
     };
-    
+
     await updateJob(jobId, jobData);
     revalidatePath("/dashboard/company/job-listing");
     return { success: true, message: "Job updated successfully" };
@@ -126,11 +141,17 @@ export async function getApplicationsForJobAction(jobId: string) {
   }
 }
 
-export async function updateApplicationStatusAction(applicationId: string, status: string) {
+export async function updateApplicationStatusAction(
+  applicationId: string,
+  status: string,
+) {
   try {
     await updateApplicationStatus(applicationId, status);
     revalidatePath("/dashboard/company/applicants");
-    return { success: true, message: "Application status updated successfully" };
+    return {
+      success: true,
+      message: "Application status updated successfully",
+    };
   } catch (error: any) {
     return { success: false, error: error.message };
   }

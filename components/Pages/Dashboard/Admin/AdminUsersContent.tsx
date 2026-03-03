@@ -1,7 +1,6 @@
 "use client";
-import { AdvancedFilter } from "@/components/ui/advanced-filter";
-import { Pagination } from "@/components/ui/pagination";
-import { useFilter } from "@/hooks/useFilter";
+import Pagination from "@/components/Shared/Pagination";
+import SearchFilter from "@/components/Shared/SearchFilter";
 import { IUser, UserRole, UserStatus } from "@/interface/user.interface";
 import { Mail, MoreVertical, Shield, User } from "lucide-react";
 
@@ -20,101 +19,7 @@ interface AdminUsersContentProps {
   onFiltersChange?: (filters: Record<string, any>) => void;
 }
 
-const AdminUsersContent = ({ 
-  users = [], 
-  meta,
-  onPageChange,
-  onLimitChange,
-  onFiltersChange 
-}: AdminUsersContentProps) => {
-  const {
-    searchTerm,
-    page,
-    limit,
-    filters,
-    setSearchTerm,
-    setPage,
-    setLimit,
-    setFilter,
-    removeFilter,
-    clearAllFilters,
-    getQueryParams,
-  } = useFilter({
-    initialPage: meta?.page || 1,
-    initialLimit: meta?.limit || 10,
-  });
-
-  // Define filter fields for users
-  const filterFields = [
-    {
-      key: 'status',
-      label: 'Status',
-      type: 'select' as const,
-      options: [
-        { value: 'ACTIVE', label: 'Active' },
-        { value: 'INACTIVE', label: 'Inactive' },
-        { value: 'BANNED', label: 'Banned' },
-      ],
-    },
-    {
-      key: 'role',
-      label: 'Role',
-      type: 'select' as const,
-      options: [
-        { value: 'USER', label: 'User' },
-        { value: 'COMPANY', label: 'Company' },
-        { value: 'ADMIN', label: 'Admin' },
-      ],
-    },
-    {
-      key: 'dateFrom',
-      label: 'Joined From',
-      type: 'date' as const,
-    },
-    {
-      key: 'dateTo',
-      label: 'Joined To',
-      type: 'date' as const,
-    },
-  ];
-
-  const handleSearchChange = (term: string) => {
-    setSearchTerm(term);
-    notifyFiltersChange();
-  };
-
-  const handleFilterChange = (key: string, value: any) => {
-    setFilter(key, value);
-    notifyFiltersChange();
-  };
-
-  const handleFilterRemove = (key: string) => {
-    removeFilter(key);
-    notifyFiltersChange();
-  };
-
-  const handleClearAll = () => {
-    setSearchTerm('');
-    clearAllFilters();
-    notifyFiltersChange();
-  };
-
-  const notifyFiltersChange = () => {
-    // Get all query parameters and notify parent
-    const queryParams = getQueryParams();
-    onFiltersChange?.(queryParams);
-  };
-
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-    onPageChange?.(newPage);
-  };
-
-  const handleLimitChange = (newLimit: number) => {
-    setLimit(newLimit);
-    onLimitChange?.(newLimit);
-  };
-
+const AdminUsersContent = ({ users = [], meta }: AdminUsersContentProps) => {
   return (
     <div className="font-epilogue">
       <div className="mb-8">
@@ -128,16 +33,7 @@ const AdminUsersContent = ({
 
       <div className="bg-white border border-gray-100 shadow-none">
         <div className="p-6 border-b border-gray-100">
-          <AdvancedFilter
-            searchTerm={searchTerm}
-            filters={filters}
-            fields={filterFields}
-            onSearchChange={handleSearchChange}
-            onFilterChange={handleFilterChange}
-            onFilterRemove={handleFilterRemove}
-            onClearAll={handleClearAll}
-            placeholder="Search users by name or email..."
-          />
+          <SearchFilter searchPlaceholder="Search students..." />
         </div>
 
         <div className="overflow-x-auto">
@@ -245,9 +141,11 @@ const AdminUsersContent = ({
         {meta && (
           <div className="p-6 border-t border-gray-100">
             <Pagination
-              meta={meta}
-              onPageChange={handlePageChange}
-              onLimitChange={handleLimitChange}
+              currentPage={meta.page}
+              totalPages={meta.totalPages}
+              onPageChange={(page) => {
+                console.log("Page changed to:", page);
+              }}
             />
           </div>
         )}

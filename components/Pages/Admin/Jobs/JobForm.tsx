@@ -6,13 +6,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { createJobAction, updateJobAction } from "@/services/adminJob.service";
 import { JobFormData } from "@/validation/job.validation";
 import {
-  ArrowLeft,
-  Briefcase,
-  CheckCircle2,
-  DollarSign,
-  Layers,
-  Loader2,
-  MapPin,
+    ArrowLeft,
+    Briefcase,
+    CheckCircle2,
+    DollarSign,
+    Layers,
+    Loader2,
+    MapPin,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -215,12 +215,64 @@ const JobForm = ({ initialData, isEdit = false, id }: JobFormProps) => {
             <Textarea
               name="description"
               defaultValue={initialData?.description}
-              placeholder="Provide a detailed description of the role and responsibilities..."
-              className={`rounded-none min-h-[200px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.description ? "border-red-500" : ""}`}
+              placeholder="Provide a detailed description of the role and company culture..."
+              className={`rounded-none min-h-[150px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.description ? "border-red-500" : ""}`}
             />
             {state.errors?.description && (
               <p className="text-[10px] text-red-500 font-bold ">
                 {state.errors.description[0]}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Requirements Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-gray-50 pb-4">
+            <Briefcase className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-bold text-[#25324B]  tracking-tighter">
+              Requirements
+            </h3>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-[#25324B]  ">
+              Requirements
+            </label>
+            <Textarea
+              name="requirements"
+              defaultValue={initialData?.requirements}
+              placeholder="List the required skills, experience, and qualifications for this role..."
+              className={`rounded-none min-h-[150px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.requirements ? "border-red-500" : ""}`}
+            />
+            {state.errors?.requirements && (
+              <p className="text-[10px] text-red-500 font-bold ">
+                {state.errors.requirements[0]}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Responsibilities Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-gray-50 pb-4">
+            <CheckCircle2 className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-bold text-[#25324B]  tracking-tighter">
+              Responsibilities
+            </h3>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-[#25324B]  ">
+              Responsibilities
+            </label>
+            <Textarea
+              name="responsibilities"
+              defaultValue={initialData?.responsibilities}
+              placeholder="Describe the day-to-day responsibilities and tasks for this position..."
+              className={`rounded-none min-h-[150px] border-gray-200 focus-visible:ring-0 focus-visible:border-primary shadow-none ${state.errors?.responsibilities ? "border-red-500" : ""}`}
+            />
+            {state.errors?.responsibilities && (
+              <p className="text-[10px] text-red-500 font-bold ">
+                {state.errors.responsibilities[0]}
               </p>
             )}
           </div>

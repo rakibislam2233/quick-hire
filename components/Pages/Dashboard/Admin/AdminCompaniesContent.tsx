@@ -1,9 +1,7 @@
 "use client";
-import { Filter } from "@/components/ui/filter";
-import { Pagination } from "@/components/ui/pagination";
-import { useFilter } from "@/hooks/useFilter";
+import SearchFilter from "@/components/Shared/SearchFilter";
 import { Company } from "@/interface/company.interface";
-import { Globe, MoreVertical } from "lucide-react";
+import { Globe, MoreVertical, Search } from "lucide-react";
 import Image from "next/image";
 
 interface AdminCompaniesContentProps {
@@ -23,31 +21,8 @@ interface AdminCompaniesContentProps {
 
 const AdminCompaniesContent = ({
   companies = [],
-  meta,
-  onPageChange,
-  onLimitChange,
-  onSearchChange,
+  meta
 }: AdminCompaniesContentProps) => {
-  const { searchTerm, page, limit, setSearchTerm, setPage, setLimit } =
-    useFilter({
-      initialPage: meta?.page || 1,
-      initialLimit: meta?.limit || 10,
-    });
-
-  const handleSearchChange = (term: string) => {
-    setSearchTerm(term);
-    onSearchChange?.(term);
-  };
-
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-    onPageChange?.(newPage);
-  };
-
-  const handleLimitChange = (newLimit: number) => {
-    setLimit(newLimit);
-    onLimitChange?.(newLimit);
-  };
   return (
     <div className="font-epilogue">
       <div className="mb-8">
@@ -61,11 +36,7 @@ const AdminCompaniesContent = ({
 
       <div className="bg-white border border-gray-100 shadow-none">
         <div className="p-6 border-b border-gray-100">
-          <Filter
-            searchTerm={searchTerm}
-            onSearchChange={handleSearchChange}
-            placeholder="Search companies by name or location..."
-          />
+          <SearchFilter searchPlaceholder="Search companies by name or location..." />
         </div>
 
         <div className="overflow-x-auto">
@@ -206,11 +177,11 @@ const AdminCompaniesContent = ({
 
         {meta && (
           <div className="p-6 border-t border-gray-100">
-            <Pagination
+            {/* <Pagination
               meta={meta}
-              onPageChange={handlePageChange}
-              onLimitChange={handleLimitChange}
-            />
+              onPageChange={onPageChange}
+              onLimitChange={onLimitChange}
+            /> */}
           </div>
         )}
       </div>

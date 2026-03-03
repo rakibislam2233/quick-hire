@@ -3,6 +3,6 @@ import { getAllCategories } from "@/services/category.service";
 
 const CompanyAddJobPage = async () => {
   const categories = await getAllCategories();
-  return <JobForm categories={categories?.data || []} />;
+  return <JobForm categories={categories || []} />;
 };
 export default CompanyAddJobPage;
